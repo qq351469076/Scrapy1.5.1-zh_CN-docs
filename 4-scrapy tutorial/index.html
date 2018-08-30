@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Scrapy 教程 - Scrapy 1.5 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Scrapy \u6559\u7a0b";
+    var mkdocs_page_input_path = "4-scrapy tutorial.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../1-index/">第一步</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-overview/">一眼了解Scrapy</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-install/">安装指导</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Scrapy 教程</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#scrapy">Scrapy 教程</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">创建一个项目</a></li>
+        
+            <li><a class="toctree-l3" href="#spider">我们的第一个爬虫(Spider)</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Scrapy 1.5 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Scrapy 教程</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="scrapy">Scrapy 教程</h1>
+<p>在本教程中，我们假设Scrapy已经安装在您的系统上。如果不是这样，请参阅<a href="#">安装指南</a>。</p>
+<p>我们将抓取<a href="http://quotes.toscrape.com/">toscrape.com</a>，一个列出著名作家的引用的网站。</p>
+<p>本教程将带领您完成以下任务:</p>
+<ol>
+<li>创建一个新的Scrapy项目</li>
+<li>编写一个<a href="#">spider</a>来抓取站点并提取数据</li>
+<li>使用命令行导出抓取的数据</li>
+<li>将spider更改为递归跟踪链接</li>
+<li>使用spider参数</li>
+</ol>
+<p>Scrapy是用<a href="https://www.python.org/">Python</a>编写的。如果你对这门语言不熟悉，你可能会想先了解一下这门语言是什么样子的，这样你就能最大限度地从困境中解脱出来。</p>
+<p>如果您已经熟悉其他语言，并且希望快速学习Python，我们建议您<a href="http://www.diveintopython3.net/">通读Python 3</a>。或者，您可以遵循<a href="https://docs.python.org/3/tutorial">Python教程</a>。</p>
+<p>如果您是一个编程新手，并且想从Python开始，您可能会发现在线书籍<a href="https://learnpythonthehardway.org/book/">《艰难地学习Python》</a>很有用。您还可以查看一下<a href="https://wiki.python.org/moin/BeginnersGuide/NonProgrammers">针对非程序员的Python资源列表</a>。</p>
+<h2 id="_1">创建一个项目</h2>
+<p>在你开始抓取之前，你必须建立一个新的Scrapy项目。输入想要存储代码的目录并运行:</p>
+<p><code>scrapy startproject 项目名</code></p>
+<p>这将创建一个包含以下内容的目录:</p>
+<pre><code>项目名/
+    scrapy.cfg            # 部署配置文件
+
+    项目名/             # 项目的Python模块，您将从这里导入代码
+        __init__.py
+
+        items.py          # 项目的items
+
+        middlewares.py    # 项目的中间件
+
+        pipelines.py      # 项目的pipeline
+
+        settings.py       # 项目的settings
+
+        spiders/          # 一个目录，稍后您将在其中放置您的spider(爬虫)
+            __init__.py
+</code></pre>
+
+<h2 id="spider">我们的第一个爬虫(Spider)</h2>
+<p>Spiders是您定义的类，Scrapy用于从网站(或一组网站)中提取信息。他们必须是<code>scrapy.Spider</code>的子类并且定义初始requests。可以选择如何跟踪页面中的链接，以及如何解析下载的页面内容以提取数据。</p>
+<p>这是第一个Spider(爬虫)的代码。将其保存在名为<code>quotes_spider.py</code>的文件中。然后放在项目名/spiders目录下:</p>
+<pre><code>import scrapy
+
+
+class QuotesSpider(scrapy.Spider):
+    name = &quot;quotes&quot;
+
+    def start_requests(self):
+        urls = [
+            'http://quotes.toscrape.com/page/1/',
+            'http://quotes.toscrape.com/page/2/',
+        ]
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.parse)
+
+    def parse(self, response):
+        page = response.url.split(&quot;/&quot;)[-2]
+        filename = 'quotes-%s.html' % page
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+        self.log('Saved file %s' % filename)
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../3-install/" class="btn btn-neutral" title="安装指导"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../3-install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
