@@ -76,6 +76,17 @@
         </ul>
     
 
+    <li class="toctree-l2"><a href="#scrapy_4">一眼了解Scrapy</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#spider">通过一个示例spider</a></li>
+        
+            <li><a class="toctree-l3" href="#_24">刚刚发生了什么?</a></li>
+        
+        </ul>
+    
+
     </ul>
 	    </li>
           
@@ -217,6 +228,55 @@
 <p>学习如何为Scrapy项目贡献力量。</p>
 <h5 id="api_1"><a href="#">版本控制和API的稳定性</a></h5>
 <p>了解Scrapy版本控制和API稳定性。</p>
+<h1 id="scrapy_4">一眼了解Scrapy</h1>
+<p>Scrapy是一个用于抓取web站点和提取结构化数据的应用程序框架，可用于各种有用的应用程序，如数据挖掘、信息处理或历史档案。</p>
+<p>尽管Scrapy最初是为web抓取而设计的，但它还可以使用api(如Amazon Associates web服务)或作为通用web爬虫程序来提取数据。</p>
+<h2 id="spider">通过一个示例spider</h2>
+<p>为了向您展示Scrapy带来了什么，我们将介绍一个使用最简单的方式运行Spider的Scrapy爬虫示例。</p>
+<p>下面是一个爬虫的代码，它会从http://quotes.toscrape.com网站上的著名引文中抓取引文，然后进行向后翻页:</p>
+<pre><code>import scrapy
+
+
+class QuotesSpider(scrapy.Spider):
+    name = "quotes" # 爬虫项目的名字
+    start_urls = [
+        'http://quotes.toscrape.com/tag/humor/',    # 最开始要抓取的页面
+    ]
+
+    def parse(self, response):  # 解析要抓取的页面
+        for quote in response.css('div.quote'): # 选择器选择要抓取的节点
+            yield {
+                'text': quote.css('span.text::text').extract_first(),   # 获取列表里面第一个, 如果没有会自动捕获异常
+                'author': quote.xpath('span/small/text()').extract_first(),
+            }
+
+        next_page = response.css('li.next a::attr("href")').extract_first() # 找到下一页的节点
+        if next_page is not None:   # 如果有下一页的节点
+            yield response.follow(next_page, self.parse)    # 继续通过parse函数进行解析
+</code></pre>
+<p>将其放入文本文件中，将其命名为<code>quotes_spider.py</code>并使用<code>runspider</code>命令运行爬虫:</p>
+<pre><code>scrapy runspider quotes_spider.py -o quotes.json
+</code></pre>
+<p>当这结束时，你会在<code>quotes.json</code>文件得到JSON格式列表，包含文本和作者，如下所示(为了更好的可读性，这里重新格式化):</p>
+<pre><code>[{
+"author": "Jane Austen",
+"text": "\u201cThe person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.\u201d"
+},
+{
+    "author": "Groucho Marx",
+    "text": "\u201cOutside of a dog, a book is man's best friend. Inside of a dog it's too dark to read.\u201d"
+},
+{
+    "author": "Steve Martin",
+    "text": "\u201cA day without sunshine is like, you know, night.\u201d"
+},
+...]
+</code></pre>
+<h2 id="_24">刚刚发生了什么?</h2>
+<p>当你运行命令 <code>scrapy runspider quotes_spider.py</code>, Scrapy在里面找到了文件名为quotes_spider的爬虫, 然后让它通过爬虫引擎运行。</p>
+<p>爬虫通过向<code>start_urls</code>属性中定义的URL发出请求(在本例中，仅为列表中的引号URL)并调用默认回调方法<code>parse</code>函数，将Response对象作为参数传递。
+在<code>parse</code>方法回调中，我们使用CSS选择器循环引用元素，使用提取的文本和作者生成Python词典，查找到下一页的链接，并使用与回调相同的<code>parse</code>方法调度另一个请求。
+在这里，您会注意到Scrapy的一个主要优点:requests是异步调度和处理的。 这意味着Scrapy不需要等待上一个请求被完成和处理，它可以同时发送多个请求或做其他事情。这也意味着，即使某些请求失败或在处理时发生错误，其他请求也可以继续运行。</p>
               
             </div>
           </div>
@@ -256,5 +316,5 @@
 
 <!--
 MkDocs version : 1.0.3
-Build Date UTC : 2018-08-30 08:29:12
+Build Date UTC : 2018-08-30 09:00:52
 -->
