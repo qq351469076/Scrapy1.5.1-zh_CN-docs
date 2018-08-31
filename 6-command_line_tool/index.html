@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>命令行工具 - Scrapy 1.5 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u547d\u4ee4\u884c\u5de5\u5177";
+    var mkdocs_page_input_path = "6-command_line_tool.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../1-index/">第一步</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-overview/">一眼了解Scrapy</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-install/">安装指导</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-scrapy tutorial/">Scrapy 教程</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-examples/">例子</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">命令行工具</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#_1">命令行工具</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_2">配置设置</a></li>
+        
+            <li><a class="toctree-l3" href="#scrapy">使用scrapy工具</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">创建项目</a></li>
+        
+            <li><a class="toctree-l3" href="#_4">可用的工具命令</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-spiders/">Spiders</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Scrapy 1.5 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>命令行工具</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">命令行工具</h1>
+<p>最新的版本是0.10</p>
+<p>Scrapy是通过<code>scrapy</code>命令行工具进行控制的，在这里被称为“Scrapy工具”，以便将其与子命令区分开来，子命令我们称为“命令”或“Scrapy命令”。</p>
+<p>Scrapy工具为多种目的提供了几个命令，每个命令都接受一组不同的参数和选项。</p>
+<p>(在1.0版中，已删除了<code>scrapy deploy</code>命令，支持独立的<code>scrapdy -deploy</code>。参见<a href="#">部署您的项目</a>)。</p>
+<h2 id="_2">配置设置</h2>
+<p>Scrapy将在标准的位置内采用<code>scrapy.cfg</code>文件中寻找内置样式并查找配置参数:</p>
+<p>linux <code>/etc/scrapy.cfg</code>, <code>~/.config/scrapy.cfg</code>, (<code>$XDG_CONFIG_HOME</code>)和<code>~/.scrapy.cfg</code>(<code>$HOME</code>)等全局设置和<code>scrapy.cfg</code>在scrapy项目的根目录中(参见下一节)。</p>
+<p>这些文件中的设置按照列出的优先级顺序合并:用户定义的值具有比系统范围内的默认值更高的优先级，并且在定义时项目范围内的设置将覆盖所有其他设置。</p>
+<p>Scrapy还了解并可以通过一些环境变量进行配置。目前,这些包括:</p>
+<ul>
+<li><code>SCRAPY_SETTINGS_MODULE</code> (参见<a href="#">指定的设置</a>)</li>
+<li><code>SCRAPY_PROJECT</code></li>
+<li><code>SCRAPY_PYTHON_SHELL</code> (参见<a href="#">Scrapy shell</a>)</li>
+</ul>
+<p>默认的Scrapy项目结构
+在深入研究命令行工具及其子命令之前，让我们先了解一下Scrapy项目的目录结构。</p>
+<p>虽然可以修改，但所有的Scrapy项目在默认情况下具有相同的文件结构，类似如下:</p>
+<pre><code>scrapy.cfg
+myproject/
+    __init__.py
+    items.py
+    middlewares.py
+    pipelines.py
+    settings.py
+    spiders/
+        __init__.py
+        spider1.py
+        spider2.py
+        ...
+</code></pre>
+
+<p>有<code>scrapy.cfg</code>文件的文件夹被称为项目的根目录。 该文件包含定义项目设置的python模块的名称。这里有一个例子:</p>
+<pre><code>[settings]
+default = myproject.settings
+</code></pre>
+
+<h2 id="scrapy">使用scrapy工具</h2>
+<p>你可以在没有参数的情况下运行Scrapy工具，它将打印一些使用帮助和可用的命令:</p>
+<pre><code>Scrapy 1.5.1 - no active project
+
+Usage:
+  scrapy &lt;command&gt; [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
+
+  [ more ]      More commands available when run from project directory
+
+Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
+</code></pre>
+
+<p>如果您在一个Scrapy项目中, 第一行将会打印当前活动的项目，在本例中，它是从项目外部运行的。如果从项目内部运行，它会打印如下内容:</p>
+<pre><code>Scrapy 1.5.1 - project: TalkingData
+
+Usage:
+  scrapy &lt;command&gt; [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test
+  check         Check spider contracts
+  crawl         Run a spider
+  edit          Edit spider
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  list          List available spiders
+  parse         Parse URL (using its spider) and print the results
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
+
+Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
+</code></pre>
+
+<h2 id="_3">创建项目</h2>
+<p>通常使用<code>scrapy</code>工具做的第一件事是创建一个scrapy项目:</p>
+<pre><code>scrapy startproject myproject [project_dir]
+</code></pre>
+
+<p>这将在<code>project_dir</code>目录下创建一个Scrapy项目。如果没有指定<code>project_dir</code>,  <code>project_dir</code>将与<code>myproject</code>相同。</p>
+<p>接下来，进入新的项目目录:</p>
+<pre><code>cd project_dir
+</code></pre>
+
+<p>现在可以使用<code>scrapy</code>命令来管理和控制项目。</p>
+<p>例如，创建一个新的Spider:</p>
+<pre><code>scrapy genspider mydomain mydomain.com
+</code></pre>
+
+<p>一些Scrapy命令(比如<a href="#">crawl</a>])必须在一个Scrapy项目里运行。关于哪些命令必须在项目内部运行，哪些不能运行，请参阅下面的<a href="#">命令参考</a>资料。</p>
+<p>还要记住，在从内部项目运行命令时，有些命令的行为可能略有不同。例如，如果获取的url与某个特定的爬虫相关联，fetch命令将使用spider覆盖的行为(例如<code>user_agent</code>来覆盖用户代理)。这是有意为之的，因为<code>fetch</code>命令用于检查爬虫如何下载页面。</p>
+<h2 id="_4">可用的工具命令</h2>
+<p>本节包含可用的内置命令列表和描述以及一些使用示例。记住，你可以通过运行以下命令获得更多信息:</p>
+<pre><code>scrapy &lt;command&gt; -h
+</code></pre>
+
+<p>你可以看到所有可用的命令:</p>
+<pre><code>scrapy -h
+</code></pre>
+
+<p>有两种命令，一种是只在Scrapy项目内工作的命令(特定于项目的命令)，另一种是在没有活动Scrapy项目的情况下工作的命令(全局命令)，尽管在从项目内运行时它们的行为可能略有不同(因为它们会使用项目覆盖设置)。</p>
+<p>全局命令</p>
+<ul>
+<li><a href="#">startproject</a></li>
+<li><a href="#">genspider</a></li>
+<li><a href="#">settings</a></li>
+<li><a href="#">runspider</a></li>
+<li><a href="#">shell</a></li>
+<li><a href="#">fetch</a></li>
+<li><a href="#">view</a></li>
+<li><a href="#">version</a></li>
+</ul>
+<p>项目命令
+<em> <a href="#">crawl</a>
+</em> <a href="#">check</a>
+<em> <a href="#">list</a>
+</em> <a href="#">edit</a>
+<em> <a href="#">parse</a>
+</em> <a href="#">bench</a></p>
+<h3 id="startproject">startproject</h3>
+<ul>
+<li>语法: <code>scrapy startproject &lt;project_name&gt; [project_dir]</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>在project_dir目录下创建一个名为<code>project_name</code>的新Scrapy项目。如果没有指定<code>project_dir</code>，那么<code>project_dir</code>将与<code>project_name</code>相同。</p>
+<p>例子:</p>
+<pre><code>$ scrapy startproject myproject
+</code></pre>
+
+<h3 id="genspider">genspider</h3>
+<ul>
+<li>语法: <code>scrapy genspider [-t template] &lt;name&gt; &lt;domain&gt;</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>在当前文件夹或当前项目的spider文件夹中创建一个新的spider，如果从项目内部调用的话。<code>&lt;name&gt;</code>参数设置为spider的<code>名称</code>，而<code>&lt;domain&gt;</code>用于生成<code>allowed_domains</code>和<code>start_urls</code> spider的属性。</p>
+<p>例子:</p>
+<pre><code>$ scrapy genspider -l
+Available templates:
+  basic
+  crawl
+  csvfeed
+  xmlfeed
+
+$ scrapy genspider example example.com
+Created spider 'example' using template 'basic'
+
+$ scrapy genspider -t crawl scrapyorg scrapy.org
+Created spider 'scrapyorg' using template 'crawl'
+</code></pre>
+
+<p>这只是一个基于预定义模板创建爬行器的方便快捷命令，但肯定不是创建爬行器的唯一方法。您可以自己创建spider源代码文件，而不是使用这个命令。</p>
+<h3 id="crawl">crawl</h3>
+<ul>
+<li>语法: <code>scrapy crawl &lt;spider&gt;</code></li>
+<li>需要项目: yes</li>
+</ul>
+<p>开始用爬虫抓取</p>
+<p>例子:</p>
+<pre><code>$ scrapy crawl myspider
+[ ... myspider starts crawling ... ]
+</code></pre>
+
+<h3 id="check">check</h3>
+<ul>
+<li>语法: <code>scrapy check [-l] &lt;spider&gt;</code></li>
+<li>需要项目: yes</li>
+</ul>
+<p>检查项目有没有错误</p>
+<p>例子:</p>
+<pre><code>$ scrapy check -l
+first_spider
+  * parse
+  * parse_item
+second_spider
+  * parse
+  * parse_item
+
+$ scrapy check
+[FAILED] first_spider:parse_item
+&gt;&gt;&gt; 'RetailPricex' field is missing
+
+[FAILED] first_spider:parse
+&gt;&gt;&gt; Returned 92 requests, expected 0..4
+</code></pre>
+
+<h3 id="list">list</h3>
+<ul>
+<li>语法: <code>scrapy list</code></li>
+<li>需要项目: yes</li>
+</ul>
+<p>列出当前项目中所有可用的spider。</p>
+<p>例子:</p>
+<pre><code>$ scrapy list
+spider1
+spider2
+</code></pre>
+
+<h3 id="edit">edit</h3>
+<ul>
+<li>语法: <code>scrapy edit &lt;spider&gt;</code></li>
+<li>需要项目: 是</li>
+</ul>
+<p>用命令行编辑Spider, 没卵用</p>
+<h3 id="fetch">fetch</h3>
+<ul>
+<li>语法: <code>scrapy fetch &lt;url&gt;</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>使用Scrapy下载URL并将内容输出。</p>
+<p>这个命令的有趣之处在于，它获取了爬行器将如何下载它的页面的过程。例如，如果Spider具有覆盖用户代理的<code>USER_AGENT</code>属性，它将使用该属性。</p>
+<p>因此，这个命令可以用来“查看”您的爬行器将如何获取某个页面。</p>
+<p>如果在项目之外使用，则不会应用每个爬行器的特定行为，它将只使用默认的Scrapy下载器设置。</p>
+<p>支持选项:</p>
+<ul>
+<li><code>--spider=SPIDER</code> : 绕过Spider自动检测并且强制使用特定的Spider</li>
+<li><code>--headers</code>: 打印Response的HTTP请求头，而不是Response的主体</li>
+<li><code>--no-redirect</code>: 不要遵循HTTP 3xx重定向(默认是遵循它们)</li>
+</ul>
+<p>例子:</p>
+<pre><code>$ scrapy fetch --nolog http://www.example.com/some/page.html
+[ ... html content here ... ]
+
+$ scrapy fetch --nolog --headers http://www.example.com/
+{'Accept-Ranges': ['bytes'],
+ 'Age': ['1263   '],
+ 'Connection': ['close     '],
+ 'Content-Length': ['596'],
+ 'Content-Type': ['text/html; charset=UTF-8'],
+ 'Date': ['Wed, 18 Aug 2010 23:59:46 GMT'],
+ 'Etag': ['&quot;573c1-254-48c9c87349680&quot;'],
+ 'Last-Modified': ['Fri, 30 Jul 2010 15:30:18 GMT'],
+ 'Server': ['Apache/2.2.3 (CentOS)']}
+</code></pre>
+
+<h3 id="view">view</h3>
+<ul>
+<li>语法: <code>scrapy view &lt;url&gt;</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>在浏览器中打开给定的URL，因为Scrapy spider会“看到”它。有时候爬行器看到的页面与普通用户不同，因此这可以用来检查爬行器“看到”什么，并确认它是您所期望的。</p>
+<p>支持选项:</p>
+<ul>
+<li><code>--spider=SPIDER</code>: 绕过Spider自动检测并且强制使用特定的Spider</li>
+<li><code>--no-redirect</code>: 不要遵循HTTP 3xx重定向(默认是遵循它们)</li>
+</ul>
+<p>例子:</p>
+<pre><code>$ scrapy view http://www.example.com/some/page.html
+[ ... browser starts ... ]
+</code></pre>
+
+<h3 id="shell">shell</h3>
+<ul>
+<li>语法: <code>scrapy shell [url]</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>启动Scrapy shell如果给定URL(如果给定的话)，如果没有提供URL则为空。还支持unix风格的本地文件路径，可以是<code>./</code>或<code>../</code>前缀或绝对文件路径。有关更多信息，请参阅<a href="#">Scrapy shell</a>。</p>
+<p>支持选项:</p>
+<ul>
+<li><code>--spider=SPIDER</code>: 绕过Spider自动检测并且强制使用特定的Spider</li>
+<li><code>-c code</code>: 计算shell中的代码，打印结果并退出</li>
+<li><code>--no-redirect</code>: 不要遵循HTTP 3xx重定向(默认是遵循它们);这只会影响您在命令行中作为参数传递的URL;一旦进入shell, <code>fetch(url)</code>默认情况下仍然遵循HTTP重定向。</li>
+</ul>
+<p>例子:</p>
+<pre><code>$ scrapy shell http://www.example.com/some/page.html
+[ ... scrapy shell starts ... ]
+
+$ scrapy shell --nolog http://www.example.com/ -c '(response.status, response.url)'
+(200, 'http://www.example.com/')
+
+# shell follows HTTP redirects by default
+$ scrapy shell --nolog http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F -c '(response.status, response.url)'
+(200, 'http://example.com/')
+
+# you can disable this with --no-redirect
+# (only for the URL passed as command line argument)
+$ scrapy shell --no-redirect --nolog http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F -c '(response.status, response.url)'
+(302, 'http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F')
+</code></pre>
+
+<h3 id="parse">parse</h3>
+<ul>
+<li>语法: <code>scrapy parse &lt;url&gt; [options]</code></li>
+<li>需要项目: yes</li>
+</ul>
+<p>使用爬虫获取给定的URL并处理它解析它，使用传递的方法<code>--callback</code>选项，或者<code>parse</code>(如果没有给出)。</p>
+<p>支持选项:</p>
+<ul>
+<li><code>--spider=SPIDER</code>: 绕过Spider自动检测并且强制使用特定的Spider</li>
+<li><code>--a NAME=VALUE</code>: 设置爬虫的参数(可重复)</li>
+<li><code>--callback</code>或<code>-c</code>: 要用作解析response的回调的spider方法</li>
+<li><code>--meta</code>或<code>-m</code>: 将传递给回调请求的附加请求meta。这必须是一个有效的json字符串。例如: -meta= {“foo”:“bar”}</li>
+<li><code>--pipelines</code>: 通过pipelines处理items</li>
+<li><code>--rules</code>或<code>-r</code>: 使用<a href="#">CrawlSpider</a>规则发现用于解析response的回调(即spider方法)</li>
+<li><code>--noitems</code>: 不显示抓取的items</li>
+<li><code>--nolinks</code>: 不显示提取链接</li>
+<li><code>--nocolour</code>: 避免使用pygments对输出进行着色</li>
+<li><code>--depth</code>或<code>-d</code>: 递归深度级别(默认:1)</li>
+<li><code>--verbose</code>或<code>-v</code>: 显示每个深度级别的信息
+例子:</li>
+</ul>
+<pre><code>$ scrapy parse http://www.example.com/ -c parse_item
+[ ... scrapy log lines crawling example.com spider ... ]
+
+&gt;&gt;&gt; STATUS DEPTH LEVEL 1 &lt;&lt;&lt;
+# Scraped Items  ------------------------------------------------------------
+[{'name': u'Example item',
+ 'category': u'Furniture',
+ 'length': u'12 cm'}]
+
+# Requests  -----------------------------------------------------------------
+[]
+</code></pre>
+
+<h3 id="settings">settings</h3>
+<ul>
+<li>语法: <code>scrapy settings [options]</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>获取Scrapy设置的值。</p>
+<p>如果在项目中使用，它将显示项目设置值，否则它将显示该设置的默认Scrapy值。</p>
+<p>例子:</p>
+<pre><code>$ scrapy settings --get BOT_NAME
+scrapybot
+$ scrapy settings --get DOWNLOAD_DELAY
+0
+</code></pre>
+
+<h3 id="runspider">runspider</h3>
+<ul>
+<li>语法: <code>scrapy runspider &lt;spider_file.py&gt;</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>在Python文件中运行自包含的爬行器，而无需创建项目。</p>
+<p>例子:</p>
+<pre><code>$ scrapy runspider myspider.py
+[ ... spider starts crawling ... ]
+</code></pre>
+
+<h3 id="version">version</h3>
+<ul>
+<li>语法: <code>scrapy version [-v]</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>打印Scrapy版本。如果与-v一起使用，它还会打印Python、Twisted和平台信息，这对于bug报告很有用。</p>
+<h3 id="bench">bench</h3>
+<p>最新版本 0.17</p>
+<ul>
+<li>语法: <code>scrapy bench</code></li>
+<li>需要项目: no</li>
+</ul>
+<p>运行一个快速的基准测试. <a href="#">基准点</a></p>
+<h3 id="_5">自定义项目的命令</h3>
+<p>还可以使用<a href="#">COMMANDS_MODULE</a>设置添加定制项目命令。有关如何实现命令的示例，请参阅<a href="#">Scrapy/commands</a>中的Scrapy命令。</p>
+<h3 id="_6">命令模块</h3>
+<p>默认值:”(空字符串)</p>
+<p>用于查找自定义Scrapy命令的模块。这用于为您的Scrapy项目添加自定义命令。</p>
+<p>例子:</p>
+<pre><code>COMMANDS_MODULE = 'mybot.commands'
+</code></pre>
+
+<h3 id="setuppy">通过setup.py入口点注册命令</h3>
+<pre><code>注意!!!!
+这是一个实验性的特性，请谨慎使用。
+</code></pre>
+
+<p>还可以从外部库添加Scrapy命令, 通过在<code>setpy.py</code>文件, 在库设置的入口点中添加一个scrap.commands</p>
+<p>下面的例子添加了<code>my_command</code>命令:</p>
+<pre><code>from setuptools import setup, find_packages
+
+setup(name='scrapy-mymodule',
+  entry_points={
+    'scrapy.commands': [
+      'my_command=my_scrapy_module.commands:MyCommand',
+    ],
+  },
+ )
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../7-spiders/" class="btn btn-neutral float-right" title="Spiders">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../5-examples/" class="btn btn-neutral" title="例子"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../5-examples/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../7-spiders/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

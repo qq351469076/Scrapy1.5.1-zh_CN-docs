@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Spiders - Scrapy 1.5 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Spiders";
+    var mkdocs_page_input_path = "7-spiders.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../1-index/">第一步</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-overview/">一眼了解Scrapy</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-install/">安装指导</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-scrapy tutorial/">Scrapy 教程</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-examples/">例子</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-command_line_tool/">命令行工具</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Spiders</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#spiders">Spiders</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#scrapyspider">scrapy.Spider</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Scrapy 1.5 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Spiders</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="spiders">Spiders</h1>
+<p>spider是定义如何抓取某个站点(或一组站点)的类，包括如何执行抓取(即跟踪链接)以及如何从页面中提取结构化数据(即抓取items)。换句话说，爬虫是您为某个特定站点(或者在某些情况下是一组站点)的页面抓取和解析定义定制行为的地方。</p>
+<p>对于spiders来说，抓取周期是这样的:</p>
+<ol>
+<li>
+<p>首先生成初始请求来抓取第一个url，并指定要使用从这些requests下载的response调用的回调函数。</p>
+<p>要执行的第一个请求是通过调用<a href="#">start_requests()</a>方法获得的，这个方法(默认情况下)为<a href="#">start_urls</a>中指定的url生成<a href="#">requests</a>，而<a href="#">parse</a>方法作为requests的回调函数。</p>
+</li>
+<li>
+<p>在回调函数中，解析response(web页面)并使用提取的数据、<a href="#">Item</a>对象、<a href="#">Requests</a>对象或这些对象的迭代返回dicts。这些Requests还将包含一个回调(可能相同)，然后由Scrapy下载，然后由指定的回调处理它们的response。</p>
+</li>
+<li>
+<p>在回调函数中，您可以解析页面内容，通常使用<a href="#">选择器</a>(但也可以使用BeautifulSoup、lxml或任何您喜欢的机制)，并使用解析后的数据生成items。</p>
+</li>
+<li>
+<p>最后，从spider返回的items通常会持久化到数据库(在某个Item Pipeline中)，或者写入文件使用<a href="#">Feed exports</a></p>
+</li>
+</ol>
+<p>尽管这个周期适用于(或多或少)任何类型的爬虫，但是为了不同的目的将不同类型的默认spider打包到Scrapy中。我们将在这里讨论这些类型。</p>
+<h2 id="scrapyspider">scrapy.Spider</h2>
+<h4 id="scrapyspidersspider-class">scrapy.spiders.Spider   这是一个类(class)</h4>
+<blockquote>
+<p>这是最简单的spider，也是所有其他spider都必须继承的spider(包括与Scrapy捆绑在一起的spider，以及你自己编写的spider)。它不提供任何特殊的功能。它只提供了一个默认的start_requests()实现方法，它从spider属性里的<code>start_urls</code> 发出请求，并为每个得到的responses调用spider<code>parse</code>方法。</p>
+<p>name</p>
+<blockquote>
+<p>定义此爬虫名称的字符串。spider名称是由Scrapy定位(并实例化)的方式，因此它必须是惟一的。但是，没有什么可以阻止您实例化同一个爬行器的多个实例。这是最重要的spider属性，也是必需的。</p>
+<p>如果spider抓取了一个域名，通常的做法是用域名来命名爬虫，不管有没有<a href="https://en.wikipedia.org/wiki/Top-level_domain">TLD(顶级域名)</a>。例如，抓取<code>mywebsite.com</code>的spider通常被称为<code>mywebsite</code>。</p>
+</blockquote>
+</blockquote>
+<pre><code>注意!!!!!!
+在python2里，必须是ASCII码。
+</code></pre>
+
+<blockquote>
+<p>allowed_domains</p>
+<blockquote>
+<p>一个可选的字符串列表，其中包含允许此spider抓取的域名。如果启用了<a href="#">OffsiteMiddleware</a>，将不会跟踪不属于本列表中指定的域名(或其子域名)的url请求。</p>
+<p>假设您的目标url是<code>https://www.example.com/1.html</code>，然后将<code>'example.com'</code>添加到列表中。</p>
+</blockquote>
+<p>start_urls</p>
+<blockquote>
+<p>当没有指定特定的url时，爬虫将从其中开始抓取url列表进行抓取。所以，下载的第一个页面就是从这里出来的。后续<a href="#">Request</a>都是从start url中包含的数据连续生成的。</p>
+</blockquote>
+<p>custom_settings</p>
+<blockquote>
+<p>运行此爬虫时将会覆盖项目文件里的设置。它必须被定义为类属性，因为在实例化之前已经更新了设置。</p>
+<p>有关可用的内置设置的列表，请参阅: <a href="#">内置的设置参考</a></p>
+</blockquote>
+<p>crawler</p>
+<blockquote>
+<p>这个属性是在初始化类之后由<a href="#">from_crawler</a>类方法设置的，并且链接到这个爬虫实例绑定到的<a href="#">Crawler</a>对象。</p>
+<p>Crawlers在项目中封装了许多组件，用于它们的单一入口访问(如扩展、中间件、信号管理器等)。查看<a href="#">Crawler API</a>了解更多信息。</p>
+</blockquote>
+<p>settings</p>
+<blockquote>
+<p>运行此spider的配置。这是一个<a href="#">Settings</a>实例，有关这个主题的详细介绍，请参阅<a href="#">设置</a>主题。</p>
+</blockquote>
+<p>logger</p>
+<blockquote>
+<p>用Spider的<a href="#">名字</a>创建的Python日志记录器。您可以使用它来通过它发送日志消息，正如在<a href="#">spider日志记录</a>中所描述的那样。</p>
+</blockquote>
+<p>from_crawler(crawler, <em>args, </em>*kwargs)</p>
+<blockquote>
+<p>这是Scrapy用来创建Spider的类方法。</p>
+<p>您可能不需要直接覆盖它，因为默认实现充当<code>__init__()</code>方法，使用给定的参数arg和命名的参数kwargs调用它。</p>
+<p>尽管如此，该方法在新实例中设置了<a href="#">crawler</a>和<a href="#">settings</a>属性，以便稍后可以在爬虫代码中访问它们。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<p>crawler (<a href="#">Crawler</a>实例) – 爬虫，spider被绑在上面</p>
+<p>args (列表) – 传递给<code>__init__()</code>方法的参数</p>
+<p>kwargs (字典) – 传递给<code>__init__()</code>方法的关键字参数</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>start_requests()</p>
+<blockquote>
+<p>当spider被打开进行抓取的时候, 这个方法必须返回一个可迭代的对象，其中就包含发出去的第一个Requests。这样就被称为“Scrapy”。Scrapy只调用一次，所以将<a href="">start_requests()</a>作为生成器实现是安全的。</p>
+<p>默认实现为start_urls中的每个url生成<code>Request(url, dont_filter=True)</code>。</p>
+<p>如果您想更改用于开始抓取域名的请求，这是要覆盖的方法。例如，如果您需要从使用POST请求登录开始，您可以这样做:</p>
+</blockquote>
+</blockquote>
+<pre><code>class MySpider(scrapy.Spider):
+    name = 'myspider'
+
+    def start_requests(self):
+        return [scrapy.FormRequest(&quot;http://www.example.com/login&quot;,
+                                   formdata={'user': 'john', 'pass': 'secret'},
+                                   callback=self.logged_in)]
+
+    def logged_in(self, response):
+        # here you would extract links to follow and return Requests for
+        # each of them, with another callback
+        pass
+</code></pre>
+
+<blockquote>
+<p>parse(response)</p>
+<blockquote>
+<p>当这些请求没有指定回调时，Scrapy使用默认回调来处理下载的response。</p>
+<p><code>parse</code>方法负责处理response并返回抓取的数据或更多url来追踪。其他Requests回调具有与<a href="">Spider</a>类相同的需求。</p>
+<p>此方法以及任何其他Request回调都必须返回<a href="">Request</a>和/或dicts或<a href="">Item</a>对象的迭代。</p>
+<blockquote>
+<p>参数: </p>
+<blockquote>
+<p>response (<a href="">Response</a>) – 解析之后的response</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>log(message[, level, component])</p>
+<blockquote>
+<p>通过爬虫<a href="#">记录器</a>发送大量的信息包装起来，用于向后兼容。有关更多信息，请参见爬行器<a href="#">日志记录</a>。</p>
+</blockquote>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../6-command_line_tool/" class="btn btn-neutral" title="命令行工具"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../6-command_line_tool/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
