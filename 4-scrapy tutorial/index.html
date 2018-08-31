@@ -76,6 +76,18 @@
         
             <li><a class="toctree-l3" href="#spider">我们的第一个爬虫(Spider)</a></li>
         
+            <li><a class="toctree-l3" href="#_2">如何运行我们的爬虫</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">引擎盖下面发生了什么?</a></li>
+        
+            <li><a class="toctree-l3" href="#start_requests">一个简短的start_requests方法</a></li>
+        
+            <li><a class="toctree-l3" href="#_4">数据提取</a></li>
+        
+            <li><a class="toctree-l3" href="#xpath">XPATH 简短介绍</a></li>
+        
+            <li><a class="toctree-l3" href="#_5">提取报价和作者</a></li>
+        
         </ul>
     
 
@@ -130,12 +142,12 @@
 <p>如果您是一个编程新手，并且想从Python开始，您可能会发现在线书籍<a href="https://learnpythonthehardway.org/book/">《艰难地学习Python》</a>很有用。您还可以查看一下<a href="https://wiki.python.org/moin/BeginnersGuide/NonProgrammers">针对非程序员的Python资源列表</a>。</p>
 <h2 id="_1">创建一个项目</h2>
 <p>在你开始抓取之前，你必须建立一个新的Scrapy项目。输入想要存储代码的目录并运行:</p>
-<p><code>scrapy startproject 项目名</code></p>
+<p><code>scrapy startproject quotes</code></p>
 <p>这将创建一个包含以下内容的目录:</p>
-<pre><code>项目名/
+<pre><code>quotes/
     scrapy.cfg            # 部署配置文件
 
-    项目名/             # 项目的Python模块，您将从这里导入代码
+    quotes/             # 项目的Python模块，您将从这里导入代码
         __init__.py
 
         items.py          # 项目的items
@@ -151,7 +163,7 @@
 </code></pre>
 
 <h2 id="spider">我们的第一个爬虫(Spider)</h2>
-<p>Spiders是您定义的类，Scrapy用于从网站(或一组网站)中提取信息。他们必须是<code>scrapy.Spider</code>的子类并且定义初始requests。可以选择如何跟踪页面中的链接，以及如何解析下载的页面内容以提取数据。</p>
+<p>Spiders是您定义的类，Scrapy用于从网站(或一组网站)中提取信息。他们必须是<strong><a href="#">scrapy.Spider</a></strong>的子类并且定义初始requests。可以选择如何跟踪页面中的链接，以及如何解析下载的页面内容以提取数据。</p>
 <p>这是第一个Spider(爬虫)的代码。将其保存在名为<code>quotes_spider.py</code>的文件中。然后放在项目名/spiders目录下:</p>
 <pre><code>import scrapy
 
@@ -174,6 +186,138 @@ class QuotesSpider(scrapy.Spider):
             f.write(response.body)
         self.log('Saved file %s' % filename)
 </code></pre>
+
+<p>如您所见，我们的Spider子类<strong><a href="#">scrapy.Spider</a></strong>。并定义了一些属性和方法:</p>
+<ul>
+<li><em><a href="#">name</a></em> : 标识了Spider。它必须在项目中是唯一的，也就是说，您不能为不同的Spider设置相同的名称。</li>
+<li><em><a href="#">start_requests()</a></em> : 必须返回可以迭代的请求(您可以定义请求列表或编写列表推导式)，Spider将从该迭代开始抓取。后续请求将从这些初始请求中依次生成。</li>
+<li><em><a href="#">parse()</a></em> : 被调用处理每个请求解析完之后后续处理的方法。response参数是<em><a href="#">TextResponse</a></em>的一个实例，它保存了页面内容，并有进一步有用的方法来处理它。</li>
+</ul>
+<p>parse()方法通常解析response，将抓取的数据提取为字典，并找到要跟踪的新url，并从中创建新的请求(<a href="#">Request</a>)。</p>
+<h2 id="_2">如何运行我们的爬虫</h2>
+<p>要让spider正常工作，请转到项目的跟目录并运行:</p>
+<pre><code>scrapy crawl quotes
+</code></pre>
+
+<p>这个命令用我们刚刚添加的Spider名字<code>quotes</code>，它将发送一些对<code>http://quotes.toscrape.com/</code>域的请求。您将得到一个类似的输出:</p>
+<pre><code>... (omitted for brevity)
+2016-12-16 21:24:05 [scrapy.core.engine] INFO: Spider opened
+2016-12-16 21:24:05 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2016-12-16 21:24:05 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2016-12-16 21:24:05 [scrapy.core.engine] DEBUG: Crawled (404) &lt;GET http://quotes.toscrape.com/robots.txt&gt; (referer: None)
+2016-12-16 21:24:05 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://quotes.toscrape.com/page/1/&gt; (referer: None)
+2016-12-16 21:24:05 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://quotes.toscrape.com/page/2/&gt; (referer: None)
+2016-12-16 21:24:05 [quotes] DEBUG: Saved file quotes-1.html
+2016-12-16 21:24:05 [quotes] DEBUG: Saved file quotes-2.html
+2016-12-16 21:24:05 [scrapy.core.engine] INFO: Closing spider (finished)
+...
+</code></pre>
+
+<p>现在，检查当前目录中的文件。您应该注意到已经创建了两个新文件:quotes-1.html和quotes-2.html，以及相应url的内容，如我们的<code>parse</code>方法所示。</p>
+<pre><code>注意!!!
+如果您想知道为什么我们还没有解析HTML，请稍等，我们很快就会讲到。
+</code></pre>
+
+<h2 id="_3">引擎盖下面发生了什么?</h2>
+<p>Scrapy调度由Spider的<code>start_requests</code>方法返回的<em><a href="#">scrapy.Request</a></em>对象。在接收到每个response之后，它实例化<em><a href="#">Response</a></em>对象并调用与request关联的回调方法(在本例中是<code>parse</code>方法)，将response作为参数传递。</p>
+<h2 id="start_requests">一个简短的start_requests方法</h2>
+<pre><code>import scrapy
+
+
+class QuotesSpider(scrapy.Spider):
+    name = &quot;quotes&quot;
+    start_urls = [
+        'http://quotes.toscrape.com/page/1/',
+        'http://quotes.toscrape.com/page/2/',
+    ]
+
+    def parse(self, response):
+        page = response.url.split(&quot;/&quot;)[-2]
+        filename = 'quotes-%s.html' % page
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+</code></pre>
+
+<p><em><a href="#">parse()</a></em>方法被调用来处理这些url的每个requests，尽管我们还没有明确告诉Scrapy这样做。这是因为<em><a href="#">parse()</a></em>是Scrapy的默认回调方法，所以在没有显式分配回调的情况下调用requests</p>
+<h2 id="_4">数据提取</h2>
+<p>学习如何使用Scrapy最佳提取数据方法是使用<a href="#">Scrapy shell</a>尝试选择器。运行:</p>
+<pre><code>scrapy shell 'http://quotes.toscrape.com/page/1/'
+</code></pre>
+
+<pre><code>注意!!!!
+记住，在命令行中运行Scrapy shell时，必须用引号将url括起来，否则url包含参数(比如&amp;字符)不会工作。
+在windows上请使用双引号
+</code></pre>
+
+<p>你会看到这样的东西:</p>
+<pre><code>[ ... Scrapy log here ... ]
+2016-09-19 12:09:27 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://quotes.toscrape.com/page/1/&gt; (referer: None)
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x7fa91d888c90&gt;
+[s]   item       {}
+[s]   request    &lt;GET http://quotes.toscrape.com/page/1/&gt;
+[s]   response   &lt;200 http://quotes.toscrape.com/page/1/&gt;
+[s]   settings   &lt;scrapy.settings.Settings object at 0x7fa91d888c10&gt;
+[s]   spider     &lt;DefaultSpider 'default' at 0x7fa91c8af990&gt;
+[s] Useful shortcuts:
+[s]   shelp()           Shell help (print this help)
+[s]   fetch(req_or_url) Fetch request (or URL) and update local objects
+[s]   view(response)    View response in a browser
+&gt;&gt;&gt;
+</code></pre>
+
+<p>使用shell，您可以尝试使用<a href="#">CSS</a>和response对象选择元素:</p>
+<pre><code>&gt;&gt;&gt; response.css('title')
+[&lt;Selector xpath='descendant-or-self::title' data='&lt;title&gt;Quotes to Scrape&lt;/title&gt;'&gt;]
+</code></pre>
+
+<p>运行<code>response.css('title')</code>的结果是一个类似于列表的<a href="#">SelectorList</a>对象，它表示一组<a href="#">Selector</a>对象，这些<a href="#">Selector</a>对象围绕XML/HTML元素，允许您运行进一步的查询来细化选择或提取数据。</p>
+<p>要从上面的标题中提取文本，您可以这样做:</p>
+<pre><code>&gt;&gt;&gt; response.css('title::text').extract()
+['Quotes to Scrape']
+</code></pre>
+
+<p>这里有两件事需要注意:一是我们已经在CSS查询中添加了<code>::text</code>，意思是我们只想直接选择里面的<code>&lt;title&gt;</code>文本元素, 如果我们不指定<code>::text</code>, 我们会得到完整的标题元素，包括它的标签:</p>
+<pre><code>&gt;&gt;&gt; response.css('title').extract()
+['&lt;title&gt;Quotes to Scrape&lt;/title&gt;']
+</code></pre>
+
+<p>另一件事是调用<code>.extract()</code>的结果是一个列表，因为我们正在处理<em><a href="#">SelectorList</a></em>的一个实例。当你知道你只是想要第一个结果的时候，在这种情况下，你可以这样做:</p>
+<pre><code>&gt;&gt;&gt; response.css('title::text').extract_first()
+'Quotes to Scrape'
+</code></pre>
+
+<p>作为替代，你可以这样写:</p>
+<pre><code>&gt;&gt;&gt; response.css('title::text')[0].extract()
+'Quotes to Scrape'
+</code></pre>
+
+<p>但是，使用<code>.extract_first()</code>可以避免出现<code>IndexError</code>，并且当它没有找到任何匹配选择的元素时，返回<code>None</code>。</p>
+<p>这里有一个教训:对于大多数抓取代码，您希望它能够对由于在页面上找不到东西而导致的错误保持容错, 这样即使某些部分不能被抓取，您至少可以获得<strong>一些</strong>数据。</p>
+<p>除了<code>extract()</code>和<code>extract_first()</code>方法之外，您还可以使用正则表达式<code>re()</code>方法进行提取:</p>
+<pre><code>&gt;&gt;&gt; response.css('title::text').re(r'Quotes.*')
+['Quotes to Scrape']
+&gt;&gt;&gt; response.css('title::text').re(r'Q\w+')
+['Quotes']
+&gt;&gt;&gt; response.css('title::text').re(r'(\w+) to (\w+)')
+['Quotes', 'Scrape']
+</code></pre>
+
+<p>为了找到合适的CSS选择器，您可能会发现使用<code>view(response)</code>从web浏览器的shell中打开response页面非常有用。您可以使用浏览器开发工具或扩展，比如Firebug(请参阅使用<a href="#">Firebug进行抓取</a>和<a href="#">使用Firefox进行抓取</a>部分)。</p>
+<p><a href="https://selectorgadget.com/">Selector Gadget</a>也是一个很好的工具，可以通过可视化的CSS选择器快速找到元素，这在许多浏览器中都可以工作。</p>
+<h2 id="xpath">XPATH 简短介绍</h2>
+<p>除了<a href="https://www.w3.org/TR/selectors">CSS</a>,Scrapy selectors还支持使用<a href="https://www.w3.org/TR/xpath">XPath</a>表达式:</p>
+<pre><code>&gt;&gt;&gt; response.xpath('//title')
+[&lt;Selector xpath='//title' data='&lt;title&gt;Quotes to Scrape&lt;/title&gt;'&gt;]
+&gt;&gt;&gt; response.xpath('//title/text()').extract_first()
+'Quotes to Scrape'
+</code></pre>
+
+<p>XPath表达式非常强大，是Scrapy Selectors的基础。实际上，CSS选择器在底层被转换为XPath。如果仔细阅读shell中的选择器对象的文本表示，就会发现这一点。</p>
+<p>尽管不如CSS选择器流行，XPath表达式提供了更多的功能，因为除了导航结构外，它还可以查看内容。使用XPath，您可以选择如下内容:选择包含文本“下一页”的链接。这使得XPath非常适合于抓取任务，我们鼓励您学习XPath，即使您已经知道如何构造CSS选择器，它也会使抓取变得更加容易。</p>
+<p>我们在这里不会介绍太多XPath，但是您可以在这里阅读关于使用<a href="#">XPath和Scrapy选择器</a>的更多信息。要了解更多关于XPath的知识，我们推荐<a href="http://zvon.org/comp/r/tut-XPath_1.html">本教程通过示例学习XPath</a>，<a href="http://plasmasturm.org/log/xpath101/">本教程学习“如何在XPath中思考”</a>。</p>
+<h2 id="_5">提取报价和作者</h2>
               
             </div>
           </div>
