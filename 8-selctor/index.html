@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Selector 选择器 - Scrapy 1.5 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Selector \u9009\u62e9\u5668";
+    var mkdocs_page_input_path = "8-selctor.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../1-index/">第一步</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-overview/">一眼了解Scrapy</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-install/">安装指导</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-scrapy tutorial/">Scrapy 教程</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-examples/">例子</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-command_line_tool/">命令行工具</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-spiders/">Spiders 自定义爬虫类</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Selector 选择器</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#selector">Selector 选择器</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">使用选择器</a></li>
+        
+            <li><a class="toctree-l3" href="#_2">构建选择器</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">使用选择器</a></li>
+        
+            <li><a class="toctree-l3" href="#_4">嵌套选择器</a></li>
+        
+            <li><a class="toctree-l3" href="#_5">使用带有正则表达式的选择器</a></li>
+        
+            <li><a class="toctree-l3" href="#xpath">XPath表达式中的变量</a></li>
+        
+            <li><a class="toctree-l3" href="#exslt">使用EXSLT扩展</a></li>
+        
+            <li><a class="toctree-l3" href="#_6">正则表达式</a></li>
+        
+            <li><a class="toctree-l3" href="#_7">集合运算</a></li>
+        
+            <li><a class="toctree-l3" href="#xpath_1">一些XPath技巧</a></li>
+        
+            <li><a class="toctree-l3" href="#_8">有条件下是用文本节点</a></li>
+        
+            <li><a class="toctree-l3" href="#node1node1">注意//node[1]和(//node)[1]之间的区别</a></li>
+        
+            <li><a class="toctree-l3" href="#classcss">在进行类(class)查询时，考虑使用CSS选择器</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#_9">内置的选择器参考</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#selector_1">Selector(选择器) 对象</a></li>
+        
+            <li><a class="toctree-l3" href="#selectorlist">SelectorList(选择器列表) 对象</a></li>
+        
+            <li><a class="toctree-l3" href="#html-response">HTML response的选择器示例</a></li>
+        
+            <li><a class="toctree-l3" href="#xml">XML响应的选择器示例</a></li>
+        
+            <li><a class="toctree-l3" href="#_10">删除名称空间</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Scrapy 1.5 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Selector 选择器</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="selector">Selector 选择器</h1>
+<p>当您在抓取web页面时，您需要执行的最常见的任务是从HTML源代码中提取数据。有几个库可以实现这一点:</p>
+<p>译者: 我只介绍lxml, 不介绍BeautifulSoup, 我只用xpath</p>
+<ul>
+<li><a href="https://lxml.de/">lxml</a>是一个XML解析库（它也解析HTML）和基于<a href="https://docs.python.org/2/library/xml.etree.elementtree.html">ElementTree</a>的python API。（lxml不是Python标准库的一部分。）</li>
+</ul>
+<p>Scrapy有它自己的提取数据的机制。它们被称为selectors，"select"通过<a href="https://www.w3.org/TR/xpath">XPath</a>或<a href="https://www.w3.org/TR/selectors">CSS</a>表达式指定获取HTML文档的某些部分。</p>
+<p><a href="https://www.w3.org/TR/xpath">XPath</a>是一门在XML文档中选择节点的语言，它也可以与HTML一起使用。<a href="https://www.w3.org/TR/selectors">CSS</a>是一种将样式应用于HTML文档的语言。它定义选择器将这些样式与特定的HTML元素关联起来。</p>
+<p>Scrapy selectors是在<a href="https://lxml.de/">lxml</a>库之上构建的，这意味着它们在速度和解析精度方面非常相似。</p>
+<p>这个页面解释了selectors如何工作和怎样去描述它们的API，它非常小和简单，与lxml API不同，lxml API更大，因为lxml库可以用于许多其他任务，而不是专门选择标记文档。</p>
+<p>要获得选择器API的完整引用，请参阅<a href="#">Selector引用</a></p>
+<h2 id="_1">使用选择器</h2>
+<h2 id="_2">构建选择器</h2>
+<blockquote>
+<p>Scrapy selectors是通过传递<strong>文本</strong>或<a href="#">TextResponse</a>对象构造的<a href="#">Selector</a>类的实例。它根据输入类型自动选择最佳的解析规则（XML vs HTML）：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; from scrapy.selector import Selector
+&gt;&gt;&gt; from scrapy.http import HtmlResponse
+</code></pre>
+
+<blockquote>
+<p>从文本中构建</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; body = '&lt;html&gt;&lt;body&gt;&lt;span&gt;good&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;'
+&gt;&gt;&gt; Selector(text=body).xpath('//span/text()').extract()
+[u'good']
+</code></pre>
+
+<blockquote>
+<p>从response中构建</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response = HtmlResponse(url='http://example.com', body=body)
+&gt;&gt;&gt; Selector(response=response).xpath('//span/text()').extract()
+[u'good']
+</code></pre>
+
+<blockquote>
+<p>为了方便起见，response对象在<em>.selector</em>属性中公开选择器，在可能的情况下使用这个快捷方式是完全可以的：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.selector.xpath('//span/text()').extract()
+[u'good']
+</code></pre>
+
+<h2 id="_3">使用选择器</h2>
+<blockquote>
+<p>为了解释如何使用选择器，我们将使用<em>Scrapy shell</em>（提供交互式测试）和位于Scrapy文档服务器中的示例页面：</p>
+<p><a href="https://doc.scrapy.org/en/latest/_static/selectors-sample1.html">https://doc.scrapy.org/en/latest/_static/selectors-sample1.html</a></p>
+<p>这是它的HTML代码:</p>
+</blockquote>
+<pre><code>&lt;html&gt;
+ &lt;head&gt;
+  &lt;base href='http://example.com/' /&gt;
+  &lt;title&gt;Example website&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div id='images'&gt;
+   &lt;a href='image1.html'&gt;Name: My image 1 &lt;br /&gt;&lt;img src='image1_thumb.jpg' /&gt;&lt;/a&gt;
+   &lt;a href='image2.html'&gt;Name: My image 2 &lt;br /&gt;&lt;img src='image2_thumb.jpg' /&gt;&lt;/a&gt;
+   &lt;a href='image3.html'&gt;Name: My image 3 &lt;br /&gt;&lt;img src='image3_thumb.jpg' /&gt;&lt;/a&gt;
+   &lt;a href='image4.html'&gt;Name: My image 4 &lt;br /&gt;&lt;img src='image4_thumb.jpg' /&gt;&lt;/a&gt;
+   &lt;a href='image5.html'&gt;Name: My image 5 &lt;br /&gt;&lt;img src='image5_thumb.jpg' /&gt;&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<blockquote>
+<p>首先，让我们打开shell：</p>
+</blockquote>
+<pre><code>scrapy shell https://doc.scrapy.org/en/latest/_static/selectors-sample1.html
+</code></pre>
+
+<blockquote>
+<p>然后，在shell加载之后，您将会得到一个可用的response作为shell的response变量，并将其附加的选择器作为<code>response.selector</code>属性。</p>
+<p>因为我们处理的是HTML，所以选择器会自动使用一个HTML解析器。</p>
+<p>因此，通过查看该页面的<a href="#">HTML代码</a>，让我们构建一个XPath来选择标题标签中的文本：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.selector.xpath('//title/text()')
+[&lt;Selector (text) xpath=//title/text()&gt;]
+</code></pre>
+
+<blockquote>
+<p>使用XPath和CSS查询responses是非常常见的，response包括两个便利的方法：<code>response.xpath()</code>和<code>response.css()</code>：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//title/text()')
+[&lt;Selector (text) xpath=//title/text()&gt;]
+&gt;&gt;&gt; response.css('title::text')
+[&lt;Selector (text) xpath=//title/text()&gt;]
+</code></pre>
+
+<blockquote>
+<p>如您所见，<code>.xpath()</code>和<code>.css()</code>方法返回SelectorList实例，它是一个新的selectors列表。这个API可用于快速选择嵌套数据：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.css('img').xpath('@src').extract()
+[u'image1_thumb.jpg',
+ u'image2_thumb.jpg',
+ u'image3_thumb.jpg',
+ u'image4_thumb.jpg',
+ u'image5_thumb.jpg']
+</code></pre>
+
+<blockquote>
+<p>要提取文本实际数据，您必须调用selector<code>.extract()</code>方法，如下所列：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//title/text()').extract()
+[u'Example website']
+</code></pre>
+
+<blockquote>
+<p>如果您只想提取第一个匹配的元素，您可以调用<code>.extract_first()</code>。</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//div[@id=&quot;images&quot;]/a/text()').extract_first()
+u'Name: My image 1 '
+</code></pre>
+
+<blockquote>
+<p>如果没有找到任何元素，它将返回<code>None</code>：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//div[@id=&quot;not-exists&quot;]/text()').extract_first() is None
+True
+</code></pre>
+
+<blockquote>
+<p>默认的返回值可以提供一个参数，而不是<code>None</code>：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//div[@id=&quot;not-exists&quot;]/text()').extract_first(default='not-found')
+'not-found'
+</code></pre>
+
+<blockquote>
+<p>注意，CSS选择器可以使用CSS3伪元素选择文本或属性节点：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.css('title::text').extract()
+[u'Example website']
+</code></pre>
+
+<blockquote>
+<p>现在我们将得到基本URL和一些图像链接：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//base/@href').extract()
+[u'http://example.com/']
+
+&gt;&gt;&gt; response.css('base::attr(href)').extract()
+[u'http://example.com/']
+
+&gt;&gt;&gt; response.xpath('//a[contains(@href, &quot;image&quot;)]/@href').extract()
+[u'image1.html',
+ u'image2.html',
+ u'image3.html',
+ u'image4.html',
+ u'image5.html']
+
+&gt;&gt;&gt; response.css('a[href*=image]::attr(href)').extract()
+[u'image1.html',
+ u'image2.html',
+ u'image3.html',
+ u'image4.html',
+ u'image5.html']
+
+&gt;&gt;&gt; response.xpath('//a[contains(@href, &quot;image&quot;)]/img/@src').extract()
+[u'image1_thumb.jpg',
+ u'image2_thumb.jpg',
+ u'image3_thumb.jpg',
+ u'image4_thumb.jpg',
+ u'image5_thumb.jpg']
+
+&gt;&gt;&gt; response.css('a[href*=image] img::attr(src)').extract()
+[u'image1_thumb.jpg',
+ u'image2_thumb.jpg',
+ u'image3_thumb.jpg',
+ u'image4_thumb.jpg',
+ u'image5_thumb.jpg']
+</code></pre>
+
+<h2 id="_4">嵌套选择器</h2>
+<blockquote>
+<p>选择方法(<code>.xpath()</code>或<code>.css()</code>)返回同一类型的selectors的列表，因此您也可以为这些选择器调用选择方法。这里有一个例子:</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; links = response.xpath('//a[contains(@href, &quot;image&quot;)]')
+&gt;&gt;&gt; links.extract()
+[u'&lt;a href=&quot;image1.html&quot;&gt;Name: My image 1 &lt;br&gt;&lt;img src=&quot;image1_thumb.jpg&quot;&gt;&lt;/a&gt;',
+ u'&lt;a href=&quot;image2.html&quot;&gt;Name: My image 2 &lt;br&gt;&lt;img src=&quot;image2_thumb.jpg&quot;&gt;&lt;/a&gt;',
+ u'&lt;a href=&quot;image3.html&quot;&gt;Name: My image 3 &lt;br&gt;&lt;img src=&quot;image3_thumb.jpg&quot;&gt;&lt;/a&gt;',
+ u'&lt;a href=&quot;image4.html&quot;&gt;Name: My image 4 &lt;br&gt;&lt;img src=&quot;image4_thumb.jpg&quot;&gt;&lt;/a&gt;',
+ u'&lt;a href=&quot;image5.html&quot;&gt;Name: My image 5 &lt;br&gt;&lt;img src=&quot;image5_thumb.jpg&quot;&gt;&lt;/a&gt;']
+
+&gt;&gt;&gt; for index, link in enumerate(links):
+...     args = (index, link.xpath('@href').extract(), link.xpath('img/@src').extract())
+...     print 'Link number %d points to url %s and image %s' % args
+
+Link number 0 points to url [u'image1.html'] and image [u'image1_thumb.jpg']
+Link number 1 points to url [u'image2.html'] and image [u'image2_thumb.jpg']
+Link number 2 points to url [u'image3.html'] and image [u'image3_thumb.jpg']
+Link number 3 points to url [u'image4.html'] and image [u'image4_thumb.jpg']
+Link number 4 points to url [u'image5.html'] and image [u'image5_thumb.jpg']
+</code></pre>
+
+<h2 id="_5">使用带有正则表达式的选择器</h2>
+<blockquote>
+<p><a href="#">Selecotr</a>还有一个<code>.re()</code>方法，用于使用正则表达式提取数据。然而，与使用<code>.xpath()</code>或<code>.css()</code>方法不同，<code>.re()</code>返回unicode字符串列表。所以你不能构造嵌套的<code>re()</code>调用。</p>
+<p>下面是一个从上面的HTML代码中提取图像名称的例子：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//a[contains(@href, &quot;image&quot;)]/text()').re(r'Name:\s*(.*)')
+[u'My image 1',
+ u'My image 2',
+ u'My image 3',
+ u'My image 4',
+ u'My image 5']
+</code></pre>
+
+<blockquote>
+<p>还有一个额外的方法。使用<code>.re_first()</code>来提取第一个匹配的字符串：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//a[contains(@href, &quot;image&quot;)]/text()').re_first(r'Name:\s*(.*)')
+u'My image 1'
+</code></pre>
+
+<blockquote>
+<p>使用相对xpath
+请记住，如果您正在嵌套选择器，并使用以<code>/</code>开头的XPath，那么XPath将是绝对的，而不是相对于您调用的<code>Selector</code>。</p>
+<p>例如，假设你想要提取<code>&lt;p&gt;</code>元素中的所有<code>&lt;div&gt;</code>元素。首先，你会得到所有的<code>&lt;div&gt;</code>元素：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; divs = response.xpath('//div')
+</code></pre>
+
+<blockquote>
+<p>一开始，您可能会尝试使用以下方法，这是错误的，因为它实际上从文档中提取了所有的<code>&lt;p&gt;</code>元素，而不仅仅是那些内部的<code>&lt;div&gt;</code>元素：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; for p in divs.xpath('//p'):  # 这是错误的 —— 这会从整个文档中得到所有的&lt;p&gt;信息
+...     print p.extract()
+</code></pre>
+
+<blockquote>
+<p>这是正确的方法（注意在XPath路径<code>//p</code>前加前缀点）：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; for p in divs.xpath('.//p'):  # 提取所有 &lt;p&gt; 内部
+...     print p.extract()
+</code></pre>
+
+<blockquote>
+<p>另一个常见的例子是，直接提取当前节点所有的<code>&lt;p&gt;</code>children：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; for p in divs.xpath('p'):
+...     print p.extract()
+</code></pre>
+
+<blockquote>
+<p>有关XPath相对路径的更多细节，请参阅XPath规范中的<a href="https://www.w3.org/TR/xpath#location-paths">位置路径</a>部分。</p>
+</blockquote>
+<h2 id="xpath">XPath表达式中的变量</h2>
+<blockquote>
+<p>XPath允许您使用<code>$somevariable</code>语法引用XPath表达式中的变量。这有点类似于SQL世界中的参数化查询或预处理语句，您可以在查询中使用诸如此类的占位符替换一些参数，然后用查询传递的值代替。</p>
+<p>这里有一个例子，根据它的“id”属性值来匹配一个元素，而不需要硬编码它（之前显示的）：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; # 在表达式中使用“$val”，需要传递一个“val”参数
+&gt;&gt;&gt; response.xpath('//div[@id=$val]/a/text()', val='images').extract_first()
+u'Name: My image 1 '
+</code></pre>
+
+<blockquote>
+<p>这是另一个例子，为了提取第5个div标签下的id标签下的值, 这里我们将值5作为整数）：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath('//div[count(a)=$cnt]/@id', cnt=5).extract_first()
+u'images'
+</code></pre>
+
+<blockquote>
+<p>当调用<code>.xpath()</code>时，所有引用变量都必须有值（否则就会得到<code>ValueError: XPath error:</code>）。在必要时传递尽可能多的命名参数。</p>
+<p><a href="https://parsel.readthedocs.io/">parsel</a>是一个为 Scrapy selectors提供动力的库，它有更多关于<a href="https://parsel.readthedocs.io/en/latest/usage.html#variables-in-xpath-expressions">XPath变量</a>的细节和示例。</p>
+</blockquote>
+<h2 id="exslt">使用EXSLT扩展</h2>
+<blockquote>
+<p>在<a href="https://lxml.de/">lxml</a>之上构建的Scrapy selectors还支持一些<a href="http://exslt.org/">EXSLT</a>扩展，并使用这些预先注册的名称空间来使用XPath表达式：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">预定义</th>
+<th align="left">命名空间</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">re</td>
+<td align="left">http://exslt.org/regular-expressions</td>
+<td align="left"><a href="http://exslt.org/regexp/index.html">regular expressions</a></td>
+</tr>
+<tr>
+<td align="left">set</td>
+<td align="left">http://exslt.org/sets</td>
+<td align="left"><a href="http://exslt.org/set/index.html">set manipulation</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">正则表达式</h2>
+<blockquote>
+<p>例如，当XPath的<code>starts-with()</code>或<code>contains()</code>不能满足时，<code>test()</code>函数会被证明是非常有用的。</p>
+<p>例如，在列表item中选择带有一个“class”属性的链接，以一个数字结尾：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; from scrapy import Selector
+&gt;&gt;&gt; doc = &quot;&quot;&quot;
+... &lt;div&gt;
+...     &lt;ul&gt;
+...         &lt;li class=&quot;item-0&quot;&gt;&lt;a href=&quot;link1.html&quot;&gt;first item&lt;/a&gt;&lt;/li&gt;
+...         &lt;li class=&quot;item-1&quot;&gt;&lt;a href=&quot;link2.html&quot;&gt;second item&lt;/a&gt;&lt;/li&gt;
+...         &lt;li class=&quot;item-inactive&quot;&gt;&lt;a href=&quot;link3.html&quot;&gt;third item&lt;/a&gt;&lt;/li&gt;
+...         &lt;li class=&quot;item-1&quot;&gt;&lt;a href=&quot;link4.html&quot;&gt;fourth item&lt;/a&gt;&lt;/li&gt;
+...         &lt;li class=&quot;item-0&quot;&gt;&lt;a href=&quot;link5.html&quot;&gt;fifth item&lt;/a&gt;&lt;/li&gt;
+...     &lt;/ul&gt;
+... &lt;/div&gt;
+... &quot;&quot;&quot;
+&gt;&gt;&gt; sel = Selector(text=doc, type=&quot;html&quot;)
+&gt;&gt;&gt; sel.xpath('//li//@href').extract()
+[u'link1.html', u'link2.html', u'link3.html', u'link4.html', u'link5.html']
+&gt;&gt;&gt; sel.xpath('//li[re:test(@class, &quot;item-\d$&quot;)]//@href').extract()
+[u'link1.html', u'link2.html', u'link4.html', u'link5.html']
+&gt;&gt;&gt;
+</code></pre>
+
+<pre><code>警告~~~~警告~~~~~~
+C 库   libxslt  本身并不支持EXSLT正则表达式
+因此lxml的实现使用的是Python的re模块。
+因此，在XPath表达式中使用regexp函数可能会增加一个小的性能损失。
+</code></pre>
+
+<h2 id="_7">集合运算</h2>
+<blockquote>
+<p>在提取文本元素之前，这些可以方便地排除文档树的某些部分。</p>
+<p>例如，提取微数据（从<a href="http://schema.org/Product">http://schema.org/Product</a>获取的样例内容）与项目范围和相应的项目支持：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; doc = &quot;&quot;&quot;
+... &lt;div itemscope itemtype=&quot;http://schema.org/Product&quot;&gt;
+...   &lt;span itemprop=&quot;name&quot;&gt;Kenmore White 17&quot; Microwave&lt;/span&gt;
+...   &lt;img src=&quot;kenmore-microwave-17in.jpg&quot; alt='Kenmore 17&quot; Microwave' /&gt;
+...   &lt;div itemprop=&quot;aggregateRating&quot;
+...     itemscope itemtype=&quot;http://schema.org/AggregateRating&quot;&gt;
+...    Rated &lt;span itemprop=&quot;ratingValue&quot;&gt;3.5&lt;/span&gt;/5
+...    based on &lt;span itemprop=&quot;reviewCount&quot;&gt;11&lt;/span&gt; customer reviews
+...   &lt;/div&gt;
+...
+...   &lt;div itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+...     &lt;span itemprop=&quot;price&quot;&gt;$55.00&lt;/span&gt;
+...     &lt;link itemprop=&quot;availability&quot; href=&quot;http://schema.org/InStock&quot; /&gt;In stock
+...   &lt;/div&gt;
+...
+...   Product description:
+...   &lt;span itemprop=&quot;description&quot;&gt;0.7 cubic feet countertop microwave.
+...   Has six preset cooking categories and convenience features like
+...   Add-A-Minute and Child Lock.&lt;/span&gt;
+...
+...   Customer reviews:
+...
+...   &lt;div itemprop=&quot;review&quot; itemscope itemtype=&quot;http://schema.org/Review&quot;&gt;
+...     &lt;span itemprop=&quot;name&quot;&gt;Not a happy camper&lt;/span&gt; -
+...     by &lt;span itemprop=&quot;author&quot;&gt;Ellie&lt;/span&gt;,
+...     &lt;meta itemprop=&quot;datePublished&quot; content=&quot;2011-04-01&quot;&gt;April 1, 2011
+...     &lt;div itemprop=&quot;reviewRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
+...       &lt;meta itemprop=&quot;worstRating&quot; content = &quot;1&quot;&gt;
+...       &lt;span itemprop=&quot;ratingValue&quot;&gt;1&lt;/span&gt;/
+...       &lt;span itemprop=&quot;bestRating&quot;&gt;5&lt;/span&gt;stars
+...     &lt;/div&gt;
+...     &lt;span itemprop=&quot;description&quot;&gt;The lamp burned out and now I have to replace
+...     it. &lt;/span&gt;
+...   &lt;/div&gt;
+...
+...   &lt;div itemprop=&quot;review&quot; itemscope itemtype=&quot;http://schema.org/Review&quot;&gt;
+...     &lt;span itemprop=&quot;name&quot;&gt;Value purchase&lt;/span&gt; -
+...     by &lt;span itemprop=&quot;author&quot;&gt;Lucas&lt;/span&gt;,
+...     &lt;meta itemprop=&quot;datePublished&quot; content=&quot;2011-03-25&quot;&gt;March 25, 2011
+...     &lt;div itemprop=&quot;reviewRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
+...       &lt;meta itemprop=&quot;worstRating&quot; content = &quot;1&quot;/&gt;
+...       &lt;span itemprop=&quot;ratingValue&quot;&gt;4&lt;/span&gt;/
+...       &lt;span itemprop=&quot;bestRating&quot;&gt;5&lt;/span&gt;stars
+...     &lt;/div&gt;
+...     &lt;span itemprop=&quot;description&quot;&gt;Great microwave for the price. It is small and
+...     fits in my apartment.&lt;/span&gt;
+...   &lt;/div&gt;
+...   ...
+... &lt;/div&gt;
+... &quot;&quot;&quot;
+&gt;&gt;&gt; sel = Selector(text=doc, type=&quot;html&quot;)
+&gt;&gt;&gt; for scope in sel.xpath('//div[@itemscope]'):
+...     print &quot;current scope:&quot;, scope.xpath('@itemtype').extract()
+...     props = scope.xpath('''
+...                 set:difference(./descendant::*/@itemprop,
+...                                .//*[@itemscope]/*/@itemprop)''')
+...     print &quot;    properties:&quot;, props.extract()
+...     print
+
+current scope: [u'http://schema.org/Product']
+    properties: [u'name', u'aggregateRating', u'offers', u'description', u'review', u'review']
+
+current scope: [u'http://schema.org/AggregateRating']
+    properties: [u'ratingValue', u'reviewCount']
+
+current scope: [u'http://schema.org/Offer']
+    properties: [u'price', u'availability']
+
+current scope: [u'http://schema.org/Review']
+    properties: [u'name', u'author', u'datePublished', u'reviewRating', u'description']
+
+current scope: [u'http://schema.org/Rating']
+    properties: [u'worstRating', u'ratingValue', u'bestRating']
+
+current scope: [u'http://schema.org/Review']
+    properties: [u'name', u'author', u'datePublished', u'reviewRating', u'description']
+
+current scope: [u'http://schema.org/Rating']
+    properties: [u'worstRating', u'ratingValue', u'bestRating']
+
+&gt;&gt;&gt;
+</code></pre>
+
+<blockquote>
+<p>在这里，我们首先迭代包含<code>itemscope</code>元素，对于它下面每一个元素，我们寻找所有包含<code>itemprops</code>元素，并将它们本身排除在另一个<code>itemscope</code>中。</p>
+</blockquote>
+<h2 id="xpath_1">一些XPath技巧</h2>
+<blockquote>
+<p>下面是一些技巧，您可能会在使用XPath选择器时发现有用的技巧，这是基于<a href="https://blog.scrapinghub.com/2014/07/17/xpath-tips-from-the-web-scraping-trenches/?_ga=2.156342715.1417833568.1535792513-1880969601.1535792513">Scrapy的博客上的这篇文章</a>。如果您还不太熟悉XPath，那么您可能想先看一下这个<a href="http://www.zvon.org/comp/r/tut-XPath_1.html">XPath教程</a>。</p>
+</blockquote>
+<h2 id="_8">有条件下是用文本节点</h2>
+<blockquote>
+<p>当您需要将文本内容用作<a href="https://www.w3.org/TR/xpath/#section-String-Functions">XPath字符串函数</a>的参数时，请避免使用<code>//text()</code>并使用<code>.</code>代替。</p>
+<p>这是因为表达式<code>.//text()</code>产生了一批文本元素——一个节点集。当一个节点集被转换成一个字符串时，当它作为参数传递给字符串函数时，比如<code>contains()</code>或<code>starts-with()</code>，它只会产生第一个元素的文本。</p>
+<p>例子</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; from scrapy import Selector
+&gt;&gt;&gt; sel = Selector(text='&lt;a href=&quot;#&quot;&gt;Click here to go to the &lt;strong&gt;Next Page&lt;/strong&gt;&lt;/a&gt;')
+</code></pre>
+
+<blockquote>
+<p>将节点集转换为字符串：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; sel.xpath('//a//text()').extract() # 看一看节点集
+[u'Click here to go to the ', u'Next Page']
+&gt;&gt;&gt; sel.xpath(&quot;string(//a[1]//text())&quot;).extract() # 把它转换成字符串
+[u'Click here to go to the ']
+</code></pre>
+
+<blockquote>
+<p>然而，一个转换为字符串的节点将其自身的文本和它的所有后代放在一起：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; sel.xpath(&quot;//a[1]&quot;).extract() # 选择第一个节点
+[u'&lt;a href=&quot;#&quot;&gt;Click here to go to the &lt;strong&gt;Next Page&lt;/strong&gt;&lt;/a&gt;']
+&gt;&gt;&gt; sel.xpath(&quot;string(//a[1])&quot;).extract() # 把它转换成字符串
+[u'Click here to go to the Next Page']
+</code></pre>
+
+<blockquote>
+<p>因此，使用<code>.//text()</code>node-set在这种情况下不会选择任何东西：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; sel.xpath(&quot;//a[contains(.//text(), 'Next Page')]&quot;).extract()
+[]
+</code></pre>
+
+<p>但使用<code>.</code>为了表示节点，工作：</p>
+<pre><code>&gt;&gt;&gt; sel.xpath(&quot;//a[contains(., 'Next Page')]&quot;).extract()
+[u'&lt;a href=&quot;#&quot;&gt;Click here to go to the &lt;strong&gt;Next Page&lt;/strong&gt;&lt;/a&gt;']
+</code></pre>
+
+<h2 id="node1node1">注意//node[1]和(//node)[1]之间的区别</h2>
+<blockquote>
+<p><code>//node[1]</code> 选择在他们各自的父母下首先发生的所有节点。</p>
+<p><code>(//node)[1]</code> 选择文档中的所有节点，然后只获取其中的第一个节点。
+例子:</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; from scrapy import Selector
+&gt;&gt;&gt; sel = Selector(text=&quot;&quot;&quot;
+....:     &lt;ul class=&quot;list&quot;&gt;
+....:         &lt;li&gt;1&lt;/li&gt;
+....:         &lt;li&gt;2&lt;/li&gt;
+....:         &lt;li&gt;3&lt;/li&gt;
+....:     &lt;/ul&gt;
+....:     &lt;ul class=&quot;list&quot;&gt;
+....:         &lt;li&gt;4&lt;/li&gt;
+....:         &lt;li&gt;5&lt;/li&gt;
+....:         &lt;li&gt;6&lt;/li&gt;
+....:     &lt;/ul&gt;&quot;&quot;&quot;)
+&gt;&gt;&gt; xp = lambda x: sel.xpath(x).extract()
+</code></pre>
+
+<p>这就得到了在它的父元素下所有的<code>&lt;li&gt;</code>元素</p>
+<pre><code>&gt;&gt;&gt; xp(&quot;//li[1]&quot;)
+[u'&lt;li&gt;1&lt;/li&gt;', u'&lt;li&gt;4&lt;/li&gt;']
+</code></pre>
+
+<p>这就得到了整个文档的第一个<code>&lt;li&gt;</code>元素：</p>
+<pre><code>&gt;&gt;&gt; xp(&quot;(//li)[1]&quot;)
+[u'&lt;li&gt;1&lt;/li&gt;']
+</code></pre>
+
+<p>这就得到了父母的第一个<code>&lt;li&gt;</code>元素：</p>
+<pre><code>&gt;&gt;&gt; xp(&quot;//ul/li[1]&quot;)
+[u'&lt;li&gt;1&lt;/li&gt;', u'&lt;li&gt;4&lt;/li&gt;']
+</code></pre>
+
+<p>这就得到了整个文档中<code>&lt;ul&gt;</code>父元素下的第一个<code>&lt;li&gt;</code>元素：</p>
+<pre><code>&gt;&gt;&gt; xp(&quot;(//ul/li)[1]&quot;)
+[u'&lt;li&gt;1&lt;/li&gt;']
+</code></pre>
+
+<h2 id="classcss">在进行类(class)查询时，考虑使用CSS选择器</h2>
+<p>因为一个元素可以包含多个CSS类，所以通过class来选择元素的XPath方法是相当冗长的：</p>
+<pre><code>*[contains(concat(' ', normalize-space(@class), ' '), ' someclass ')]
+</code></pre>
+
+<p>如果你使用<code>@class='someclass'</code>，你可能会错过其他类的元素，如果你只是使用<code>contains(@class, 'someclass')</code>来弥补，你可能会得到更多你想要的元素，如果它们有一个不同的类名，它共享字符串<code>someclass</code>。</p>
+<p>事实证明，Scrapy selectors允许你选择链选择器，所以大多数时候你可以在类中选择使用CSS，然后在需要时切换到XPath：</p>
+<pre><code>&gt;&gt;&gt; from scrapy import Selector
+&gt;&gt;&gt; sel = Selector(text='&lt;div class=&quot;hero shout&quot;&gt;&lt;time datetime=&quot;2014-07-23 19:00&quot;&gt;Special date&lt;/time&gt;&lt;/div&gt;')
+&gt;&gt;&gt; sel.css('.shout').xpath('./time/@datetime').extract()
+[u'2014-07-23 19:00']
+</code></pre>
+
+<p>这比使用上面显示的冗长的XPath技巧更干净。只要记住在接下来的XPath表达式中使用<code>.</code>。</p>
+<h1 id="_9">内置的选择器参考</h1>
+<h2 id="selector_1">Selector(选择器) 对象</h2>
+<h4 id="scrapyselectorselectorresponsenone-textnone-typenone-class">scrapy.selector.Selector(response=None, text=None, type=None)   这是一个类(class)</h4>
+<blockquote>
+<p><a href="#">Selector</a>的一个实例是一个包装器，用于选择其内容的某些部分。</p>
+<p><code>response</code>是一个<a href="#">HtmlResponse</a>或<a href="#">XmlResponse</a>对象，它将被用于选择和提取数据。</p>
+<p><code>text</code>是一种unicode字符串或utf-8编码的文本，当无法获得<code>response</code>时。使用<code>text</code>和<code>response</code>是未定义的行为。</p>
+<p><code>type</code>定义selector类型，它可以是<code>“html”</code>、<code>“xml”</code>或<code>None</code>（默认）。</p>
+<blockquote>
+<p>如果<code>type</code>为<code>None</code>，则selector会根据<code>response</code>类型自动选择最佳类型（见下文），或者默认为“html”，以防它与<code>text</code>一起使用。</p>
+<p>如果<code>type</code>为<code>None</code>，并且<code>response</code>被传递，那么selector类型是从response类型推断出来的：</p>
+<blockquote>
+<p><code>"html"</code> <a href="#">HtmlResponse</a>类型</p>
+<p><code>"xml"</code> <a href="#">XmlResponse</a>类型</p>
+<p><code>"html"</code> 做别的事情</p>
+</blockquote>
+</blockquote>
+<p>否则，如果<code>type</code>被设置，selector类型就是固定的，不会发生自动检测类型。</p>
+<p><code>xpath(query)</code></p>
+<blockquote>
+<p>找到匹配<code>query</code>的节点的xpath，并将结果返回给<a href="#">SelectorList</a>实例，所有元素都被展开。列表元素也实现了<a href="#">SelectorList</a>接口。</p>
+<p><code>query</code>是一个包含XPATH查询的字符串。</p>
+</blockquote>
+</blockquote>
+<pre><code>注意!!!!!!!!!!!
+为了方便起见，这个方法可以称为response.xpath()
+</code></pre>
+
+<blockquote>
+<p><code>css(query)</code></p>
+<blockquote>
+<p>应用给定的CSS选择器并返回<a href="#">SelectorList</a>实例。</p>
+<p><code>query</code>是包含要应用的CSS选择器的字符串。</p>
+<p>在底层，CSS查询被翻译成XPath查询，使用<a href="https://pypi.python.org/pypi/cssselect/">cssselect</a>库和<code>.xpath()</code>方法。</p>
+</blockquote>
+</blockquote>
+<pre><code>注意!!!!!!!!!!!!
+为了方便起见，这个方法可以称为response.css()
+</code></pre>
+
+<blockquote>
+<p><code>extract()</code> </p>
+<blockquote>
+<p>序列化并返回匹配的节点作为unicode字符串的列表。百分比编码的内容是未被引用的。</p>
+</blockquote>
+<p><code>re(regex)</code></p>
+<blockquote>
+<p>应用给定的正则表达式，并返回匹配的unicode字符串列表。</p>
+<p><code>regex</code>可以是一个已编译(compiled)的正则表达式，也可以是一个字符串，它将使用<code>re.compile(regex)</code>编译成正则表达式。</p>
+</blockquote>
+</blockquote>
+<pre><code>注意!!!!!!!!!
+注意re()和re_first()都decode HTML实体（除了&amp;lt;和&amp;amp;)。
+</code></pre>
+
+<blockquote>
+<p><code>register_namespace(prefix, uri)</code></p>
+<blockquote>
+<p>在这个<a href="#">Selector</a>中注册指定的名称空间。如果不注册名称空间，就不能从非标准名称空间中选择或提取数据。请参见下面的例子。</p>
+</blockquote>
+<p><code>remove_namespaces()</code></p>
+<blockquote>
+<p>删除所有名称空间，允许使用名称空间较少的xpath遍历文档。请参见下面的例子。</p>
+</blockquote>
+<p><code>__nonzero__()</code></p>
+<blockquote>
+<p>如果有任何真实的内容被选择返回<code>True</code>。否则<code>False</code>换句话说，<a href="#">Selector</a>的布尔值是由它所选择的内容给出的。</p>
+</blockquote>
+</blockquote>
+<h2 id="selectorlist">SelectorList(选择器列表) 对象</h2>
+<h4 id="scrapyselectorselectorlist-class">scrapy.selector.SelectorList   这是一个类(class)</h4>
+<p><a href="#">SelectorList</a>类是内建list类的子类，它提供了一些额外的方法。</p>
+<blockquote>
+<p><code>xpath(query)</code></p>
+<blockquote>
+<p>为这个列表中的每个元素调用<code>.xpath()</code>方法，并将它们的结果作为另一个<a href="#">SelectorList</a>展开。</p>
+<p><code>query</code>与<a href="#">Selector.xpath()</a>中的参数是相同的。</p>
+</blockquote>
+<p><code>css(query)</code></p>
+<blockquote>
+<p>为这个列表中的每个元素调用<code>.css()</code>方法，并将它们的结果作为另一个<a href="#">SelectorList</a>展开。</p>
+<p><code>query</code>与<a href="#">Selector.css()</a>中的参数是相同的。</p>
+</blockquote>
+<p><code>extract()</code></p>
+<blockquote>
+<p>为这个列表中的每个元素调用<code>.extract()</code>方法，并将它们的结果展开返回，作为unicode字符串的列表。</p>
+</blockquote>
+<p><code>re()</code></p>
+<blockquote>
+<p>为这个列表中的每个元素调用<code>.re()</code>方法，并将它们的结果展开返回，作为unicode字符串的列表。</p>
+</blockquote>
+</blockquote>
+<h2 id="html-response">HTML response的选择器示例</h2>
+<blockquote>
+<p>这里有几个<a href="#">Selector</a>示例来说明几个概念。在所有情况下，我们假设已经有一个<a href="#">Selector</a>实例化了一个<a href="#">HtmlResponse</a>对象，如下所示：</p>
+</blockquote>
+<pre><code>sel = Selector(html_response)
+</code></pre>
+
+<blockquote>
+<p>从一个HTML response体中选择所有<code>&lt;h1&gt;</code>元素，返回一个<a href="#">Selector</a>对象的列表（例如。<a href="#">SelectorList</a>对象):</p>
+</blockquote>
+<pre><code>sel.xpath(&quot;//h1&quot;)
+</code></pre>
+
+<blockquote>
+<p>从一个HTML response体中提取所有<code>&lt;h1&gt;</code>元素的文本，返回一个unicode字符串列表：</p>
+</blockquote>
+<pre><code>sel.xpath(&quot;//h1&quot;).extract()         # 这包括h1标签
+sel.xpath(&quot;//h1/text()&quot;).extract()  # 这就排除了h1标签
+</code></pre>
+
+<blockquote>
+<p>遍历所有的<code>&lt;p&gt;</code>标签并打印它们的class属性：</p>
+</blockquote>
+<pre><code>for node in sel.xpath(&quot;//p&quot;):
+    print node.xpath(&quot;@class&quot;).extract()
+</code></pre>
+
+<h2 id="xml">XML响应的选择器示例</h2>
+<blockquote>
+<p>这里有几个例子来说明几个概念。在这两种情况下，我们假设已经有一个<a href="#">Selector</a>实例化了一个<a href="#">XmlResponse</a>对象，如下所示：</p>
+</blockquote>
+<pre><code>sel = Selector(xml_response)
+</code></pre>
+
+<blockquote>
+<p>从一个XML response体中选择所有的<code>&lt;product&gt;</code>元素，返回一个<a href="#">Selector</a>对象的列表（例如。<a href="#">SelectorList</a>对象):</p>
+</blockquote>
+<pre><code>sel.xpath(&quot;//product&quot;)
+</code></pre>
+
+<blockquote>
+<p>从<a href="https://support.google.com/merchants/answer/160589?hl=en&amp;ref_topic=2473799">Google Base XML</a>feed中提取所有价格，这需要注册一个名称空间：</p>
+</blockquote>
+<pre><code>sel.register_namespace(&quot;g&quot;, &quot;http://base.google.com/ns/1.0&quot;)
+sel.xpath(&quot;//g:price&quot;).extract()
+</code></pre>
+
+<h2 id="_10">删除名称空间</h2>
+<blockquote>
+<p>在处理抓取项目时，完全消除名称空间通常是非常方便的，只需使用元素名称即可，编写更简单/方便的xpath。您可以使用<code>Selector.remove_namespaces()</code>方法。</p>
+<p>让我们展示一个用GitHub博客atom feed演示的例子。</p>
+<p>首先，我们打开shell带上想要抓取的url：</p>
+</blockquote>
+<pre><code>$ scrapy shell https://github.com/blog.atom
+</code></pre>
+
+<blockquote>
+<p>一旦进入shell，我们可以尝试选择所有的<code>&lt;link&gt;</code>对象，并看到它不起作用（因为Atom XML名称空间混淆了这些节点）：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.xpath(&quot;//link&quot;)
+[]
+</code></pre>
+
+<blockquote>
+<p>但是一旦我们调用<code>Selector.remove_namespaces()</code>方法，所有节点都可以通过它们的名称直接访问：</p>
+</blockquote>
+<pre><code>&gt;&gt;&gt; response.selector.remove_namespaces()
+&gt;&gt;&gt; response.xpath(&quot;//link&quot;)
+[&lt;Selector xpath='//link' data=u'&lt;link xmlns=&quot;http://www.w3.org/2005/Atom'&gt;,
+ &lt;Selector xpath='//link' data=u'&lt;link xmlns=&quot;http://www.w3.org/2005/Atom'&gt;,
+ ...
+</code></pre>
+
+<blockquote>
+<p>如果您想知道为什么名称空间删除过程不总是被默认调用，而是手动调用它，这是因为有两个原因，根据相关性，它们是：</p>
+<ol>
+<li>
+<p>Scrapy抓取的所有文档, 想要删除名称空间需要迭代和修改文档中的所有节点，这是一种相当昂贵的操作。</p>
+</li>
+<li>
+<p>在某些情况下，实际上需要使用名称空间，以防某些元素名称在名称空间之间发生冲突。不过，这些特例非常罕见。</p>
+</li>
+</ol>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../7-spiders/" class="btn btn-neutral" title="Spiders 自定义爬虫类"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../7-spiders/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
