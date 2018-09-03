@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Spiders 自定义爬虫类 - Scrapy 1.5 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Spiders \u81ea\u5b9a\u4e49\u722c\u866b\u7c7b";
+    var mkdocs_page_input_path = "07-spiders.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01-index/">第一步</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../02-overview/">一眼了解Scrapy</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03-install/">安装指导</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04-scrapy tutorial/">Scrapy 教程</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05-examples/">例子</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06-command_line_tool/">命令行工具</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Spiders 自定义爬虫类</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#spiders">Spiders 自定义爬虫类</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#scrapyspider">scrapy.Spider</a></li>
+        
+            <li><a class="toctree-l3" href="#spider">Spider参数</a></li>
+        
+            <li><a class="toctree-l3" href="#spiders_1">通用的Spiders</a></li>
+        
+            <li><a class="toctree-l3" href="#crawlspider">CrawlSpider</a></li>
+        
+            <li><a class="toctree-l3" href="#crawling-rules">Crawling rules</a></li>
+        
+            <li><a class="toctree-l3" href="#crawlspider_1">CrawlSpider例子</a></li>
+        
+            <li><a class="toctree-l3" href="#xmlfeedspider">XMLFeedSpider</a></li>
+        
+            <li><a class="toctree-l3" href="#xmlfeedspider-example">XMLFeedSpider example</a></li>
+        
+            <li><a class="toctree-l3" href="#csvfeedspider">CSVFeedSpider</a></li>
+        
+            <li><a class="toctree-l3" href="#csvfeedspider_1">CSVFeedSpider例子</a></li>
+        
+            <li><a class="toctree-l3" href="#sitemapspider">SitemapSpider</a></li>
+        
+            <li><a class="toctree-l3" href="#sitemapspider_1">SitemapSpider例子</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08-selctor/">Selector 选择器</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09-items/">Items</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Scrapy 1.5 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Spiders 自定义爬虫类</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="spiders">Spiders 自定义爬虫类</h1>
+<p>spider是定义如何抓取某个站点(或一组站点)的类，包括如何执行抓取(即跟踪链接)以及如何从页面中提取结构化数据(即抓取items)。换句话说，爬虫是您为某个特定站点(或者在某些情况下是一组站点)的页面抓取和解析定义定制行为的地方。</p>
+<p>对于spiders来说，抓取周期是这样的:</p>
+<ol>
+<li>
+<p>首先生成初始请求来抓取第一个url，并指定要使用从这些requests下载的response调用的回调函数。</p>
+<p>要执行的第一个请求是通过调用<a href="#">start_requests()</a>方法获得的，这个方法(默认情况下)为<a href="#">start_urls</a>中指定的url生成<a href="#">requests</a>，而<a href="#">parse</a>方法作为requests的回调函数。</p>
+</li>
+<li>
+<p>在回调函数中，解析response(web页面)并使用提取的数据、<a href="#">Item</a>对象、<a href="#">Requests</a>对象或这些对象的迭代返回dicts。这些Requests还将包含一个回调(可能相同)，然后由Scrapy下载，然后由指定的回调处理它们的response。</p>
+</li>
+<li>
+<p>在回调函数中，您可以解析页面内容，通常使用<a href="#">选择器</a>(但也可以使用BeautifulSoup、lxml或任何您喜欢的机制)，并使用解析后的数据生成items。</p>
+</li>
+<li>
+<p>最后，从spider返回的items通常会持久化到数据库(在某个Item Pipeline中)，或者写入文件使用<a href="#">Feed exports</a></p>
+</li>
+</ol>
+<p>尽管这个周期适用于(或多或少)任何类型的爬虫，但是为了不同的目的将不同类型的默认spider打包到Scrapy中。我们将在这里讨论这些类型。</p>
+<h2 id="scrapyspider">scrapy.Spider</h2>
+<h4 id="scrapyspidersspider-class">scrapy.spiders.Spider   这是一个类(class)</h4>
+<blockquote>
+<p>这是最简单的spider，也是所有其他spider都必须继承的spider(包括与Scrapy捆绑在一起的spider，以及你自己编写的spider)。它不提供任何特殊的功能。它只提供了一个默认的start_requests()实现方法，它从spider属性里的<code>start_urls</code> 发出请求，并为每个得到的responses调用spider<code>parse</code>方法。</p>
+<p>name</p>
+<blockquote>
+<p>定义此爬虫名称的字符串。spider名称是由Scrapy定位(并实例化)的方式，因此它必须是惟一的。但是，没有什么可以阻止您实例化同一个爬行器的多个实例。这是最重要的spider属性，也是必需的。</p>
+<p>如果spider抓取了一个域名，通常的做法是用域名来命名爬虫，不管有没有<a href="https://en.wikipedia.org/wiki/Top-level_domain">TLD(顶级域名)</a>。例如，抓取<code>mywebsite.com</code>的spider通常被称为<code>mywebsite</code>。</p>
+</blockquote>
+</blockquote>
+<pre><code>注意!!!!!!
+在python2里，必须是ASCII码。
+</code></pre>
+
+<blockquote>
+<p>allowed_domains</p>
+<blockquote>
+<p>一个可选的字符串列表，其中包含允许此spider抓取的域名。如果启用了<a href="#">OffsiteMiddleware</a>，将不会跟踪不属于本列表中指定的域名(或其子域名)的url请求。</p>
+<p>假设您的目标url是<code>https://www.example.com/1.html</code>，然后将<code>'example.com'</code>添加到列表中。</p>
+</blockquote>
+<p>start_urls</p>
+<blockquote>
+<p>当没有指定特定的url时，爬虫将从其中开始抓取url列表进行抓取。所以，下载的第一个页面就是从这里出来的。后续<a href="#">Request</a>都是从start url中包含的数据连续生成的。</p>
+</blockquote>
+<p>custom_settings</p>
+<blockquote>
+<p>运行此爬虫时将会覆盖项目文件里的设置。它必须被定义为类属性，因为在实例化之前已经更新了设置。</p>
+<p>有关可用的内置设置的列表，请参阅: <a href="#">内置的设置参考</a></p>
+</blockquote>
+<p>crawler</p>
+<blockquote>
+<p>这个属性是在初始化类之后由<a href="#">from_crawler</a>类方法设置的，并且链接到这个爬虫实例绑定到的<a href="#">Crawler</a>对象。</p>
+<p>Crawlers在项目中封装了许多组件，用于它们的单一入口访问(如扩展、中间件、信号管理器等)。查看<a href="#">Crawler API</a>了解更多信息。</p>
+</blockquote>
+<p>settings</p>
+<blockquote>
+<p>运行此spider的配置。这是一个<a href="#">Settings</a>实例，有关这个主题的详细介绍，请参阅<a href="#">设置</a>主题。</p>
+</blockquote>
+<p>logger</p>
+<blockquote>
+<p>用Spider的<a href="#">名字</a>创建的Python日志记录器。您可以使用它来通过它发送日志消息，正如在<a href="#">spider日志记录</a>中所描述的那样。</p>
+</blockquote>
+<p>from_crawler(crawler, <em>args, </em>*kwargs)</p>
+<blockquote>
+<p>这是Scrapy用来创建Spider的类方法。</p>
+<p>您可能不需要直接覆盖它，因为默认实现充当<code>__init__()</code>方法，使用给定的参数arg和命名的参数kwargs调用它。</p>
+<p>尽管如此，该方法在新实例中设置了<a href="#">crawler</a>和<a href="#">settings</a>属性，以便稍后可以在爬虫代码中访问它们。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<p>crawler (<a href="#">Crawler</a>实例) – 爬虫，spider被绑在上面</p>
+<p>args (列表) – 传递给<code>__init__()</code>方法的参数</p>
+<p>kwargs (字典) – 传递给<code>__init__()</code>方法的关键字参数</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>start_requests()</p>
+<blockquote>
+<p>当spider被打开进行抓取的时候, 这个方法必须返回一个可迭代的对象，其中就包含发出去的第一个Requests。这样就被称为“Scrapy”。Scrapy只调用一次，所以将<a href="">start_requests()</a>作为生成器实现是安全的。</p>
+<p>默认实现为start_urls中的每个url生成<code>Request(url, dont_filter=True)</code>。</p>
+<p>如果您只想发送一个请求而不是用生成器的方式， 那么就用覆盖的方式， 直接在Request里面重写url。例如，如果您需要从使用POST请求登录开始，您可以这样做:</p>
+</blockquote>
+</blockquote>
+<pre><code>class MySpider(scrapy.Spider):
+    name = 'myspider'
+
+    def start_requests(self):
+        return [scrapy.FormRequest(&quot;http://www.example.com/login&quot;,
+                                   formdata={'user': 'john', 'pass': 'secret'},
+                                   callback=self.logged_in)]
+
+    def logged_in(self, response):
+        # here you would extract links to follow and return Requests for
+        # each of them, with another callback
+        pass
+</code></pre>
+
+<blockquote>
+<p>parse(response)</p>
+<blockquote>
+<p>当这些请求没有指定回调时，Scrapy使用默认回调来处理下载的response。</p>
+<p><code>parse</code>方法负责处理response并返回抓取的数据或更多url来追踪。其他Requests回调具有与<a href="">Spider</a>类相同的需求。</p>
+<p>此方法以及任何其他Request回调都必须返回<a href="">Request</a>和/或dicts或<a href="">Item</a>对象的迭代。</p>
+<blockquote>
+<p>参数: </p>
+<blockquote>
+<p>response (<a href="">Response</a>) – 解析之后的response</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><code>log</code>(message[, level, component])</p>
+<blockquote>
+<p>通过爬虫<a href="#">logger</a>将大量的信息包装起来，用于向后兼容。有关更多信息，请参见爬行器<a href="#">日志记录</a>。</p>
+</blockquote>
+<p><code>closed</code>(reason)</p>
+<blockquote>
+<p>当Spider关闭时会被调用。这个方法提供了一个快捷方式，signals.connect()用于<a href="#">spider_closed</a>信号。</p>
+</blockquote>
+</blockquote>
+<p>让我们看一个例子:</p>
+<pre><code>import scrapy
+
+
+class MySpider(scrapy.Spider):
+    name = 'example.com'
+    allowed_domains = ['example.com']
+    start_urls = [
+        'http://www.example.com/1.html',
+        'http://www.example.com/2.html',
+        'http://www.example.com/3.html',
+    ]
+
+    def parse(self, response):
+        self.logger.info('A response from %s just arrived!', response.url)
+</code></pre>
+
+<p>多个Requests和items可以用一个回调来完成</p>
+<pre><code>import scrapy
+
+class MySpider(scrapy.Spider):
+    name = 'example.com'
+    allowed_domains = ['example.com']
+    start_urls = [
+        'http://www.example.com/1.html',
+        'http://www.example.com/2.html',
+        'http://www.example.com/3.html',
+    ]
+
+    def parse(self, response):
+        for h3 in response.xpath('//h3').extract():
+            yield {&quot;title&quot;: h3}
+
+        for url in response.xpath('//a/@href').extract():
+            yield scrapy.Request(url, callback=self.parse)
+</code></pre>
+
+<p>与<a href="#">start_urls</a>不同，您可以直接使用<a href="#">startrequest()</a>为了给数据提供更多的结构，你可以使用<a href="#">Items</a>:</p>
+<pre><code>import scrapy
+from myproject.items import MyItem
+
+class MySpider(scrapy.Spider):
+    name = 'example.com'
+    allowed_domains = ['example.com']
+
+    def start_requests(self):
+        yield scrapy.Request('http://www.example.com/1.html', self.parse)
+        yield scrapy.Request('http://www.example.com/2.html', self.parse)
+        yield scrapy.Request('http://www.example.com/3.html', self.parse)
+
+    def parse(self, response):
+        for h3 in response.xpath('//h3').extract():
+            yield MyItem(title=h3)
+
+        for url in response.xpath('//a/@href').extract():
+            yield scrapy.Request(url, callback=self.parse)
+</code></pre>
+
+<h2 id="spider">Spider参数</h2>
+<p>Spider可以接受修改自己行为的参数。一些常见的spider参数大多用途是定义起始url，或者限制抓取某些站点某些部分，但是它们可以用来配置spider的任何功能。</p>
+<p>Spider参数通过<a href="#">crawl</a>命令使用<code>-a</code>选项来接收参数。例如:</p>
+<pre><code>scrapy crawl myspider -a category=electronics
+</code></pre>
+
+<p>Spider可以在<code>__init__</code>方法中访问参数：</p>
+<pre><code>import scrapy
+
+class MySpider(scrapy.Spider):
+    name = 'myspider'
+
+    def __init__(self, category=None, *args, **kwargs):
+        super(MySpider, self).__init__(*args, **kwargs)
+        self.start_urls = ['http://www.example.com/categories/%s' % category]
+        # ...
+</code></pre>
+
+<p>默认的<strong>init</strong>方法将接受任何spider参数，并将它们复制到spider作为属性。上面的例子也可以写如下：</p>
+<pre><code>import scrapy
+
+class MySpider(scrapy.Spider):
+    name = 'myspider'
+
+    def start_requests(self):
+        yield scrapy.Request('http://www.example.com/categories/%s' % self.category)
+</code></pre>
+
+<p>请记住，spider参数只能是字符串。爬行器不会自己进行任何解析。如果您要从命令行设置start_urls属性，您将不得不使用诸如<a href="#">ast.literal eval</a>或<a href="#">json.loads</a>之类的东西将其解析成一个列表。加载并将其设置为属性。否则，您将导致对start_urls字符串（一个非常常见的python陷阱）的迭代，导致每个字符被视为一个单独的url。</p>
+<p>一个有效的用例是使用http认证凭据<a href="#">HttpAuthMiddleware</a>或使用的用户代理<a href="#">UserAgentMiddleware</a>：</p>
+<pre><code>scrapy crawl myspider -a http_user=myuser -a http_pass=mypassword -a user_agent=mybot
+</code></pre>
+
+<p>Spider参数也可以通过Scrapyd的<code>schedule.json</code>API来传递, 查看<a href="https://scrapyd.readthedocs.io/en/latest/">Scrapyd文档</a></p>
+<h2 id="spiders_1">通用的Spiders</h2>
+<p>Scrapy有一些有用的通用spiders，你可以用在你自己的spiders上面继承它们。他们的目标是为一些常见的抓取案例提供方便的功能，比如根据某些规则在站点上的所有链接，从<a href="https://www.sitemaps.org/index.html">Sitemaps</a>上抓取，或者解析一个xml/csv feed。</p>
+<p>对于下面的spiders中使用的例子，我们假设您有一个项目，它的一个项目是在myproject中声明的。项目模块:</p>
+<pre><code>import scrapy
+
+class TestItem(scrapy.Item):
+    id = scrapy.Field()
+    name = scrapy.Field()
+    description = scrapy.Field()
+</code></pre>
+
+<hr />
+<h2 id="crawlspider">CrawlSpider</h2>
+<h4 id="scrapyspiderscrawlspider-class">scrapy.spiders.CrawlSpider   这是一个类(class)</h4>
+<blockquote>
+<p>这是最常用的抓取常规网站的spider，因为它提供了一种方便的机制，通过定义一组规则来跟踪链接。它可能不是最适合您的特定web站点或项目的，但是它对于几个案例来说是通用的，所以您可以从它开始，根据需要重写它，以获得更多的自定义功能，或者仅仅实现您自己的spider。</p>
+<p>除了从Spider继承的属性（您必须指定）之外，该类还支持一个新属性：</p>
+<p><code>rules</code></p>
+<blockquote>
+<p>它是一个（或多个）<a href="#">Rule</a>对象的列表。每个<a href="#">Rule</a>都定义了抓取站点的特定行为。Rules对象如下所述。根据它们在该属性中定义的顺序, 如果多个规则匹配相同的链接，那么第一个规则将被使用.</p>
+</blockquote>
+<p>这个sppider还公开了一种可重写的方法：</p>
+<p><code>parse_start_url(response)</code></p>
+<blockquote>
+<p>这种方法用来回调start_urls的response。它允许解析初始response，并且必须返回<a href="#">Item</a>对象、<a href="#">Request</a>对象或包含其中任何一个的可迭代的。</p>
+</blockquote>
+</blockquote>
+<h2 id="crawling-rules">Crawling rules</h2>
+<h4 id="scrapyspidersrulelink_extractor-callbacknone-cb_kwargsnone-follownone-process_linksnone-process_requestnone-class">scrapy.spiders.Rule(link_extractor, callback=None, cb_kwargs=None, follow=None, process_links=None, process_request=None)   这是一个类(class)</h4>
+<blockquote>
+<p><code>link_extractor</code> 是一个<a href="#">Link Extractor</a>对象，它定义了如何从每个抓取页面中提取链接。</p>
+<p><code>callback</code> 是一个可调用的或一个字符串（在这种情况下，将使用带有该名称的spider对象的方法）来调用与指定的link_extractor提取的每一个链接。这个回调将第一个参数作为response，并且必须返回包含<a href="#">Item</a>和/或<a href="#">Requests</a>对象（或任何子类）的列表。</p>
+</blockquote>
+<pre><code>警告警告警告!!!!!
+
+在编写抓取规则时，避免使用parse作为回调，因为CrawlSpider本身就是用了parse方法来实现它的逻辑。所以如果你重写了parse方法，spider就不再工作了。
+</code></pre>
+
+<p><code>cb_kwargs</code> 是包含要传递给回调函数的关键字参数。</p>
+<p><code>follow</code> 是一个布尔值，它指定是否应该根据这个规则提取出的每个response。如果<code>callbacck</code>没有指定, <code>默认</code>为<code>True</code>, 否则为<code>False</code>。</p>
+<p><code>process_links</code> 它是可调用的，或者是一个字符串（在这种情况下，将使用来自于spider对象的方法），每个响应中提取的每个链接列表都将被调用，使用指定的<code>link_extractor</code>。这主要用于过滤目的。</p>
+<p><code>process_request</code> 是一个可调用的，或者是一个字符串（在这种情况下，将会使用来自于这个名称的spider对象的方法），在这个规则中提取的每一个请求都将被调用，并且必须返回一个request或None（以过滤掉请求）。</p>
+<h2 id="crawlspider_1">CrawlSpider例子</h2>
+<p>现在让我们来看一个带有规则的spider示例：</p>
+<pre><code>import scrapy
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
+
+class MySpider(CrawlSpider):
+    name = 'example.com'
+    allowed_domains = ['example.com']
+    start_urls = ['http://www.example.com']
+
+    rules = (
+        # 提取链接匹配 'category.php' (但不匹配 'subsection.php')
+        # 并跟随他们的链接 (因为没有回调意味着在默认情况下为True).
+        Rule(LinkExtractor(allow=('category\.php', ), deny=('subsection\.php', ))),
+
+        # 提取链接匹配 'item.php' 用spider的方法parse_item来解析它们
+        Rule(LinkExtractor(allow=('item\.php', )), callback='parse_item'),
+    )
+
+    def parse_item(self, response):
+        self.logger.info('Hi, this is an item page! %s', response.url)
+        item = scrapy.Item()
+        item['id'] = response.xpath('//td[@id=&quot;item_id&quot;]/text()').re(r'ID: (\d+)')
+        item['name'] = response.xpath('//td[@id=&quot;item_name&quot;]/text()').extract()
+        item['description'] = response.xpath('//td[@id=&quot;item_description&quot;]/text()').extract()
+        return item
+</code></pre>
+
+<p>这个spider会在开始的时候抓取example.com的主页，收集category链接和items链接，用<code>parse_item</code>方法解析后者。对于每一个item response，一些数据将使用XPath从HTML中提取出来，并且一个<a href="#">Item</a>将被填充。</p>
+<h2 id="xmlfeedspider">XMLFeedSpider</h2>
+<h4 id="scrapyspidersxmlfeedspider-class">scrapy.spiders.XMLFeedSpider   这是一个类(class)</h4>
+<blockquote>
+<p>XMLFeedSpider是为解析XML feeds而设计的，方法是通过某个节点名遍历它们。迭代器可以从：<code>iternodes</code>、<code>xml</code>和<code>html</code>中选择。出于性能的考虑，建议使用<code>iternodes</code>迭代器，因为<code>xml</code>和<code>html</code>迭代器会同时生成整个DOM，以便解析它。然而，使用<code>html</code>作为迭代器在一些标签糟糕杂乱的XML时可能会很有用。</p>
+<p>要设置迭代器和标记名称，您必须定义下列类属性：</p>
+<p><code>iterator</code> </p>
+<blockquote>
+<p>一种定义要使用的迭代器的字符串。它可以是:</p>
+<blockquote>
+<p><code>'iternodes'</code> 基于正则表达式的快速迭代器</p>
+<p><code>'html'</code> 一个使用<a href="#">Selector</a>的迭代器。请记住，这使用了DOM解析，并且必须在内存中加载所有DOM，大型xml对于内存来说, 绝对是一个问题</p>
+<p><code>'xml'</code> 完全同上</p>
+</blockquote>
+<p>这个属性默认为<code>'iternodes'</code></p>
+</blockquote>
+<p><code>itertag</code> 一个带有节点（或元素）名称的字符串，以进行迭代。例子:</p>
+</blockquote>
+<pre><code>itertag = 'product'
+</code></pre>
+
+<blockquote>
+<p><code>namespaces</code> 一组（<code>prefix</code>、<code>uri</code>）元组，它定义了该文档中可用的名称空间，该名称空间将由该spider处理。<code>prefix</code>和<code>uri</code>将使用<a href="#">registernamespace()</a>方法自动注册名称空间。</p>
+</blockquote>
+<p>然后您可以在<a href="#">itertag</a>属性中指定带有名称空间的节点。</p>
+<pre><code>class YourSpider(XMLFeedSpider):
+
+    namespaces = [('n', 'http://www.sitemaps.org/schemas/sitemap/0.9')]
+    itertag = 'n:url'
+    # ...
+</code></pre>
+
+<p>除了这些新属性之外，这个spider也有以下可重写的方法：</p>
+<blockquote>
+<p><code>adapt_response(response)</code> 一种从spider middleware中接收response的方法，，在spider开始解析它之前。它可以用于在解析response body之前修改它。这个方法接收一个response，并返回一个response（它可以是相同的，也可以是另一个）。</p>
+<p><code>parse_node(response, selector)</code> 这种方法被称为匹配所提供的标记名称（<code>itertag</code>）的节点。接收每个节点的response和<a href="#">Selector</a>。重写这个方法是强制性的。否则，你的spider就不会工作了。此方法必须返回<a href="#">Item</a>对象、<a href="#">Request</a>]对象或包含其中任何一个的可迭代的。</p>
+<p><code>process_results(response, results)</code> 这个方法是为spider返回的每个结果（item或request）调用的，并且它的目的是在将结果返回到框架核心之前执行任何最后一次处理，例如设置item IDs。它收到一个结果列表和产生这些结果的response。它必须返回一个结果列表（Items或Requests）。</p>
+</blockquote>
+<h2 id="xmlfeedspider-example">XMLFeedSpider example</h2>
+<p>这些Spiders很容易使用，让我们看一个例子：</p>
+<pre><code>from scrapy.spiders import XMLFeedSpider
+from myproject.items import TestItem
+
+class MySpider(XMLFeedSpider):
+    name = 'example.com'
+    allowed_domains = ['example.com']
+    start_urls = ['http://www.example.com/feed.xml']
+    iterator = 'iternodes'  # 这实际上是不必要的，因为它是默认值
+    itertag = 'item'
+
+    def parse_node(self, response, node):
+        self.logger.info('Hi, this is a &lt;%s&gt; node!: %s', self.itertag, ''.join(node.extract()))
+
+        item = TestItem()
+        item['id'] = node.xpath('@id').extract()
+        item['name'] = node.xpath('name').extract()
+        item['description'] = node.xpath('description').extract()
+        return item
+</code></pre>
+
+<p>基本上，我们所做的就是创建一个从给定的start_url中下载feed的spider，然后遍历每一个<code>item</code>标签，打印出来，并在一个<a href="#">Item</a>中存储一些随机的数据。</p>
+<h2 id="csvfeedspider">CSVFeedSpider</h2>
+<h4 id="scrapyspiderscsvfeedspider-class">scrapy.spiders.CSVFeedSpider   这是一个类(class)</h4>
+<p>这只spider与XMLFeedSpider非常相似，除了它迭代的是行，而不是节点。在每次迭代中调用的方法是<a href="">parse_row()</a>。</p>
+<blockquote>
+<p><code>delimiter</code> CSV文件中每个字段的分隔符字符串默认为<code>','</code>（逗号）。</p>
+<p><code>quotechar</code> CSV文件中每个字段的外壳字符的字符串默认为<code>"''"</code>（引号）。</p>
+<p><code>headers</code> CSV文件中列名的列表。</p>
+<p><code>parse_row(response, row)</code> 接收一个response和一个（代表每一行）的一个dict，并为CSV文件的每个header提供(或检测到的)一个key。该spider还提供了<code>adapt_response</code>和<code>process_results</code>用于预处理和后处理的方法。</p>
+</blockquote>
+<h2 id="csvfeedspider_1">CSVFeedSpider例子</h2>
+<p>让我们看一个与前一个类似的例子，但使用的是<a href="#">CSVFeedSpider</a>：</p>
+<pre><code>from scrapy.spiders import CSVFeedSpider
+from myproject.items import TestItem
+
+class MySpider(CSVFeedSpider):
+    name = 'example.com'
+    allowed_domains = ['example.com']
+    start_urls = ['http://www.example.com/feed.csv']
+    delimiter = ';'
+    quotechar = &quot;'&quot;
+    headers = ['id', 'name', 'description']
+
+    def parse_row(self, response, row):
+        self.logger.info('Hi, this is a row!: %r', row)
+
+        item = TestItem()
+        item['id'] = row['id']
+        item['name'] = row['name']
+        item['description'] = row['description']
+        return item
+</code></pre>
+
+<h2 id="sitemapspider">SitemapSpider</h2>
+<h4 id="scrapyspiderssitemapspider-class">scrapy.spiders.SitemapSpider   这是一个类(class)</h4>
+<blockquote>
+<p>SitemapSpider可以通过使用<a href="https://www.sitemaps.org/index.html">Sitemaps</a>发现url来抓取站点。</p>
+<p>它支持嵌套的sitemaps地图，并从<a href="http://www.robotstxt.org/">robots.txt</a>中发现sitemaps url。</p>
+<p><code>sitemap_urls</code> </p>
+<blockquote>
+<p>指向sitemaps的url列表，它的url是您想要抓取的。</p>
+<p>你也可以指着一个<a href="http://www.robotstxt.org/">robots.txt</a>并且从sitemap urls提取它并解析它</p>
+</blockquote>
+<p><code>sitemap_rules</code> </p>
+<blockquote>
+<p>一个元组<code>(regex, callback)</code>:</p>
+<blockquote>
+<p><code>regex</code>是一种正则表达式，用来匹配从sitemaps中提取的url。<code>regex</code>可以是str或编译(compiled)过的regex对象。</p>
+<p>callback是用来处理与正则表达式匹配的url的回调。<code>callback</code>可以是一个字符串（表示一个spider方法的名称）或可调用。
+举个例子:</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>sitemap_rules = [('/product/', 'parse_product')]
+</code></pre>
+
+<blockquote>
+<p>规则是按顺序应用的，只有第一个匹配的规则才会被使用。</p>
+<p>如果您省略了这个属性，那么在sitemaps中找到的所有url都将使用<code>parse</code>回调处理。</p>
+<p><code>sitemap_follow</code> </p>
+<blockquote>
+<p>应该遵循的sitemap的regexes列表。这仅适用于使用指向其他<a href="https://www.sitemaps.org/protocol.html#index">站点地图文件</a>的站点地图索引文件的站点。</p>
+<p>默认情况下，所有的sitemaps都会被跟踪。</p>
+</blockquote>
+<p><code>sitemap_alternate_links</code></p>
+<blockquote>
+<p>指定是否应该遵循一个<code>url</code>的备用链接。这些是同一网站的链接，在同一个<code>url</code>块中传递的另一种语言。</p>
+</blockquote>
+</blockquote>
+<p>举个例子:</p>
+<pre><code>&lt;url&gt;
+    &lt;loc&gt;http://example.com/&lt;/loc&gt;
+    &lt;xhtml:link rel=&quot;alternate&quot; hreflang=&quot;de&quot; href=&quot;http://example.com/de&quot;/&gt;
+&lt;/url&gt;
+</code></pre>
+
+<blockquote>
+<blockquote>
+<p>有了<code>sitemap_alternate_links</code>集，这将检索两个url。<code>sitemap_alternate_links</code>被禁用，只有<code>http://example.com/</code>将被检索。
+默认是<code>sitemap_alternate_links</code>禁用。</p>
+</blockquote>
+</blockquote>
+<h2 id="sitemapspider_1">SitemapSpider例子</h2>
+<p>最简单的例子：使用<code>parse</code>回调处理sitemaps发现的所有url：</p>
+<pre><code>from scrapy.spiders import SitemapSpider
+
+class MySpider(SitemapSpider):
+    sitemap_urls = ['http://www.example.com/sitemap.xml']
+
+    def parse(self, response):
+        pass # 抓取的item在这里
+</code></pre>
+
+<p>处理一些带有特定回调的url和其他具有不同回调的url：</p>
+<pre><code>from scrapy.spiders import SitemapSpider
+
+class MySpider(SitemapSpider):
+    sitemap_urls = ['http://www.example.com/sitemap.xml']
+    sitemap_rules = [
+        ('/product/', 'parse_product'),
+        ('/category/', 'parse_category'),
+    ]
+
+    def parse_product(self, response):
+        pass # ... 抓取product ...
+
+    def parse_category(self, response):
+        pass # ... 抓取category ...
+</code></pre>
+
+<p>跟踪在<a href="http://www.robotstxt.org/">robots.txt</a>文件上的sitemaps，并且只关注其url包含<code>/sitemap_shop</code>的sitemaps：</p>
+<pre><code>from scrapy.spiders import SitemapSpider
+
+class MySpider(SitemapSpider):
+    sitemap_urls = ['http://www.example.com/robots.txt']
+    sitemap_rules = [
+        ('/shop/', 'parse_shop'),
+    ]
+    sitemap_follow = ['/sitemap_shops']
+
+    def parse_shop(self, response):
+        pass # ... 抓取的shop在这里 ...
+</code></pre>
+
+<p>将SitemapSpider与其他url来源相结合：</p>
+<pre><code>from scrapy.spiders import SitemapSpider
+
+class MySpider(SitemapSpider):
+    sitemap_urls = ['http://www.example.com/robots.txt']
+    sitemap_rules = [
+        ('/shop/', 'parse_shop'),
+    ]
+
+    other_urls = ['http://www.example.com/about']
+
+    def start_requests(self):
+        requests = list(super(MySpider, self).start_requests())
+        requests += [scrapy.Request(x, self.parse_other) for x in self.other_urls]
+        return requests
+
+    def parse_shop(self, response):
+        pass # ... 抓取的shop在这里 ...
+
+    def parse_other(self, response):
+        pass # ... 抓取的other在这里 ...
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../08-selctor/" class="btn btn-neutral float-right" title="Selector 选择器">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../06-command_line_tool/" class="btn btn-neutral" title="命令行工具"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../06-command_line_tool/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../08-selctor/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

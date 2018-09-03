@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>一眼了解Scrapy - Scrapy 1.5 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u4e00\u773c\u4e86\u89e3Scrapy";
+    var mkdocs_page_input_path = "02-overview.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../01-index/">第一步</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">一眼了解Scrapy</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#scrapy">一眼了解Scrapy</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#spider">通过一个示例spider</a></li>
+        
+            <li><a class="toctree-l3" href="#_1">刚刚发生了什么?</a></li>
+        
+            <li><a class="toctree-l3" href="#_2">还有其他的么?</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">下一个是什么?</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../03-install/">安装指导</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../04-scrapy tutorial/">Scrapy 教程</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../05-examples/">例子</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../06-command_line_tool/">命令行工具</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../07-spiders/">Spiders 自定义爬虫类</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../08-selctor/">Selector 选择器</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../09-items/">Items</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Scrapy 1.5 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>一眼了解Scrapy</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="scrapy">一眼了解Scrapy</h1>
+<p>Scrapy是一个用于抓取web站点和提取结构化数据的应用程序框架，可用于各种有用的应用程序，如数据挖掘、信息处理或历史档案。</p>
+<p>尽管Scrapy最初是为web抓取而设计的，但它还可以使用api(如Amazon Associates web服务)或作为通用web爬虫程序来提取数据。</p>
+<h2 id="spider">通过一个示例spider</h2>
+<p>为了向您展示Scrapy带来了什么，我们将介绍一个使用最简单的方式运行Spider的Scrapy爬虫示例。</p>
+<p>下面是一个爬虫的代码，它会从http://quotes.toscrape.com网站上的著名引文中抓取引文，然后进行向后翻页:</p>
+<pre><code>import scrapy
+
+
+class QuotesSpider(scrapy.Spider):
+    name = "quotes" # 爬虫项目的名字
+    start_urls = [
+        'http://quotes.toscrape.com/tag/humor/',    # 最开始要抓取的页面
+    ]
+
+    def parse(self, response):  # 解析要抓取的页面
+        for quote in response.css('div.quote'): # 选择器选择要抓取的节点
+            yield {
+                'text': quote.css('span.text::text').extract_first(),   # 获取列表里面第一个, 如果没有会自动捕获异常
+                'author': quote.xpath('span/small/text()').extract_first(),
+            }
+
+        next_page = response.css('li.next a::attr("href")').extract_first() # 找到下一页的节点
+        if next_page is not None:   # 如果有下一页的节点
+            yield response.follow(next_page, self.parse)    # 继续通过parse函数进行解析
+</code></pre>
+<p>将其放入文本文件中，将其命名为<code>quotes_spider.py</code>并使用<code>runspider</code>命令运行爬虫:</p>
+<pre><code>scrapy runspider quotes_spider.py -o quotes.json
+</code></pre>
+<p>当这结束时，你会在<code>quotes.json</code>文件得到JSON格式列表，包含文本和作者，如下所示(为了更好的可读性，这里重新格式化):</p>
+<pre><code>[{
+"author": "Jane Austen",
+"text": "\u201cThe person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.\u201d"
+},
+{
+    "author": "Groucho Marx",
+    "text": "\u201cOutside of a dog, a book is man's best friend. Inside of a dog it's too dark to read.\u201d"
+},
+{
+    "author": "Steve Martin",
+    "text": "\u201cA day without sunshine is like, you know, night.\u201d"
+},
+...]
+</code></pre>
+<h2 id="_1">刚刚发生了什么?</h2>
+<p>当你运行命令 <code>scrapy runspider quotes_spider.py</code>, Scrapy在里面找到了文件名为quotes_spider的爬虫, 然后让它通过爬虫引擎运行。</p>
+<p>爬虫通过向<code>start_urls</code>属性中定义的URL发出请求(在本例中，仅为列表中的引号URL)并调用默认回调方法<code>parse</code>函数，将Response对象作为参数传递。在<code>parse</code>方法回调中，我们使用CSS选择器循环引用元素，使用提取的文本和作者生成Python词典，查找到下一页的链接，并使用与回调相同的<code>parse</code>方法调度另一个请求。在这里，您会注意到Scrapy的一个主要优点:requests是异步调度和处理的。 这意味着Scrapy不需要等待上一个请求被完成和处理，它可以同时发送多个请求或做其他事情。这也意味着，即使某些请求失败或在处理时发生错误，其他请求也可以继续运行。</p>
+<p>虽然这使您能够进行非常快速的抓取(以容错的方式同时发送多个并发请求)，但是Scrapy还让您可以控制通过<a href="#">一些设置</a>进行礼貌的抓取。您可以在每个请求之间设置下载延迟，限制每个域或每个IP的并发请求数量，甚至可以<a href="#">使用自动节流扩展</a>来自动计算这些请求。</p>
+<p><code>注意!
+这是使用feed exports导出来生成JSON文件，您可以轻松地更改导出格式(例如XML或CSV)或存储后端(例如FTP或Amazon S3)。您还可以编写一个item pipeline来将项items存储在数据库中。</code></p>
+<h2 id="_2">还有其他的么?</h2>
+<p>您已经看到了如何使用Scrapy从网站提取和存储items，但这只是表面。Scrapy提供了许多功能强大的特性，使抓取变得简单和高效，例如:</p>
+<ul>
+<li>内置支持使用CSS选择器和XPath表达式从HTML/XML源中<a href="#">选择和提取</a>数据，以及使用正则表达式提取等辅助方法。</li>
+<li>一个交互式shell控制台(支持IPython)，用于尝试CSS和XPath表达式来提取数据，在编写或调试爬虫时非常有用。</li>
+<li>内置支持feed exports可以生成多种格式(JSON、CSV、XML)，并将它们存储在多个后端(FTP、S3、本地文件系统)中。</li>
+<li>健壮的编码支持和自动检测，用于处理外部、非标准和破碎的编码声明。</li>
+<li><a href="#">强大的扩展性支持</a>，允许您使用<a href="#">信号</a>和明确的API<a href="#">中间件</a>、<a href="#">扩展和管道</a>插入到自己的功能。</li>
+<li>广泛的内建扩展和中间件处理:<ul>
+<li>cookies和session处理</li>
+<li>HTTP特性，如压缩、身份验证和缓存</li>
+<li>用户代理欺骗</li>
+<li>robots.txt</li>
+<li>爬行深度限制</li>
+<li>甚至更多</li>
+</ul>
+</li>
+<li>一个<a href="#">Telnet控制台</a>，用于连接到运行在Scrapy进程内部的Python控制台，以自我观察和调试爬虫程序</li>
+<li>再加上其他好东西，比如可复用的爬虫从Sitemaps和XML/CSV feeds中抓取站点，一个用于<a href="#">自动下载图像</a>(或任何其他媒体)的media pipeline，一个缓存DNS解析器，等等!</li>
+</ul>
+<h2 id="_3">下一个是什么?</h2>
+<p>接下来的步骤是<a href="#">安装Scrapy</a>，<a href="#">按照教程学习</a>如何创建一个成熟的Scrapy项目并<a href="https://scrapy.org/community/">加入社区</a>。谢谢你的兴趣!</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../03-install/" class="btn btn-neutral float-right" title="安装指导">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../01-index/" class="btn btn-neutral" title="第一步"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../01-index/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../03-install/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
