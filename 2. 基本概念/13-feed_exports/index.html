@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Feed exports - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Feed exports";
+    var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\13-feed_exports.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../06-command_line_tool/">命令行工具</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-spiders/">Spiders 自定义爬虫类</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-selctor/">Selector 选择器</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../09-items/">Items</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-scrapy_shell/">Scrapy shell</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-item_pipeline/">Item Pipeline</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Feed exports</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#feed-exports">Feed exports</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">序列化</a></li>
+        
+            <li><a class="toctree-l4" href="#json">JSON</a></li>
+        
+            <li><a class="toctree-l4" href="#json-lines">JSON lines</a></li>
+        
+            <li><a class="toctree-l4" href="#csv">CSV</a></li>
+        
+            <li><a class="toctree-l4" href="#xml">XML</a></li>
+        
+            <li><a class="toctree-l4" href="#pickle">Pickle</a></li>
+        
+            <li><a class="toctree-l4" href="#marshal">Marshal</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">存储设备</a></li>
+        
+            <li><a class="toctree-l4" href="#uri">存储URI参数</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">存储后端</a></li>
+        
+            <li><a class="toctree-l4" href="#ftp">FTP</a></li>
+        
+            <li><a class="toctree-l4" href="#s3">S3</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../about/">about</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>2. 基本概念 &raquo;</li>
+        
+      
+    
+    <li>Feed exports</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="feed-exports">Feed exports</h1>
+<p>最新版本0.10</p>
+<p>实现抓取器最经常需要的特性之一是能够正确地存储被抓取的数据，这通常意味着使用被抓取的数据(通常称为“export feed”)生成一个“导出文件”，以供其他系统使用。</p>
+<p>Scrapy通过Feed Exports提供了这种开箱即用的功能，它允许您抓取item生成feed并使用多种序列化格式或者进行存储后端。</p>
+<h2 id="_1">序列化</h2>
+<p>对于序列化抓取的数据，feed exports使用<a href="#">Item exporters</a>。这些格式支持开箱即用:</p>
+<ul>
+<li><a href="#">JSON</a></li>
+<li><a href="#">JSON lines</a></li>
+<li><a href="#">CSV</a></li>
+<li><a href="#">XML</a></li>
+</ul>
+<p>但是您也可以通过<a href="#">FEED_EXPORTERS</a>设置来扩展支持的格式。</p>
+<h2 id="json">JSON</h2>
+<ul>
+<li><a href="#">FEED_FORMAT</a>: <code>json</code></li>
+<li>Exporter used: <a href="#">JsonItemExporter</a></li>
+<li>如果您使用的是带有大量feeds的JSON，请参阅<a href="#">此警告</a>。</li>
+</ul>
+<h2 id="json-lines">JSON lines</h2>
+<ul>
+<li><a href="#">FEED_FORMAT</a>: <code>jsonlines</code></li>
+<li>Exporter used: <a href="#">JsonLinesItemExporter</a></li>
+</ul>
+<h2 id="csv">CSV</h2>
+<ul>
+<li><a href="#">FEED_FORMAT</a>: <code>csv</code></li>
+<li>Exporter used: <a href="#">JsonItemExporter</a></li>
+<li>要指定要导出的列及其顺序，请使用<a href="#">FEED_EXPORT_FIELDS</a>。其他feed exporters也可以使用此选项，但它对于CSV很重要，因为与许多其他导出格式不同，CSV使用固定的头。</li>
+</ul>
+<h2 id="xml">XML</h2>
+<ul>
+<li><a href="#">FEED_FORMAT</a>: <code>xml</code></li>
+<li>Exporter used: <a href="#">XmlItemExporter</a></li>
+</ul>
+<h2 id="pickle">Pickle</h2>
+<ul>
+<li><a href="#">FEED_FORMAT</a>: <code>pickle</code></li>
+<li>Exporter used: <a href="#">PickleItemExporter</a></li>
+</ul>
+<h2 id="marshal">Marshal</h2>
+<ul>
+<li><a href="#">FEED_FORMAT</a>: <code>marshal</code></li>
+<li>Exporter used: <a href="#">MarshalItemExporter</a></li>
+</ul>
+<h2 id="_2">存储设备</h2>
+<p>在使用feed exports时，使用URI(通过<a href="#">FEED_URI</a>设置)定义存储feed的位置。feed exports支持由URI scheme定义的多个存储后端类型。</p>
+<p>支持开箱即用的存储后端有:</p>
+<ul>
+<li><a href="#">Local filesystem</a></li>
+<li><a href="#">FTP</a></li>
+<li><a href="#">S3</a>(需要<a href="https://github.com/boto/botocore">botocore</a>或<a href="https://github.com/boto/boto">boto</a>)</li>
+<li><a href="#">Standard output</a></li>
+</ul>
+<p>如果所需的外部库不可用时，一些存储后端可能不可用。例如，S3后端仅在安装了<a href="https://github.com/boto/botocore">botocore</a>或<a href="https://github.com/boto/boto">boto</a>库时可用(Scrapy仅在Python 2上支持<a href="https://github.com/boto/boto">boto</a>)。</p>
+<h2 id="uri">存储URI参数</h2>
+<p>存储URI还可以包含在创建feed时替换feed的参数。这些参数是:</p>
+<ul>
+<li><code>%(time)s</code> - 在创建feed时被时间戳替换</li>
+<li><code>%(name)s</code> - 被替换为spider名称</li>
+</ul>
+<p>任何其他命名参数都会被相同名称的spider属性替换。例如，创建feed的那一刻<code>%(site_id)</code>将被替换为<code>spider.site_id</code>属性</p>
+<p>这里有一些例子来说明:</p>
+<ul>
+<li>存储在FTP上, 每个spider使用一个目录<ul>
+<li><code>ftp://user:password@ftp.example.com/scraping/feeds/%(name)s/%(time)s.json</code></li>
+</ul>
+</li>
+<li>存储在S3上, 每个spider使用一个目录<ul>
+<li><code>s3://mybucket/scraping/feeds/%(name)s/%(time)s.json</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="_3">存储后端</h2>
+<h3 id="_4">本地文件系统</h3>
+<p>存储URI还可以包含参数</p>
+<ul>
+<li>URI scheme: <code>file</code></li>
+<li>URI例子: <code>file:///tmp/export.csv</code></li>
+<li>需要外部库: none</li>
+</ul>
+<p>注意，对于本地文件系统存储(仅)，如果指定了<code>/tmp/export.csv</code>这样的绝对路径，则可以省略该方案。但这只适用于Unix系统。</p>
+<h2 id="ftp">FTP</h2>
+<p>feeds存储在FTP服务器上</p>
+<ul>
+<li>URI scheme: <code>ftp</code></li>
+<li>URI例子: <code>ftp://user:pass@ftp.example.com/path/to/export.csv</code></li>
+<li>需要外部库: none</li>
+</ul>
+<h2 id="s3">S3</h2>
+<p>feeds存储在<a href="https://aws.amazon.com/s3/">亚马逊S3</a>上</p>
+<ul>
+<li>URI scheme: <code>s3</code></li>
+<li>
+<p>URI例子: </p>
+<ul>
+<li><code>s3://mybucket/path/to/export.csv</code></li>
+<li><code>s3://aws_key:aws_secret@mybucket/path/to/export.csv</code></li>
+</ul>
+</li>
+<li>
+<p>需要外部库: <a href="https://github.com/boto/botocore">botocore</a> (Python 2 and Python 3)或<a href="https://github.com/boto/boto">boto</a> (Python 2 only)</p>
+</li>
+</ul>
+<p>AWS凭证可以在URI中作为用户/密码传递，也可以通过以下设置传递:</p>
+<ul>
+<li><a href="#">AWS_ACCESS_KEY_ID</a></li>
+<li><a href="#">AWS_SECRET_ACCESS_KEY</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about/" class="btn btn-neutral float-right" title="about">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../12-item_pipeline/" class="btn btn-neutral" title="Item Pipeline"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../12-item_pipeline/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

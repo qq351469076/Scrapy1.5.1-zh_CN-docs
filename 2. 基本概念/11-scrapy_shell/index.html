@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Scrapy shell - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Scrapy shell";
+    var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\11-scrapy_shell.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../06-command_line_tool/">命令行工具</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-spiders/">Spiders 自定义爬虫类</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-selctor/">Selector 选择器</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../09-items/">Items</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Scrapy shell</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#scrapy-shell">Scrapy shell</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#shell">配置shell</a></li>
+        
+            <li><a class="toctree-l4" href="#shell_1">启动shell</a></li>
+        
+            <li><a class="toctree-l4" href="#shell_2">使用shell</a></li>
+        
+            <li><a class="toctree-l4" href="#_1">可用的方法</a></li>
+        
+            <li><a class="toctree-l4" href="#scrapy">可用的Scrapy对象</a></li>
+        
+            <li><a class="toctree-l4" href="#shell_3">shell会话示例</a></li>
+        
+            <li><a class="toctree-l4" href="#spidersshellresponses">调用spiders中的shell来检查responses</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-item_pipeline/">Item Pipeline</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-feed_exports/">Feed exports</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../about/">about</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>2. 基本概念 &raquo;</li>
+        
+      
+    
+    <li>Scrapy shell</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="scrapy-shell">Scrapy shell</h1>
+<p>Scrapy shell是一个交互式shell，您可以在其中快速尝试和调试抓取代码，而无需运行爬行器。它本来是用来测试数据提取代码的，但实际上您可以用它来测试任何类型的代码，因为它也是一个常规的Python shell。</p>
+<p>shell用于测试XPath或CSS表达式，并查看它们是如何工作的，以及它们从您试图获取的web页面中提取了哪些数据。它允许您在编写爬行器时交互式地测试表达式，而无需运行爬行器来测试每个更改。</p>
+<p>一旦熟悉了Scrapy shell，您就会看到它是开发和调试爬行器的非常有用的工具。</p>
+<h2 id="shell">配置shell</h2>
+<p>如果已经安装了<a href="https://ipython.org/">IPython</a>，那么Scrapy shell将使用它(而不是标准的Python控制台)。<a href="https://ipython.org/">IPython</a>控制台功能更加强大，提供了智能自动完成和彩色输出等功能。</p>
+<p>我们强烈建议您安装<a href="https://ipython.org/">IPython</a>，特别是如果您正在使用Unix系统(<a href="https://ipython.org/">IPython</a>擅长的领域)时。有关更多信息，请参阅<a href="https://ipython.org/install.html">IPython安装指南</a>。</p>
+<p>Scrapy还支持<a href="https://www.bpython-interpreter.org/">bpython</a>，并将在<a href="https://ipython.org/">IPython</a>不可用的地方尝试使用它。</p>
+<p>通过scrapy的设置，您可以将其配置为任何一个<code>ipython</code>、<code>bpython</code>或标准<code>python</code>shell，而不管安装了哪个。这是通过设置<code>SCRAPY_PYTHON_SHELL</code>环境变量来实现的;或者在<a href="#">scrapy.cfg</a>中定义它。</p>
+<pre><code class="python">[settings]
+shell = bpython
+</code></pre>
+
+<h2 id="shell_1">启动shell</h2>
+<p>要启动Scrapy shell，可以使用<a href="#">shell</a>命令如下:</p>
+<pre><code class="shell">scrapy shell &lt;url&gt;
+</code></pre>
+
+<p>其中<code>url</code>是您想要抓取的页面。</p>
+<p><a href="#">shell</a>也适用于本地文件。如果您想使用一个web页面的本地副本，这可能非常方便。<a href="#">shell</a>对本地文件理解如下语法:</p>
+<pre><code class="shell"># UNIX-样式
+scrapy shell ./path/to/file.html
+scrapy shell ../other/path/to/file.html
+scrapy shell /absolute/path/to/file.html
+
+# 文件URI
+scrapy shell file:///absolute/path/to/file.html
+</code></pre>
+
+<pre><code class="note">在使用相对文件路径时，要显式地在它们前面加上`./`(或`../`)。
+`scrapy shell index.html`不会像预期的那样工作(这是设计出来的，不是bug)。
+因为`shell`更喜欢HTTP url而不是文件uri和`index.html`, 在语法上与`example.com`类似
+`shell`将处理`index.html`作为一个域名，并触发一个DNS查找错误:
+
+$ scrapy shell index.html
+[ ... scrapy shell starts ... ]
+[ ... traceback ... ]
+twisted.internet.error.DNSLookupError: DNS lookup failed:
+address 'index.html' not found: [Errno -5] No address associated with hostname.
+
+如果文件名为`index.html`并且存在于当前目录中, `shell`将不会预先测试。再次,要明确。
+</code></pre>
+
+<h2 id="shell_2">使用shell</h2>
+<p>Scrapy shell只是一个常规的Python控制台(如果您有它的话，也可以称为<a href="https://ipython.org/">IPython</a>控制台)，它提供了一些方便的附加快捷函数。</p>
+<h2 id="_1">可用的方法</h2>
+<ul>
+<li><code>shelp()</code>: 在控制台打印帮助信息以及一系列可用对象的列表和方法</li>
+<li><code>fetch(url[, redirect=True])</code>: 从给定的URL获取新的response并相应地更新所有相关对象。您可以选择是否需要HTTP 3xx重定向，以避免后续的传递<code>redirect=False</code></li>
+<li><code>fetch(request)</code>: 从给定的请求中获取一个新的response，并相应地更新所有相关对象。</li>
+<li><code>view(response)</code>: 在本地web浏览器中打开给定的response，以供检查。这将向响应体添加<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base">&lt;base> tag</a>，以便外部链接(如图像和样式表)正确显示。然而，请注意，这将在您的计算机中创建一个临时文件，它不会被自动删除。</li>
+</ul>
+<h2 id="scrapy">可用的Scrapy对象</h2>
+<p>Scrapy shell自动从下载的页面创建一些方便的对象，比如<a href="#">Response</a>对象和<a href="#">Selector</a>对象(HTML和XML内容)。</p>
+<p>这些对象是:</p>
+<ul>
+<li><code>crawler</code>: 当前<a href="#">Crawler</a>对象。</li>
+<li><code>spider</code>: 已知可以处理URL的Spider，或者如果没有为当前URL找到爬行器，则为当前为<a href="#">Spider</a>对象</li>
+<li><code>request</code>: 一个<a href="#">Request</a>对象用于获取最新的页面。您可以使用<a href="#">replace()</a>修改此请求，或者使用<code>fetch</code>快捷方式获取新请求(不离开shell)。。</li>
+<li><code>response</code>: 一个<a href="#">Response</a>对象包括最后获取的页面</li>
+<li><code>settings</code>: 当前Scrapy的设置</li>
+</ul>
+<h2 id="shell_3">shell会话示例</h2>
+<p>下面是一个典型的shell会话示例，我们从抓取<a href="https://scrapy.org">https://scrapy.org</a>页面开始，然后继续抓取<a href="https://reddit.com">https://reddit.com</a>页面。最后，我们修改了(Reddit)请求方法来用POST重新取回它，并得到一个错误。我们通过键入Ctrl-D(在Unix系统中)或Ctrl-Z来结束会话。</p>
+<p>请记住，这里提取的数据在您尝试时可能不是相同的，因为这些页面不是静态的，并且在您进行测试时可能已经发生了更改。这个示例的唯一目的是让您熟悉Scrapy shell的工作原理。</p>
+<p>首先，我们启动shell:</p>
+<pre><code class="shell">scrapy shell 'https://scrapy.org' --nolog
+</code></pre>
+
+<p>然后，shell获取URL(使用Scrapy downloader)并打印可用对象列表和有用的快捷方式(您将注意到这些行都以[s]前缀开头):</p>
+<pre><code class="shell">[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x7f07395dd690&gt;
+[s]   item       {}
+[s]   request    &lt;GET https://scrapy.org&gt;
+[s]   response   &lt;200 https://scrapy.org/&gt;
+[s]   settings   &lt;scrapy.settings.Settings object at 0x7f07395dd710&gt;
+[s]   spider     &lt;DefaultSpider 'default' at 0x7f0735891690&gt;
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+
+&gt;&gt;&gt;
+</code></pre>
+
+<p>在那之后，我们可以演示对象:</p>
+<pre><code class="shell">&gt;&gt;&gt; response.xpath('//title/text()').extract_first()
+'Scrapy | A Fast and Powerful Scraping and Web Crawling Framework'
+
+&gt;&gt;&gt; fetch(&quot;https://reddit.com&quot;)
+
+&gt;&gt;&gt; response.xpath('//title/text()').extract()
+['reddit: the front page of the internet']
+
+&gt;&gt;&gt; request = request.replace(method=&quot;POST&quot;)
+
+&gt;&gt;&gt; fetch(request)
+
+&gt;&gt;&gt; response.status
+404
+
+&gt;&gt;&gt; from pprint import pprint
+
+&gt;&gt;&gt; pprint(response.headers)
+{'Accept-Ranges': ['bytes'],
+ 'Cache-Control': ['max-age=0, must-revalidate'],
+ 'Content-Type': ['text/html; charset=UTF-8'],
+ 'Date': ['Thu, 08 Dec 2016 16:21:19 GMT'],
+ 'Server': ['snooserv'],
+ 'Set-Cookie': ['loid=KqNLou0V9SKMX4qb4n; Domain=reddit.com; Max-Age=63071999; Path=/; expires=Sat, 08-Dec-2018 16:21:19 GMT; secure',
+                'loidcreated=2016-12-08T16%3A21%3A19.445Z; Domain=reddit.com; Max-Age=63071999; Path=/; expires=Sat, 08-Dec-2018 16:21:19 GMT; secure',
+                'loid=vi0ZVe4NkxNWdlH7r7; Domain=reddit.com; Max-Age=63071999; Path=/; expires=Sat, 08-Dec-2018 16:21:19 GMT; secure',
+                'loidcreated=2016-12-08T16%3A21%3A19.459Z; Domain=reddit.com; Max-Age=63071999; Path=/; expires=Sat, 08-Dec-2018 16:21:19 GMT; secure'],
+ 'Vary': ['accept-encoding'],
+ 'Via': ['1.1 varnish'],
+ 'X-Cache': ['MISS'],
+ 'X-Cache-Hits': ['0'],
+ 'X-Content-Type-Options': ['nosniff'],
+ 'X-Frame-Options': ['SAMEORIGIN'],
+ 'X-Moose': ['majestic'],
+ 'X-Served-By': ['cache-cdg8730-CDG'],
+ 'X-Timer': ['S1481214079.394283,VS0,VE159'],
+ 'X-Ua-Compatible': ['IE=edge'],
+ 'X-Xss-Protection': ['1; mode=block']}
+&gt;&gt;&gt;
+</code></pre>
+
+<h2 id="spidersshellresponses">调用spiders中的shell来检查responses</h2>
+<p>有时候，您希望检查在您的爬行器的某个点上正在处理的responses，如果只是为了检查您期望的response是否到达那里。</p>
+<p>这可以通过使用<code>scrap.shell.inspect_response</code>函数。</p>
+<p>下面是一个例子，告诉你如何从你的spider中调用它:</p>
+<pre><code class="python">import scrapy
+
+
+class MySpider(scrapy.Spider):
+    name = &quot;myspider&quot;
+    start_urls = [
+        &quot;http://example.com&quot;,
+        &quot;http://example.org&quot;,
+        &quot;http://example.net&quot;,
+    ]
+
+    def parse(self, response):
+        # 我们想要检查一个特定的response.
+        if &quot;.org&quot; in response.url:
+            from scrapy.shell import inspect_response
+            inspect_response(response, self)
+
+        # 解析代码的其余部分.
+</code></pre>
+
+<p>当你运行spider时，你会得到类似的结果:</p>
+<pre><code class="shell">2014-01-23 17:48:31-0400 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://example.com&gt; (referer: None)
+2014-01-23 17:48:31-0400 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://example.org&gt; (referer: None)
+[s] Available Scrapy objects:
+[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x1e16b50&gt;
+...
+
+&gt;&gt;&gt; response.url
+'http://example.org'
+</code></pre>
+
+<p>然后，您可以检查提取代码部分是否工作:</p>
+<pre><code class="shell">&gt;&gt;&gt; response.xpath('//h1[@class=&quot;fn&quot;]')
+[]
+</code></pre>
+
+<p>不,它不是。所以你可以在你的web浏览器中打开response，看看它是不是你期望的response:</p>
+<pre><code class="shell">&gt;&gt;&gt; view(response)
+True
+</code></pre>
+
+<p>最后，按Ctrl-D(或窗口中的Ctrl-Z)退出shell并恢复爬行:</p>
+<pre><code class="shell">&gt;&gt;&gt; ^D
+2014-01-23 17:50:03-0400 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://example.net&gt; (referer: None)
+...
+</code></pre>
+
+<p>注意，这里不能使用<code>fetch</code>快捷方式，因为Scrapy引擎被shell阻塞。然而，在你离开shell后，spider会继续在它停止的地方爬行，如上所示。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../12-item_pipeline/" class="btn btn-neutral float-right" title="Item Pipeline">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../10-itemloaders/" class="btn btn-neutral" title="Item Loaders(Item加载器)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../10-itemloaders/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../12-item_pipeline/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="author" content="孔祥旭">
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Item Loaders(Item加载器) - Scrapy 1.5 中文文档</title>
+  <title>Item Loaders(Item加载器) - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Scrapy 1.5 中文文档</a>
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -121,10 +121,28 @@
         
             <li><a class="toctree-l4" href="#itemloader">ItemLoader对象</a></li>
         
+            <li><a class="toctree-l4" href="#nested-loaders">Nested Loaders(嵌套加载器)</a></li>
+        
+            <li><a class="toctree-l4" href="#item-loaders_1">复用和扩展Item Loaders</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">可用的内置处理器</a></li>
+        
         </ul>
     
 
     </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-scrapy_shell/">Scrapy shell</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-item_pipeline/">Item Pipeline</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-feed_exports/">Feed exports</a>
                 </li>
                 <li class="">
                     
@@ -143,7 +161,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Scrapy 1.5 中文文档</a>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
       </nav>
 
       
@@ -412,6 +430,270 @@ loader.add_xpath('price', '//p[@id=&quot;price&quot;]', re='the price is (.*)')
 <blockquote>
 <p>类似于<a href="#">add_xpath()</a>，但是替换收集的数据而不是添加数据。</p>
 </blockquote>
+<hr />
+<p><code>get_css(css, *processors, **kwargs)</code></p>
+<blockquote>
+<p>与<a href="#">ItemLoader.get_value()</a>类似，但是接收的是CSS选择器而不是值，该选择器用于从与这个<a href="#">ItemLoader</a>关联的选择器中提取unicode字符串列表。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<p>css (字符串) – 要从中提取数据的CSS选择器</p>
+<p>re (字符串或compiled regex) – 用于从选定的CSS区域中提取数据的正则表达式</p>
+</blockquote>
+</blockquote>
+<p>例子:</p>
+</blockquote>
+<pre><code class="python"># HTML片段: &lt;p class=&quot;product-name&quot;&gt;Color TV&lt;/p&gt;
+loader.get_css('p.product-name')
+# HTML片段: &lt;p id=&quot;price&quot;&gt;the price is $1200&lt;/p&gt;
+loader.get_css('p#price', TakeFirst(), re='the price is (.*)')
+</code></pre>
+
+<hr />
+<p><code>add_css(field_name, css, *processors, **kwargs)</code></p>
+<blockquote>
+<p>与<a href="#">ItemLoader.add_value()</a>类似，但是接收的是CSS选择器而不是值，该选择器用于从与这个<a href="#">ItemLoader</a>关联的选择器中提取unicode字符串列表。</p>
+<p>有关<code>kwargs</code>，请参阅<a href="#">get_css()</a>。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<p>css (字符串) -用来提取数据的css选择器</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>例子:</p>
+<pre><code class="python"># HTML片段: &lt;p class=&quot;product-name&quot;&gt;Color TV&lt;/p&gt;
+loader.add_css('name', 'p.product-name')
+# HTML片段: &lt;p id=&quot;price&quot;&gt;the price is $1200&lt;/p&gt;
+loader.add_css('price', 'p#price', re='the price is (.*)')
+</code></pre>
+
+<hr />
+<p><code>replace_css(field_name, css, *processors, **kwargs)</code></p>
+<blockquote>
+<p>类似于<a href="#">add_css()</a>，但是替换收集的数据而不是添加数据。</p>
+</blockquote>
+<hr />
+<p><code>load_item()</code></p>
+<blockquote>
+<p>用到目前为止收集的数据填充item，并返回它。首先通过<a href="#">输出处理器</a>获得收集到的数据，然后分配给item里每个字段的最终值。</p>
+</blockquote>
+<hr />
+<p><code>nested_xpath(xpath)</code></p>
+<blockquote>
+<p>使用xpath选择器创建嵌套加载器(<strong>nested loader</strong>)。所提供的选择器相对于与此<a href="#">ItemLoader</a>关联的选择器。嵌套加载器与父项目加载器共享<a href="#">Item</a>，因此对<a href="#">add_xpath()</a>、<a href="#">dd_value()</a>、<a href="#">replace_value()</a>等的调用将按照预期执行。</p>
+</blockquote>
+<hr />
+<p><code>nested_css(css)</code></p>
+<blockquote>
+<p>用css选择器创建嵌套加载器(<strong>nested loader</strong>)。所提供的选择器相对于与此<a href="#">ItemLoader</a>关联的选择器。嵌套加载器与父项目加载器共享<a href="#">Item</a>，因此对<a href="#">add_xpath()</a>、<a href="#">dd_value()</a>、<a href="#">replace_value()</a>等的调用将按照预期执行。</p>
+</blockquote>
+<hr />
+<p><code>get_collected_values(field_name)</code></p>
+<blockquote>
+<p>返回给定字段收集到的值。</p>
+</blockquote>
+<hr />
+<p><code>get_output_value(field_name)</code></p>
+<blockquote>
+<p>返回使用输出处理器对给定字段解析过后的收集到的值。此方法根本不填充或修改item。</p>
+</blockquote>
+<hr />
+<p><code>get_input_processor(field_name)</code></p>
+<blockquote>
+<p>返回给定字段的输入处理器。</p>
+</blockquote>
+<hr />
+<p><code>get_output_processor(field_name)</code></p>
+<blockquote>
+<p>返回给定字段的输出处理器。</p>
+</blockquote>
+<hr />
+<hr />
+<hr />
+<p><a href="#">ItemLoader</a>实例具有以下属性:</p>
+<p><code>item</code></p>
+<blockquote>
+<p>由Item Loader解析的<a href="#">Item</a>对象。</p>
+</blockquote>
+<p><code>context</code></p>
+<blockquote>
+<p>此Item Loader的当前活动<a href="#">上下文</a>。</p>
+</blockquote>
+<p><code>default_item_class</code></p>
+<blockquote>
+<p>一个Item类(或工厂)，用于在构造函数中未给出items时实例化items。</p>
+</blockquote>
+<p><code>default_input_processor</code></p>
+<blockquote>
+<p>未指定字段的默认输入处理器。</p>
+</blockquote>
+<p><code>default_output_processor</code></p>
+<blockquote>
+<p>未指定字段的默认输出处理器。</p>
+</blockquote>
+<p><code>default_selector_class</code></p>
+<blockquote>
+<p>如果构造函数中只给出response，则用于构造这个<a href="#">ItemLoader</a>的<a href="#">selector</a>的类。如果构造函数中提供了选择器，则忽略此属性。这个属性有时在子类中被重写。</p>
+</blockquote>
+<p><code>selector</code></p>
+<blockquote>
+<p>提取数据的<a href="#">selector</a>对象。它要么是构造函数中给出的selector，要么是使用<a href="#">default_selector_class</a>从构造函数中给出的response创建的selector。这个属性是只读的。</p>
+</blockquote>
+<h2 id="nested-loaders">Nested Loaders(嵌套加载器)</h2>
+<p>当从文档的一个小节解析相关值时，创建嵌套加载器是很有用的。假设您正在从页面的页脚中提取细节，这些页脚看起来如下:</p>
+<p>例子:</p>
+<pre><code class="html">&lt;footer&gt;
+    &lt;a class=&quot;social&quot; href=&quot;https://facebook.com/whatever&quot;&gt;Like Us&lt;/a&gt;
+    &lt;a class=&quot;social&quot; href=&quot;https://twitter.com/whatever&quot;&gt;Follow Us&lt;/a&gt;
+    &lt;a class=&quot;email&quot; href=&quot;mailto:whatever@example.com&quot;&gt;Email Us&lt;/a&gt;
+&lt;/footer&gt;
+</code></pre>
+
+<p>没有嵌套加载器，您需要为您希望提取的每个值指定完整的xpath(或css)。</p>
+<p>例子:</p>
+<pre><code class="python">loader = ItemLoader(item=Item())
+# 加载的东西不在页脚
+loader.add_xpath('social', '//footer/a[@class = &quot;social&quot;]/@href')
+loader.add_xpath('email', '//footer/a[@class = &quot;email&quot;]/@href')
+loader.load_item()
+</code></pre>
+
+<p>相反，您可以使用footer选择器创建一个嵌套的加载器，并添加相对于footer的值。功能是相同的，但您可以避免重复footer选择器。</p>
+<p>例子:</p>
+<pre><code class="python">loader = ItemLoader(item=Item())
+# 加载的东西不在页脚
+footer_loader = loader.nested_xpath('//footer')
+footer_loader.add_xpath('social', 'a[@class = &quot;social&quot;]/@href')
+footer_loader.add_xpath('email', 'a[@class = &quot;email&quot;]/@href')
+# 不需要调用footer_loader.load_item()
+loader.load_item()
+</code></pre>
+
+<p>可以任意嵌套加载器，它们可以使用xpath或css选择器。作为一个通用方法，嵌套加载器使代码更简单，但又不过分嵌套，或者解析器可能变得难以阅读时，使用嵌套加载器。</p>
+<h2 id="item-loaders_1">复用和扩展Item Loaders</h2>
+<p>随着项目越来越大，有越来越多的spider，维护就成为一个基本问题，特别是当您必须为每个爬行器处理许多不同的解析规则时，有许多异常，但还需要复用公共输入输出处理器时。</p>
+<p>Item Loaders旨在减轻解析规则的维护负担，同时不丧失灵活性，并为扩展和覆盖规则提供方便的机制。因此，Item Loaders支持传统的Python类继承，以处理特定spider(或spider组)的差异。</p>
+<p>例如，假设某个特定站点将它们的产品名称用三个横杠括起来(例如<code>--- plasma TV---</code>)，并且您不希望在最终产品名称中使用这些横杠。</p>
+<p>下面介绍如何通过复用和扩展默认Product的Item Loaders(<code>ProductLoader</code>)来删除这些横杠:</p>
+<pre><code class="python">from scrapy.loader.processors import MapCompose
+from myproject.ItemLoaders import ProductLoader
+
+def strip_dashes(x):
+    return x.strip('-')
+
+class SiteSpecificLoader(ProductLoader):
+    name_in = MapCompose(strip_dashes, ProductLoader.name_in)
+</code></pre>
+
+<p>扩展Item Loaders非常有用的另一种情况是，当您有多种源格式时，例如XML和HTML。在XML版本中，您可能希望删除出现的<code>CDATA</code>。下面是一个如何做到这一点的例子:</p>
+<pre><code class="python">from scrapy.loader.processors import MapCompose
+from myproject.ItemLoaders import ProductLoader
+from myproject.utils.xml import remove_cdata
+
+class XmlProductLoader(ProductLoader):
+    name_in = MapCompose(remove_cdata, ProductLoader.name_in)
+</code></pre>
+
+<p>这就是通常扩展输入处理器的方式。</p>
+<p>对于输出处理器，更常见的做法是在字段metadata中定义它们，因为它们通常只依赖于字段，而不依赖于每个特定的站点解析规则(如输入处理器)。参见:<a href="#">输入和输出处理器的定义</a>。</p>
+<p>有许多其他可能的方法可以扩展、继承和覆盖Item Loaders，不同的Item Loaders层次结构可能更适合不同的项目。Scrapy只提供机制;它不会强制您的装载器集合的任何特定组织——这取决于您和您的项目的需求。</p>
+<h2 id="_3">可用的内置处理器</h2>
+<p>尽管您可以使用任何可调用函数作为输入和输出处理器，但Scrapy提供了一些常用的处理器，如下所述。其中一些函数，如<a href="#">MapCompose</a>(通常用作输入处理器)，负责组合按顺序执行的几个函数的输出，以生成最终解析后的值。</p>
+<p>下面是所有内置处理器的列表:</p>
+<h4 id="scrapyloaderprocessorsidentity-class">scrapy.loader.processors.Identity   这是一个类(class)</h4>
+<blockquote>
+<p>最简单的处理器，什么都不做。它返回原值不变。它不接收任何构造函数参数，也不接受加载器上下文。</p>
+</blockquote>
+<p>例子:</p>
+<pre><code class="shell">&gt;&gt;&gt; from scrapy.loader.processors import Identity
+&gt;&gt;&gt; proc = Identity()
+&gt;&gt;&gt; proc(['one', 'two', 'three'])
+['one', 'two', 'three']
+</code></pre>
+
+<h4 id="scrapyloaderprocessorstakefirst-class">scrapy.loader.processors.TakeFirst   这是一个类(class)</h4>
+<blockquote>
+<p>从接收到的值返回第一个非空/非空值，因此它通常作为输出处理器用于单值字段。它不接收任何构造函数参数，也不接受加载器上下文。</p>
+</blockquote>
+<p>例子:</p>
+<pre><code class="shell">&gt;&gt;&gt; from scrapy.loader.processors import TakeFirst
+&gt;&gt;&gt; proc = TakeFirst()
+&gt;&gt;&gt; proc(['', 'one', 'two', 'three'])
+'one'
+</code></pre>
+
+<h4 id="scrapyloaderprocessorsjoinseparatoru-class">scrapy.loader.processors.Join(separator=u' ')   这是一个类(class)</h4>
+<blockquote>
+<p>返回与构造函数中给出的分隔符连接的值，该分隔符默认为u' '。它不接受加载器上下文。</p>
+<p>当使用默认分隔符时，这个处理器相当于函数:<code>u' '.join</code></p>
+</blockquote>
+<p>例子:</p>
+<pre><code class="shell">&gt;&gt;&gt; from scrapy.loader.processors import Join
+&gt;&gt;&gt; proc = Join()
+&gt;&gt;&gt; proc(['one', 'two', 'three'])
+u'one two three'
+&gt;&gt;&gt; proc = Join('&lt;br&gt;')
+&gt;&gt;&gt; proc(['one', 'two', 'three'])
+u'one&lt;br&gt;two&lt;br&gt;three'
+</code></pre>
+
+<h4 id="scrapyloaderprocessorscompose42functions-4242default_loader_context-class">scrapy.loader.processors.Compose(*functions, **default_loader_context)   这是一个类(class)</h4>
+<blockquote>
+<p>由给定函数的组合构成的处理器。这意味着这个处理器的每个输入值都被传递给第一个函数，这个函数的结果被传递给第二个函数，以此类推，直到最后一个函数返回这个处理器的输出值。</p>
+<p>默认情况下，在<code>None</code>值上停止处理。通过传递关键字参数<code>stop_on_none=False</code>可以改变这种行为。</p>
+</blockquote>
+<p>例子</p>
+<pre><code class="shell">&gt;&gt;&gt; from scrapy.loader.processors import Compose
+&gt;&gt;&gt; proc = Compose(lambda v: v[0], str.upper)
+&gt;&gt;&gt; proc(['hello', 'world'])
+'HELLO'
+</code></pre>
+
+<p>每个函数都可以选择接收<code>loader_context</code>参数。对于这样做的，这个处理器将通过该参数传递当前活动<a href="#">加载器上下文</a>。</p>
+<p>在构造函数中传递的关键字参数用作传递给每个函数调用的默认是加载器上下文值。但是，传递给函数的最终加载器上下文值被通过<code>ItemLoader.context()</code>属性访问的当前活动加载器上下文覆盖。</p>
+<h4 id="scrapyloaderprocessorsmapcompose42functions-4242default_loader_context-class">scrapy.loader.processors.MapCompose(*functions, **default_loader_context)   这是一个类(class)</h4>
+<blockquote>
+<p>由给定函数的组合构成的处理器，类似于构成<code>Compose</code>处理器。这个处理器的不同之处在于内部结果在函数之间传递的方式，如下所示:</p>
+<p>迭代该处理器的输入值，并对每个元素应用第一个函数。这些函数调用的结果(每个元素一个)被连接起来，以构造一个新的iterable，然后使用它应用第二个函数，依此类推，直到最后一个函数应用到到目前为止收集的值列表的每个值为止。最后一个函数的输出值被连接在一起以产生这个处理器的输出。</p>
+<p>每个特定的函数都可以返回一个值或一个值列表，这个值列表与应用于其他输入值的相同函数返回的值列表是相同的。函数还可以返回<code>None</code>，在这种情况下，该函数的输出将被忽略，以便在链上进行进一步处理。</p>
+<p>这个处理器提供了一种方便的方法来组合只使用单个值(而不是迭代)的函数。由于这个原因，MapCompose处理器通常用作输入处理器，因为数据通常是使用选择器的extract()方法提取的，这个方法返回一个unicode字符串列表。</p>
+</blockquote>
+<p>下面的例子应该说明它是如何工作的::</p>
+<pre><code class="shell">&gt;&gt;&gt; def filter_world(x):
+...     return None if x == 'world' else x
+...
+&gt;&gt;&gt; from scrapy.loader.processors import MapCompose
+&gt;&gt;&gt; proc = MapCompose(filter_world, unicode.upper)
+&gt;&gt;&gt; proc([u'hello', u'world', u'this', u'is', u'scrapy'])
+[u'HELLO, u'THIS', u'IS', u'SCRAPY']
+</code></pre>
+
+<p>与Compose处理器一样，函数可以接收装载器上下文，而构造函数关键字参数被用作默认上下文值。有关更多信息，请参阅<a href="#">Compose</a>处理器。</p>
+<h4 id="scrapyloaderprocessorsselectjmesjson_path-class">scrapy.loader.processors.SelectJmes(json_path)   这是一个类(class)</h4>
+<blockquote>
+<p>使用提供给构造函数的json路径查询值并返回输出。需要运行jmespath (<a href="https://github.com/jmespath/jmespath.py">https://github.com/jmespath/jmespath.py</a>)。这个处理器一次只接受一个输入。</p>
+<p>例子:</p>
+</blockquote>
+<pre><code class="shell">&gt;&gt;&gt; from scrapy.loader.processors import SelectJmes, Compose, MapCompose
+&gt;&gt;&gt; proc = SelectJmes(&quot;foo&quot;) # 直接用于列表和字典
+&gt;&gt;&gt; proc({'foo': 'bar'})
+'bar'
+&gt;&gt;&gt; proc({'foo': {'bar': 'baz'}})
+{'bar': 'baz'}
+</code></pre>
+
+<blockquote>
+<p>与JSON一起工作:</p>
+</blockquote>
+<pre><code class="shell">&gt;&gt;&gt; import json
+&gt;&gt;&gt; proc_single_json_str = Compose(json.loads, SelectJmes(&quot;foo&quot;))
+&gt;&gt;&gt; proc_single_json_str('{&quot;foo&quot;: &quot;bar&quot;}')
+u'bar'
+&gt;&gt;&gt; proc_json_list = Compose(json.loads, MapCompose(SelectJmes('foo')))
+&gt;&gt;&gt; proc_json_list('[{&quot;foo&quot;:&quot;bar&quot;}, {&quot;baz&quot;:&quot;tar&quot;}]')
+[u'bar']
+</code></pre>
               
             </div>
           </div>
@@ -419,7 +701,7 @@ loader.add_xpath('price', '//p[@id=&quot;price&quot;]', re='the price is (.*)')
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../about/" class="btn btn-neutral float-right" title="about">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../11-scrapy_shell/" class="btn btn-neutral float-right" title="Scrapy shell">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../09-items/" class="btn btn-neutral" title="Items"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -451,7 +733,7 @@ loader.add_xpath('price', '//p[@id=&quot;price&quot;]', re='the price is (.*)')
         <span><a href="../09-items/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../11-scrapy_shell/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
