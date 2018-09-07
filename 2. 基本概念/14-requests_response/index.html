@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Requests and Responses - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Requests and Responses";
+    var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\14-requests_response.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../06-command_line_tool/">命令行工具</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-spiders/">Spiders 自定义爬虫类</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-selctor/">Selector 选择器</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../09-items/">Items</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-scrapy_shell/">Scrapy shell</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-item_pipeline/">Item Pipeline</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-feed_exports/">Feed exports</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Requests and Responses</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#requests-and-responses">Requests and Responses</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#request">Request对象</a></li>
+        
+            <li><a class="toctree-l4" href="#callback">将额外数据传递给callback函数</a></li>
+        
+            <li><a class="toctree-l4" href="#errback">使用errback在请求处理中捕获异常</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../about/">about</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>2. 基本概念 &raquo;</li>
+        
+      
+    
+    <li>Requests and Responses</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="requests-and-responses">Requests and Responses</h1>
+<p>Scrapy使用<a href="#">Request</a>和<a href="#">Response</a>对象来抓取web站点。</p>
+<p>通常，<a href="#">Request</a>对象在spiders中生成并在系统中传递，直到它们到达Downloader，Downloader执行request并返回发出request的spider的<a href="#">Response</a>对象。</p>
+<p><a href="#">Request</a>类和<a href="#">Response</a>类都有添加基类中不需要的功能的子类。下面在<a href="#">请求子类</a>和<a href="#">响应子类</a>中描述了这些。</p>
+<h2 id="request">Request对象</h2>
+<h4 id="scrapyhttprequesturl-callback-methodget-headers-body-cookies-meta-encodingutf-8-priority0-dont_filterfalse-errback-flags-class">scrapy.http.Request(url[, callback, method='GET', headers, body, cookies, meta, encoding='utf-8', priority=0, dont_filter=False, errback, flags])   这是一个类(class)</h4>
+<blockquote>
+<p><a href="#">Request</a>对象表示HTTP请求，通常在Spider中生成并由Downloader执行，从而生成<a href="#">Response</a>。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<p><strong>url</strong> (字符串) – 此次请求的url</p>
+<p><strong>callback</strong> (可调用的) — 这个函数将被调用，并将此request的response(下载后)作为其第一个参数。有关更多信息，请参阅<a href="#">将额外数据传递给回调函数</a>。如果请求没有指定callback，将使用spider的<a href="#">parse()</a>方法。注意，如果在处理期间引发异常，则会调用<code>errback</code>。</p>
+<p><strong>method</strong> (字符串) – 此request的HTTP方法。默认为'GET'.</p>
+<p><strong>meta</strong> (字典) – <a href="#">Request.meta</a>的初始值。元属性。如果给定，在此参数中传递的dict将被浅复制。</p>
+<p><strong>body</strong> (字符串或unicode) – request主体。如果传递了<code>unicode</code>，则使用传递的编码(默认为utf-8)将其编码为str。如果没有给出body，则存储一个空字符串。不管这个参数的类型是什么，最终存储的值都将是<code>str</code>(从不使用<code>unicode</code>或<code>None</code>)。</p>
+<p><strong>headers</strong> (字典) – 此请求的headers。字典的值可以是字符串(用于单值headers)或列表(用于多值headers)。如果<code>None</code>作为值传递，则根本不会发送HTTP头。</p>
+<p><strong>cookies</strong> (字典或列表) –此请求的cookie。可以以两种形式发送。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>使用字典</li>
+</ul>
+<pre><code class="python">request_with_cookies = Request(url=&quot;http://www.example.com&quot;,
+                               cookies={'currency': 'USD', 'country': 'UY'})
+</code></pre>
+
+<ul>
+<li>使用字典列表</li>
+</ul>
+<pre><code class="python">request_with_cookies = Request(url=&quot;http://www.example.com&quot;,
+                               cookies=[{'name': 'currency',
+                                        'value': 'USD',
+                                        'domain': 'example.com',
+                                        'path': '/currency'}])
+</code></pre>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>
+<p>后一种形式允许定制cookie的<code>domain</code>和<code>path</code>属性。这只在cookie为以后的请求保存时有用。</p>
+</li>
+<li>
+<p>当某些站点返回cookie(在response中)时，这些cookie存储在该域的cookie中，并将在以后的request中再次发送。这是任何普通web浏览器的典型行为。但是，如果出于某种原因，您想避免与现有cookie合并，那么可以通过在<a href="#">Request.meta</a>中将<code>dont_merge_cookie</code>键设置为True来指示Scrapy这样做。</p>
+</li>
+</ul>
+<p>request不合并cookie的例子:</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code class="python">request_with_cookies = Request(url=&quot;http://www.example.com&quot;,
+                               cookies={'currency': 'USD', 'country': 'UY'},
+                               meta={'dont_merge_cookies': True})
+</code></pre>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<p>有关更多信息，请参阅<a href="#">CookiesMiddleware</a>。</p>
+<p>encoding (字符串) – 此请求的编码(默认为<code>'utf-8'</code>)。 这种编码将用于对URL进行百分比编码，并将body转换为<code>str</code>(如果以<code>unicode</code>表示的话)。</p>
+<p>priority (整型) – 此请求的优先级(默认为<code>0</code>).调度程序使用该优先级定义处理请求的顺序。具有更高优先级值的请求将更早执行。为了表示相对较低的优先级，允许使用负值。</p>
+<p>dont_filter (布尔) - 指示调度程序不应该过滤此请求。当您想要多次执行相同的请求，以忽略去重过滤器时，可以使用这种方法。小心使用它，否则你会陷入爬行循环。默认为<code>False</code>。</p>
+<p>errback(可调用的) - 在处理请求时，如果出现任何异常，将调用该函数。这包括404 HTTP错误等失败的页面。它接收一个<a href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Twisted Failure</a>实例作为第一个参数。有关更多信息，请参见下面<a href="#">使用errbacks捕获请求处理中的异常</a>。</p>
+<p>flags(列表)-发送到请求的flag，可以用于日志记录或类似目的。</p>
+</blockquote>
+<p><code>url</code></p>
+<blockquote>
+<p>包含此请求URL的字符串。请记住，该属性包含转义URL，因此它可能与在构造函数中传递的URL不同。</p>
+<p>这个属性是只读的。要更改请求的URL，请使用<a href="#">replace()</a>。</p>
+</blockquote>
+<p><code>method</code></p>
+<blockquote>
+<p>表示请求的HTTP方法的字符串。这保证是大写的。例如:<code>GET</code>, <code>POST</code>, <code>PUT</code>等等</p>
+</blockquote>
+<p><code>headers</code></p>
+<blockquote>
+<p>包含请求headers的类似字典的对象。</p>
+</blockquote>
+<p><code>body</code></p>
+<blockquote>
+<p>包含请求body的字符串。</p>
+<p>这个属性是只读的。要更改请求的body，请使用<a href="#">replace()</a>。</p>
+</blockquote>
+<p><code>meta</code></p>
+<blockquote>
+<p>包含此请求的任意metadata的字典。这个dict对于新请求是空的，通常由不同的Scrapy组件(extensions(扩展)、middlewares(中间件)等)填充。因此，字典中包含的数据取决于您启用的(extensions(扩展)。</p>
+<p>看一下<a href="#">Request.meta特殊键</a>。由Scrapy识别的一组特殊meta键。</p>
+<p>当使用<a href="#">copy()</a>或<a href="#">replace()</a>方法克隆请求时，这个dict是<a href="https://docs.python.org/2/library/copy.html">浅复制</a>的，也可以在您的spider中从response访问<code>response.meta</code>属性。</p>
+</blockquote>
+<p><code>copy()</code></p>
+<blockquote>
+<p>返回一个新请求，该请求是此请求的副本。请参阅:<a href="#">将额外数据传递给回调函数</a>。</p>
+</blockquote>
+<p><code>replace([url, method, headers, body, cookies, meta, encoding, dont_filter, callback, errback])</code></p>
+<blockquote>
+<p>返回具有相同成员的请求对象，除了那些由指定的关键字参数赋予新值的成员。 默认的<a href="#">Request.meta</a>情况下，meta会被复制(除非在<code>meta</code>参数中给出了一个新的值)。请参阅<a href="#">向回调函数传递额外数据</a>。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="callback">将额外数据传递给callback函数</h2>
+<p>请求的callback函数是在下载该request的response时调用的函数。将使用下载的<a href="#">Response</a>对象作为其第一个参数调用callback函数。</p>
+<p>例子:</p>
+<pre><code class="python">def parse_page1(self, response):
+    return scrapy.Request(&quot;http://www.example.com/some_page.html&quot;,
+                          callback=self.parse_page2)
+
+def parse_page2(self, response):
+    # 这将会日志记录下来 http://www.example.com/some_page.html
+    self.logger.info(&quot;Visited %s&quot;, response.url)
+</code></pre>
+
+<p>在某些情况下，您可能对向这些callback函数传递参数感兴趣，以便稍后在第二次callback中接收这些参数。您可以使用<a href="#">Request.meta</a>属性。</p>
+<p>下面是如何使用这种机制传递item的示例，以填充来自不同页面的不同字段:</p>
+<pre><code class="python">def parse_page1(self, response):
+    item = MyItem()
+    item['main_url'] = response.url
+    request = scrapy.Request(&quot;http://www.example.com/some_page.html&quot;,
+                             callback=self.parse_page2)
+    request.meta['item'] = item
+    yield request
+
+def parse_page2(self, response):
+    item = response.meta['item']
+    item['other_url'] = response.url
+    yield item
+</code></pre>
+
+<h2 id="errback">使用errback在请求处理中捕获异常</h2>
+<p>请求的errback是在处理异常时调用的函数。</p>
+<p>它接收一个<a href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Twisted Failure</a>实例作为第一个参数，可以用来跟踪连接建立超时、DNS错误等。</p>
+<p>下面是一个spider记录所有错误的例子，如果需要，它可以捕获一些特定的错误:</p>
+<pre><code class="python">import scrapy
+
+from scrapy.spidermiddlewares.httperror import HttpError
+from twisted.internet.error import DNSLookupError
+from twisted.internet.error import TimeoutError, TCPTimedOutError
+
+class ErrbackSpider(scrapy.Spider):
+    name = &quot;errback_example&quot;
+    start_urls = [
+        &quot;http://www.httpbin.org/&quot;,              # 预计是HTTP 200
+        &quot;http://www.httpbin.org/status/404&quot;,    # 没有找到的错误
+        &quot;http://www.httpbin.org/status/500&quot;,    # 服务器问题
+        &quot;http://www.httpbin.org:12345/&quot;,        # 未响应主机, 预计超时
+        &quot;http://www.httphttpbinbin.org/&quot;,       # 预计是DNS错误
+    ]
+
+    def start_requests(self):
+        for u in self.start_urls:
+            yield scrapy.Request(u, callback=self.parse_httpbin,
+                                    errback=self.errback_httpbin,
+                                    dont_filter=True)
+
+    def parse_httpbin(self, response):
+        self.logger.info('Got successful response from {}'.format(response.url))
+        # 做一些有用的事情...
+
+    def errback_httpbin(self, failure):
+        # 记录所有错误
+        self.logger.error(repr(failure))
+
+        # 如果你想对一些错误做一些特别的处理,
+        # 你可能需要失败的类型:
+
+        if failure.check(HttpError):
+            # 这些异常来自HttpError spider 中间件
+            # 你可以得到非200的response
+            response = failure.value.response
+            self.logger.error('HttpError on %s', response.url)
+
+        elif failure.check(DNSLookupError):
+            # this is the original request
+            request = failure.request
+            self.logger.error('DNSLookupError on %s', request.url)
+
+        elif failure.check(TimeoutError, TCPTimedOutError):
+            request = failure.request
+            self.logger.error('TimeoutError on %s', request.url)
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about/" class="btn btn-neutral float-right" title="about">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../13-feed_exports/" class="btn btn-neutral" title="Feed exports"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../13-feed_exports/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
