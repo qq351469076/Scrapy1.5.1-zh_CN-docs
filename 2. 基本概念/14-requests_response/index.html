@@ -131,6 +131,31 @@
         
             <li><a class="toctree-l4" href="#errback">使用errback在请求处理中捕获异常</a></li>
         
+            <li><a class="toctree-l4" href="#requestmeta">Request.meta 特殊键</a></li>
+        
+            <li><a class="toctree-l4" href="#bindaddress">bindaddress</a></li>
+        
+            <li><a class="toctree-l4" href="#download_timeout">download_timeout</a></li>
+        
+            <li><a class="toctree-l4" href="#download_latency">download_latency</a></li>
+        
+            <li><a class="toctree-l4" href="#download_fail_on_dataloss">download_fail_on_dataloss</a></li>
+        
+            <li><a class="toctree-l4" href="#max_retry_times">max_retry_times</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#request-subclasses">Request subclasses</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#formrequest-objects">FormRequest objects</a></li>
+        
+            <li><a class="toctree-l4" href="#request_1">Request用法示例</a></li>
+        
+            <li><a class="toctree-l4" href="#response">Response对象</a></li>
+        
         </ul>
     
 
@@ -353,7 +378,7 @@ class ErrbackSpider(scrapy.Spider):
             self.logger.error('HttpError on %s', response.url)
 
         elif failure.check(DNSLookupError):
-            # this is the original request
+            # 这是原始请求
             request = failure.request
             self.logger.error('DNSLookupError on %s', request.url)
 
@@ -361,6 +386,195 @@ class ErrbackSpider(scrapy.Spider):
             request = failure.request
             self.logger.error('TimeoutError on %s', request.url)
 </code></pre>
+
+<h2 id="requestmeta">Request.meta 特殊键</h2>
+<p><a href="#">Request.meta</a>属性可以包含任意的数据，但是有一些特殊的键被Scrapy和它的内置扩展所识别。</p>
+<p>这些是:</p>
+<blockquote>
+<ul>
+<li><a href="#">dont_redirect</a></li>
+<li><a href="#">dont_retry</a></li>
+<li><a href="#">handle_httpstatus_list</a></li>
+<li><a href="#">handle_httpstatus_all</a></li>
+<li><a href="#">dont_merge_cookies</a></li>
+<li><a href="#">cookiejar</a></li>
+<li><a href="#">dont_cache</a></li>
+<li><a href="#">redirect_urls</a></li>
+<li><a href="#">bindaddress</a></li>
+<li><a href="#">dont_obey_robotstxt</a></li>
+<li><a href="#">download_timeout</a></li>
+<li><a href="#">download_maxsize</a></li>
+<li><a href="#">download_latency</a></li>
+<li><a href="#">download_fail_on_dataloss</a></li>
+<li><a href="#">proxy</a></li>
+<li><code>ftp_user</code> （请参阅<a href="#">FTP_USER</a>以获得更多信息）</li>
+<li><code>ftp_password</code>（请参阅<a href="#">FTP_PASSWORD</a>以获得更多信息）</li>
+<li><a href="#">referrer_policy</a></li>
+<li><a href="#">max_retry_times</a></li>
+</ul>
+</blockquote>
+<h2 id="bindaddress">bindaddress</h2>
+<p>输出IP地址的IP用于执行请求。</p>
+<h2 id="download_timeout">download_timeout</h2>
+<p>在超时之前，downloader将等待最大时间（秒）。参见:<a href="#">DOWNLOAD_TIMEOUT</a>。</p>
+<h2 id="download_latency">download_latency</h2>
+<p>用于获取response的时间，因为request已经启动，即通过网络发送的HTTP消息。只有当response被下载时，这个meta键才会出现。而大多数其他meta键都是用来控制Scrapy行为的，但是这个应该是只读的。</p>
+<h2 id="download_fail_on_dataloss">download_fail_on_dataloss</h2>
+<p>是否会在损坏的response中失败。看到:<a href="#">DOWNLOAD_FAIL_ON_DATALOSS</a>。</p>
+<h2 id="max_retry_times">max_retry_times</h2>
+<p>这个meta键被用来设置每个请求的重试时间。当初始化时，<a href="#">max_retry_times</a> meta键比<a href="#">RETRY_TIMES</a>设置优先级更高。</p>
+<h1 id="request-subclasses">Request subclasses</h1>
+<p>下面是内置<a href="#">Request</a>子类的列表。您还可以对它进行子类化来实现您自己的定制功能。</p>
+<h2 id="formrequest-objects">FormRequest objects</h2>
+<p>FormRequest类扩展了<a href="#">Request</a>基类，并提供了处理HTML表单的功能。它使用<a href="https://lxml.de/lxmlhtml.html#forms">lxml.html表单</a>从<a href="#">Response</a>对象的表单数据预先填充表单字段</p>
+<h4 id="scrapyhttpformrequesturl-formdata-class">scrapy.http.FormRequest(url[, formdata, ...])   这是一个类(class)</h4>
+<p><a href="#">FormRequest</a>类向构造函数添加了一个新的参数。剩下的参数与<a href="#">Request</a>类相同，这里没有文档记录。</p>
+<blockquote>
+<p>参数: </p>
+<blockquote>
+<p><strong>formdata</strong> (字典或者是一个可迭代的元组) - 是一个字典(或者是一个可迭代的键值对元组)包含HTML表单数据，这些数据将被url编码并分配给request的body。</p>
+</blockquote>
+</blockquote>
+<p>除了标准<a href="#">Request</a>方法之外，<a href="#">FormRequest</a>对象还支持下列类方法：</p>
+<blockquote>
+<blockquote>
+<p><strong>from_response</strong>(response[, formname=None, formid=None, formnumber=0, formdata=None, formxpath=None, formcss=None, clickdata=None, dont_click=False, ...])   这是一个类方法(classmethod)</p>
+<blockquote>
+<p>返回一个新的<a href="#">FormRequest</a>对象，它的表单字段值预先填充了在给定response中包含的HTML<code>&lt;form&gt;</code>元素中的元素。举个例子，看一下<a href="#">使用FormRequest.from_response()来模拟用户登录</a>。</p>
+<p>该策略是在默认情况下，在任何看起来可点击的元素上自动模拟点击，就像<code>&lt;input type="submit"&gt;</code>。尽管这很方便，而且通常是我们想要的行为，但有时它会导致难以调试的问题。例如，在使用javascript填写和/或提交的表单时，默认的<code>from_response()</code>行为可能不是最合适的。要禁用这种行为，您可以将<code>dont_click</code>参数设置为<code>True</code>。另外，如果你想要改变控制点击（而不是禁用它），你也可以使用<code>clickdata</code>参数</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code class="warning">警告!!!!!!!
+使用这种方法，选择具有前导的元素或在选项值中结尾空白将无法工作，
+因为lxml中的一个bug(https://bugs.launchpad.net/lxml/+bug/1665241)，
+应该在lxml 3.8和更高版本中修复。
+</code></pre>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>
+<p>response([Request]对象) - 包含一个HTML表单的response，该表单将用于预填充表单字段</p>
+</li>
+<li>
+<p>formname(字符串) - 如果给定的话，带有name属性的表单将被使用。</p>
+</li>
+<li>
+<p>formid (字符串) - 如果给定，带有id属性的表单将被使用</p>
+</li>
+<li>
+<p>formxpath(字符串) - 如果给定, 第一个与xpath匹配的表单将被使用</p>
+</li>
+<li>
+<p>formcss (字符串) – 如果给定, 与css选择器匹配的第一个表单将被使用。</p>
+</li>
+<li>
+<p>formnumber (int整型) – 当响应包含多个表单时，要使用的表单数值地址。第一个（也是默认值）是<code>0</code></p>
+</li>
+<li>
+<p>formdata (字典) – 在表单数据中要覆盖的字段。如果一个字段已经出现在response的<code>&lt;form&gt;</code>元素中，那么它的值就会被这个参数中传递的值所覆盖。如果在这个参数中传递的值是<code>None</code>，该字段将不包含在request中，即使它是在response的<code>&lt;form&gt;</code>元素中出现的。</p>
+</li>
+<li>
+<p>clickdata (字典) – 查找可单击控件的属性。如果没有给出，表单数据将被提交模拟第一个可点击元素的点击。除了html属性之外，通过<code>nr</code>属性，相对于表单内的其他提交表输入, 可以通过其基于零的索引来识别控制。</p>
+</li>
+<li>
+<p>dont_click(布尔类型) - 如果是<code>True</code>，表单数据将在不单击任何元素的情况下提交。</p>
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>这个类方法的其他参数直接传递给<a href="#">FormRequest</a>构造函数。</p>
+<blockquote>
+<p>在0.10.3新版本: 添加了<code>formname</code>参数。</p>
+<p>在0.17新版本: 添加了<code>formxpath</code>参数。</p>
+<p>在1.1.0:新版本: 添加了<code>formcss</code>参数。</p>
+<p>在1.1.0新版本: 添加了<code>formid</code>参数。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="request_1">Request用法示例</h2>
+<h3 id="formrequesthttp-post">使用FormRequest通过HTTP POST发送数据</h3>
+<p>如果你想在你的spider中模拟一个HTML表单，并发送几个键值字段，你可以返回一个<a href="#">FormRequest</a>对象（来自你的spider），如下所示：</p>
+<pre><code class="python">return [FormRequest(url=&quot;http://www.example.com/post/action&quot;,
+                    formdata={'name': 'John Doe', 'age': '27'},
+                    callback=self.after_post)]
+</code></pre>
+
+<h3 id="formrequestfrom_response">使用FormRequest.from_response()来模拟用户登录</h3>
+<p>web站点通常通过<code>&lt;input type="hidden"&gt;</code>元素来提供预先填充的表单字段, 例如session相关的数据或身份验证token(用于登录页面), 在抓取时，您会希望这些字段是自动预填充的，并且您只想覆盖其中的几个字段，比如用户名和密码。您可以使用<a href="#">FormRequest.from_response()</a>方法来完成这项工作。这是一个使用它的spider：</p>
+<pre><code class="python">import scrapy
+
+class LoginSpider(scrapy.Spider):
+    name = 'example.com'
+    start_urls = ['http://www.example.com/users/login.php']
+
+    def parse(self, response):
+        return scrapy.FormRequest.from_response(
+            response,
+            formdata={'username': 'john', 'password': 'secret'},
+            callback=self.after_login
+        )
+
+    def after_login(self, response):
+        # 在继续之前，检查是否登录成功
+        if &quot;authentication failed&quot; in response.body:
+            self.logger.error(&quot;Login failed&quot;)
+            return
+
+        # 继续用经过身份验证的会话进行抓取...
+</code></pre>
+
+<hr />
+<h2 id="response">Response对象</h2>
+<h4 id="scrapyhttpresponseurl-status200-headersnone-bodyb-flagsnone-requestnone-class">scrapy.http.Response(url[, status=200, headers=None, body=b'', flags=None, request=None])   这是一个类(class)</h4>
+<blockquote>
+<p><a href="#">Response</a>对象代表HTTP response, 它通常被下载（由Downloader），并喂给Spiders进行处理。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>
+<p>url(字符串) – 请求url的response</p>
+</li>
+<li>
+<p>status (int整型) – response的HTTP状态。默认为200。</p>
+</li>
+<li>
+<p>headers(字典) – 这个response的headers。可以是字符串（对于单值头）或列表（对于多值头）。</p>
+</li>
+<li>
+<p>body (bytes) – response的body。将解码的文本作为str(Python 2中的unicode)，您可以使用<code>response.text</code>来自encoding-aware <a href="#">Request</a>子类的文本，如<a href="#">TextResponse</a>。</p>
+</li>
+<li>
+<p>flags (列表) – 是一个包含<a href="#">Response.flags</a>属性的初始值的列表。 如果给定，该列表将被简单地复制。</p>
+</li>
+<li>
+<p>request (<a href="#">Request</a>对象) – <a href="#">Response.request</a>属性的初始值。 这表示产生此response的<a href="#">Request</a>。</p>
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>url</code></p>
+<blockquote>
+<p>包含response的URL的字符串。</p>
+<p>这个属性是只读的。要改变response的URL使用<a href="#">replace()</a></p>
+</blockquote>
+<p><code>status</code></p>
+<blockquote>
+<p>一个表示response的HTTP状态的整数。 例子: <code>200</code>, <code>404</code></p>
+</blockquote>
+<p><code>headers</code></p>
+<blockquote>
+<p>一个类似于字典的对象，它包含response headers。可以使用<code>get()</code>来取值，用指定的名字返回第一个header的值或<code>getlist()</code>用指定的名字返回所有的header值。 例如，调用这个会提供headers中所有的cookie：</p>
+<p><code>response.headers.getlist('Set-Cookie')</code></p>
+</blockquote>
+</blockquote>
               
             </div>
           </div>
