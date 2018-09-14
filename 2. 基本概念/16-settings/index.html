@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Settings(设置) - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Settings(\u8bbe\u7f6e)";
+    var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\16-settings.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-spiders/">Spiders 自定义爬虫类</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-selctor/">Selector 选择器</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../09-items/">Items</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-scrapy_shell/">Scrapy shell</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-item_pipeline/">Item Pipeline</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-feed_exports/">Feed exports</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../14-requests_response/">Requests and Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Settings(设置)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#settings">Settings(设置)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">指定设置</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">填充设置</a></li>
+        
+            <li><a class="toctree-l4" href="#setings">如何访问setings</a></li>
+        
+            <li><a class="toctree-l4" href="#setting">setting名称的基本原理</a></li>
+        
+            <li><a class="toctree-l4" href="#settings_1">内置的settings参考</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../about/">about</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>2. 基本概念 &raquo;</li>
+        
+      
+    
+    <li>Settings(设置)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="settings">Settings(设置)</h1>
+<p>Scrapy settings允许您自定义所有Scrapy组件的行为，包括core、extensions、pipelines和spiders本身。</p>
+<p>settings的基础结构提供了键值映射的全局命名空间，代码可以使用它来提取配置值。可以通过不同的机制填充设置，如下所述。</p>
+<p>这些设置也是选择当前活动的Scrapy项目(如果您有很多这样的项目)的机制。</p>
+<p>有关可用的内置设置的列表，请参阅: <a href="#">内置的settings参考</a></p>
+<h2 id="_1">指定设置</h2>
+<p>当你使用Scrapy时，你必须告诉它你使用的是哪些设置。可以通过使用环境变量<code>SCRAPY_SETTINGS_MODULE</code>来实现。</p>
+<p><code>SCRAPY_SETTINGS_MODULE</code>的值应该是Python路径语法，例如<code>myproject.settings</code>。注意，设置模块应该位于Python<a href="https://docs.python.org/2/tutorial/modules.html#the-module-search-path">导入搜索路径</a>上。</p>
+<h2 id="_2">填充设置</h2>
+<p>可以使用不同的机制填充设置，每种机制具有不同的优先级。以下是按优先顺序递减的列表:</p>
+<blockquote>
+<ol>
+<li>命令行选项(最优先级)</li>
+<li>单独设置每个spider</li>
+<li>项目settings模块</li>
+<li>每个settings默认的命令</li>
+<li>默认全局settings(低优先级)</li>
+</ol>
+</blockquote>
+<p>这些源设置的填充由内部处理，但是可以使用API调用进行手动处理。参见<a href="#">设置API</a>主题以供参考。</p>
+<p>下面将更详细地描述这些机制。</p>
+<h3 id="1">1.命令行选项</h3>
+<p>命令行提供的参数优先级最高，超过了任何其他选项。您可以使用<code>-s</code>(或<code>--set</code>)命令行选项显式地覆盖一个(或多个)设置。</p>
+<p>例子:</p>
+<pre><code class="shell">scrapy crawl myspider -s LOG_FILE=scrapy.log
+</code></pre>
+
+<h3 id="2-spider">2. 单独设置每个spider</h3>
+<p>spider(请参阅<a href="#">Spiders</a>一章以获取参考)可以定义自己的setting，这些setting将优先使用并覆盖项目的setting。他们可以通过设置<a href="#">custom_settings</a>属性来做到这一点:</p>
+<pre><code class="python">class MySpider(scrapy.Spider):
+    name = 'myspider'
+
+    custom_settings = {
+        'SOME_SETTING': 'some value',
+    }
+</code></pre>
+
+<h3 id="3-setting">3. 项目setting模块</h3>
+<p>项目setting模块是你的Scrapy项目的标准配置文件，大多数自定义设置都是在这里填充的。对于标准的Scrapy项目，这意味着要在你的项目中<code>settings.py</code>中添加或更改settings</p>
+<h3 id="4-settings">4. 每个settings默认的命令</h3>
+<p>每个<a href="#">Scrapy工具</a>命令可以有自己的默认设置，它覆盖全局默认设置。这些自定义命令设置在命令类的<code>default_settings</code>属性中指定。</p>
+<h3 id="5-settings">5. 全局settings</h3>
+<p>全局默认值位于<code>scrapy.settings.default_settings</code>模块中，在<a href="#">内置settings参考</a>部分中有文档说明。</p>
+<h2 id="setings">如何访问setings</h2>
+<p>在spider中，可以通过<code>self.settings</code>进行设置</p>
+<pre><code class="python">class MySpider(scrapy.Spider):
+    name = 'myspider'
+    start_urls = ['http://example.com']
+
+    def parse(self, response):
+        print(u&quot;现有的设置: %s&quot; % self.settings.attributes.keys())
+</code></pre>
+
+<pre><code class="note">注意!!!!
+`settings`属性是在初始化spider之后在基本spider类中设置的。
+如果您想在初始化之前使用这些设置(例如，在您的spider的`__init__()`方法中)，
+您需要覆盖[from_crawler()](#)方法。
+</code></pre>
+
+<p>Settings可以通过Crawler的<a href="#">scrapy.crawler.Crawler.settings</a>属性访问，该属性在extensions、middlewares和item pipelines中传递给<code>from_crawler</code>方法:</p>
+<pre><code class="python">class MyExtension(object):
+    def __init__(self, log_is_enabled=False):
+        if log_is_enabled:
+            print(u&quot;log已经激活!&quot;)
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        settings = crawler.settings
+        return cls(settings.getbool('LOG_ENABLED'))
+</code></pre>
+
+<p>settings对象可以像dict一样使用(例如，<code>settings['LOG_ENABLED']</code>)，但是通常首选使用<a href="#">Settings</a> API提供的方法提取设置，以避免类型错误。</p>
+<h2 id="setting">setting名称的基本原理</h2>
+<p>Setting名称通常以它们配置的组件为前缀。例如，虚构的robots.txt扩展的正确命名。可以是<code>ROBOTSTXT_ENABLED</code>, <code>ROBOTSTXT_OBEY</code>, <code>ROBOTSTXT_CACHEDIR</code>等。</p>
+<h2 id="settings_1">内置的settings参考</h2>
+<p>下面是所有可用的Scrapy settings的列表，按字母顺序排列，以及它们的默认值和应用它们的范围。</p>
+<p>如果该范围与任何特定组件相关联，那么在可用的情况下，该范围将显示使用该setting的位置。在这种情况下，组件的模块将显示出来，通常是一个extension、middleware或pipeline。这还意味着，为了使setting产生任何效果，必须启用组件。</p>
+<h3 id="aws_access_key_id">AWS_ACCESS_KEY_ID</h3>
+<p>默认: <code>None</code></p>
+<p>代码使用的AWS access key用于需要访问<a href="https://aws.amazon.com/">Amazon Web服务</a>, 例如S3 feed 存储后端。</p>
+<h3 id="aws_secret_access_key">AWS_SECRET_ACCESS_KEY</h3>
+<p>默认: <code>None</code></p>
+<p>代码使用的AWS secret key用于需要访问<a href="https://aws.amazon.com/">Amazon Web服务</a>, 例如S3 feed 存储后端。</p>
+<h3 id="bot_name">BOT_NAME</h3>
+<p>默认: <code>scrapybot</code></p>
+<p>这个Scrapy项目实例化的bot的名称(也称为项目名称)。默认情况下，这将用于构造用户代理，以及日志记录。</p>
+<p>当您使用<a href="#">startproject</a>命令创建项目时，它会自动填充您的项目名称。</p>
+<h3 id="concurrent_items">CONCURRENT_ITEMS</h3>
+<p>默认: <code>100</code></p>
+<p>在Item Processor(也称为<a href="#">Item Pipeline</a>)中并行处理的并发items(每个response)的最大数目。</p>
+<h3 id="concurrent_requests">CONCURRENT_REQUESTS</h3>
+<p>默认: <code>16</code></p>
+<p>由Scrapy downloader执行的并发(即。同时)请求的最大数目。</p>
+<h3 id="concurrent_requests_per_domain">CONCURRENT_REQUESTS_PER_DOMAIN</h3>
+<p>默认: <code>8</code></p>
+<p>对任何单个DOMAIN执行的并发请求的最大数目。</p>
+<h3 id="concurrent_requests_per_ip">CONCURRENT_REQUESTS_PER_IP</h3>
+<p>默认: <code>0</code></p>
+<p>对任何单个IP执行的并发请求的最大数目。 如果非零，则忽略<a href="#">CONCURRENT_REQUESTS_PER_DOMAIN</a>设置，而使用的是这个设置吗换句话说，并发限制将应用于每个IP，而不是每个DOMAIN。</p>
+<p>这个设置还会影响<a href="#">DOWNLOAD_DELAY</a>和<a href="#">AutoThrottle extension</a>: 如果<a href="#">CONCURRENT_REQUESTS_PER_IP</a>为非零，则按每个IP执行DOWNLOAD_DELAY，而不是按每个DOMAIN执行。</p>
+<h3 id="default_item_class">DEFAULT_ITEM_CLASS</h3>
+<p>默认: <code>'scrapy.item.Item'</code></p>
+<p>用于实例化<a href="#">Scrapy shell</a>中的items的默认类。</p>
+<h3 id="default_request_headers">DEFAULT_REQUEST_HEADERS</h3>
+<p>默认: </p>
+<pre><code class="python">{
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en',
+}
+</code></pre>
+
+<p>用于Scrapy HTTP requests的默认headers。它们在<a href="#">DefaultHeadersMiddleware</a>中。</p>
+<h3 id="depth_limit">DEPTH_LIMIT</h3>
+<p>默认: <code>0</code></p>
+<p>范围: <code>scrapy.spidermiddlewares.depth.DepthMiddleware</code></p>
+<p>允许爬行任何站点的最大深度。如果为零，就不会有任何限制。</p>
+<h3 id="depth_priority">DEPTH_PRIORITY</h3>
+<p>默认: <code>0</code></p>
+<p>范围: <code>scrapy.spidermiddlewares.depth.DepthMiddleware</code></p>
+<p>用于根据请求深度调整请求优先级的整数:</p>
+<blockquote>
+<ul>
+<li>如果为零(默认)，则不进行深度优先级调整</li>
+<li><strong>正值将降低优先级，即稍后将处理更高的深度请求</strong>;这通常用于进行广度优先爬行(BFO)</li>
+<li>负数将增加优先级，即。深度越高的请求处理越快(DFO)</li>
+</ul>
+</blockquote>
+<p>请参阅:<a href="#">Scrapy是按广度优先顺序还是深度优先顺序抓取?</a> 关于BFO或DFO的调优问题。</p>
+<pre><code class="note">注意!!!!!!
+与其他优先级设置[REDIRECT_PRIORITY_ADJUST](#)和[RETRY_PRIORITY_ADJUST](#)相比，
+此设置以相反的方式调整优先级。
+</code></pre>
+
+<h3 id="depth_stats">DEPTH_STATS</h3>
+<p>默认: <code>True</code></p>
+<p>范围: <code>scrapy.spidermiddlewares.depth.DepthMiddleware</code></p>
+<p>是否收集最大深度属性。</p>
+<h3 id="depth_stats_verbose">DEPTH_STATS_VERBOSE</h3>
+<p>默认: <code>False</code></p>
+<p>范围: <code>scrapy.spidermiddlewares.depth.DepthMiddleware</code></p>
+<p>是否收集详细深度统计信息。如果启用了此功能，则在统计数据中收集每个深度的请求数量。</p>
+<h3 id="dnscache_enabled">DNSCACHE_ENABLED</h3>
+<p>默认: <code>True</code></p>
+<p>是否启用DNS内存缓存。</p>
+<h3 id="dnscache_size">DNSCACHE_SIZE</h3>
+<p>默认: <code>10000</code></p>
+<p>DNS内存缓存大小。</p>
+<h3 id="dns_timeout">DNS_TIMEOUT</h3>
+<p>默认值: <code>60</code></p>
+<p>处理DNS查询的超时时间(以秒为单位)。支持Float。</p>
+<h3 id="downloader">DOWNLOADER</h3>
+<p>默认: <code>'scrapy.core.downloader.Downloader'</code></p>
+<p>用于爬取的下载器。</p>
+<h3 id="downloader_httpclientfactory">DOWNLOADER_HTTPCLIENTFACTORY</h3>
+<p>默认: <code>'scrapy.core.downloader.webclient.ScrapyHTTPClientFactory'</code></p>
+<p>定义用于HTTP/1.0连接的Twisted <code>protocol.ClientFactory</code>类(用于<code>HTTP10DownloadHandler</code>)</p>
+<pre><code class="note">HTTP/1.0现在很少使用，所以您可以放心地忽略这个设置，除非您使用Twisted&lt;11.1，
+或者您真的想使用HTTP/1.0，并为`HTTP(s)` scheme重写[DOWNLOAD_HANDLERS_BASE](#)，
+即'scrapy.core.downloader.handlers.http.HTTP10DownloadHandler'。
+</code></pre>
+
+<h3 id="downloader_clientcontextfactory">DOWNLOADER_CLIENTCONTEXTFACTORY</h3>
+<p>默认: <code>'scrapy.core.downloader.contextfactory.ScrapyClientContextFactory'</code></p>
+<p>表示要使用的ContextFactory的类路径。</p>
+<p>在这里，“ContextFactory”是一个用于SSL/TLS上下文的Twisted术语，它定义了要使用的TLS/SSL协议版本，无论是进行证书验证，还是启用客户端身份验证(以及其他各种事情)。</p>
+<pre><code class="note">Scrapy默认context factory不执行远程服务器证书验证。这对于web抓取来说是很好的。
+
+如果确实需要启用远程服务器证书验证，Scrapy还有另一个可以设置的context factory类
+'scrapy.core.downloader.contextfactory.BrowserLikeContextFactory'。
+它使用平台的证书来验证远程端点。只有在使用Twisted&gt;=14.0时才可用。
+</code></pre>
+
+<p>如果使用自定义ContextFactory，请确保它在init中接受<code>method</code>参数(这是<code>OpenSSL.SSL</code>方法映射<a href="#">DOWNLOADER_CLIENT_TLS_METHOD</a>)</p>
+<h3 id="downloader_client_tls_method">DOWNLOADER_CLIENT_TLS_METHOD</h3>
+<p>默认: <code>'TLS'</code></p>
+<p>使用此设置自定义默认HTTP/1.1 downloader使用的TLS/SSL方法。</p>
+<p>此设置必须是以下字符串值之一:</p>
+<blockquote>
+<ul>
+<li>
+<p><code>'TLS'</code>: 映射到OpenSSL的<code>TLS_method()</code> (a.k.a <code>SSLv23_method()</code>)，它允许协议协商，从平台支持的最高级别开始;<strong>默认情况下,推荐</strong></p>
+</li>
+<li>
+<p><code>'TLSv1.0'</code>: 这个值强制HTTPS连接使用TLS版本1.0;如果你想要Scrapy的行为设置这个, 必须Scrapy&lt;1.1</p>
+</li>
+<li>
+<p><code>'TLSv1.1'</code>: 强制TLS版本1.1</p>
+</li>
+<li>
+<p><code>'TLSv1.2'</code>: 强制TLS版本1.2</p>
+</li>
+<li>
+<p><code>'SSLv3'</code>: 强制SSL版本3(不推荐)</p>
+</li>
+</ul>
+</blockquote>
+<pre><code class="note">我们建议您使用PyOpenSSL&gt;=0.13, Twisted&gt;=0.13或以上(Twisted&gt;=14.0)。
+</code></pre>
+
+<h3 id="downloader_middlewares">DOWNLOADER_MIDDLEWARES</h3>
+<p>默认: <code>{}</code></p>
+<p>包含你的项目中启用的downloader middlewares及其对应的数字的字典. 有关更多信息，请参见<a href="#">激活downloader middleware</a>。</p>
+<h3 id="downloader_middlewares_base">DOWNLOADER_MIDDLEWARES_BASE</h3>
+<p>默认:</p>
+<pre><code class="python">{
+    'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware': 100,
+    'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware': 300,
+    'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
+    'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware': 400,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 500,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 550,
+    'scrapy.downloadermiddlewares.ajaxcrawl.AjaxCrawlMiddleware': 560,
+    'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware': 580,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 590,
+    'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': 600,
+    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 700,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 750,
+    'scrapy.downloadermiddlewares.stats.DownloaderStats': 850,
+    'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 900,
+}
+</code></pre>
+
+<p>在Scrapy中默认启用的包含downloader middlewares的字典。数字越低越接近engine，数字越高越接近downloader。永远不要在项目中修改这个设置，修改<a href="#">downloader_middleware</a>除外。有关更多信息，请参见<a href="#">激活downloader middleware</a>。</p>
+<h3 id="downloader_stats">DOWNLOADER_STATS</h3>
+<p>默认: <code>True</code></p>
+<p>是否启用下载加载器统计信息收集。</p>
+<h3 id="download_delay">DOWNLOAD_DELAY</h3>
+<p>默认: <code>0</code></p>
+<p>downloader在从同一网站下载连续页面之前应该等待的时间(以秒为单位)。这可以用来控制爬虫速度，避免对服务器造成太大的冲击。支持十进制数。例子:</p>
+<pre><code class="python">DOWNLOAD_DELAY = 0.25    # 延迟250ms
+</code></pre>
+
+<p>这个设置还受到<a href="#">RANDOMIZE_DOWNLOAD_DELAY</a>设置(默认启用)的影响。默认情况下，Scrapy不会在请求之间等待固定的时间，而是使用0.5 * <a href="#">DOWNLOAD_DELAY</a>和1.5 * <a href="#">DOWNLOAD_DELAY</a>之间的随机间隔。</p>
+<p>当<a href="#">CONCURRENT_REQUESTS_PER_IP</a>是非零时，每个ip地址而不是每个domain都会发生延迟。</p>
+<p>还可以通过设置<code>download_delay</code> spider属性为每个spider更改此setting。</p>
+<h3 id="download_handlers">DOWNLOAD_HANDLERS</h3>
+<p>默认: <code>{}</code></p>
+<p>包含在你的项目中启用的request downloader handlers的字典。参见<a href="#">DOWNLOAD_HANDLERS_BASE</a>示例格式。</p>
+<h3 id="download_handlers_base">DOWNLOAD_HANDLERS_BASE</h3>
+<p>默认:</p>
+<pre><code class="python">{
+    'file': 'scrapy.core.downloader.handlers.file.FileDownloadHandler',
+    'http': 'scrapy.core.downloader.handlers.http.HTTPDownloadHandler',
+    'https': 'scrapy.core.downloader.handlers.http.HTTPDownloadHandler',
+    's3': 'scrapy.core.downloader.handlers.s3.S3DownloadHandler',
+    'ftp': 'scrapy.core.downloader.handlers.ftp.FTPDownloadHandler',
+}
+</code></pre>
+
+<p>在Scrapy中默认启用的包含request download handlers的字典。永远不要在项目中修改这个设置，修改<a href="#">DOWNLOAD_HANDLERS</a>除外。</p>
+<p>您可以通过在<a href="#">DOWNLOAD_HANDLERS</a>中为它们的URI scheme分配<code>None</code>来禁用这些download handlers。例如，要禁用内置的FTP处理程序(不需要替换)，请将其放在您的<code>settings.py</code>中。</p>
+<pre><code class="python">DOWNLOAD_HANDLERS = {
+    'ftp': None,
+}
+</code></pre>
+
+<h3 id="download_timeout">DOWNLOAD_TIMEOUT</h3>
+<p>默认: <code>180</code></p>
+<p>downloader在超时前等待的时间(以秒为单位)。</p>
+<pre><code class="note">可以为每个spider设置`download_timeout` spider属性设置超时时间，
+也可以使用`download_timeout` Request.meta key为每个request使用
+</code></pre>
+
+<h3 id="download_maxsize">DOWNLOAD_MAXSIZE</h3>
+<p>默认: 1073741824 (1024MB)</p>
+<p>downloader将下载的最大response大小(以字节为单位)。</p>
+<p>如果你想禁用它设置为0。</p>
+<pre><code class="note">这个大小可以使用`download_maxsize` spider属性为每个spider设置，
+也可以使用`download_maxsize` Request.meta key为每个request使用
+这个特性需要Twisted &gt;= 11.1。
+</code></pre>
+
+<h3 id="download_warnsize">DOWNLOAD_WARNSIZE</h3>
+<p>默认: 33554432 (32MB)</p>
+<p>downloader将开始警告的response大小(以字节为单位)。</p>
+<p>如果你想禁用它设置为0。</p>
+<pre><code class="note">这个大小可以使用`download_warnsize` spider属性为每个爬行器设置，
+也可以使用`download_warnsize` Request.meta key为每个request使用
+这个特性需要Twisted &gt;= 11.1。
+</code></pre>
+
+<h3 id="download_fail_on_dataloss">DOWNLOAD_FAIL_ON_DATALOSS</h3>
+<p>默认: <code>True</code></p>
+<p>在中断的response上是否失败，也就是说，声明的<code>Content-Length</code>与服务器发送的内容不匹配，或者块状的响应没有正确完成。如果为<code>True</code>，这些response将引发<code>ResponseFailed([_DataLoss])</code>错误。如果为<code>False</code>，则传递这些responses，并将flag(标记)<code>dataloss</code>添加到response中，即:<code>'dataloss' in response.flags</code>是<code>True</code></p>
+<p>可选地，这可以通过使用<a href="#">download_fail_on_dataloss</a>设置为<code>False</code>来设置每个requests的基础</p>
+<pre><code class="note">在一些情况下，从服务器错误配置到网络错误，再到数据损坏，
+可能会出现响应中断或数据丢失错误。考虑到中断的响应可能包含部分内容或不完整的内容，
+由用户决定是否有必要对其进行处理。如果[RETRY_ENABLED](#)为`True`，
+且该setting为`True`，则`ResponseFailed([_DataLoss])`失败将像往常一样重试。
+</code></pre>
+
+<h3 id="dupefilter_class">DUPEFILTER_CLASS</h3>
+<p>默认: <code>'scrapy.dupefilters.RFPDupeFilter'</code></p>
+<p>用于检测和过滤重复requests的类。</p>
+<p>默认的(<code>RFPDupeFilter</code>)过滤器基于使用<code>scrapy.utils.request.request_fingerprint</code>函数。为了改变重复检查的方式，您可以子类化<code>RFPDupeFilter</code>并覆盖它的<code>request_fingerprint</code>方法。这个方法应该接受scrapy[Request]对象并返回它的fingerprint(一个字符串)。</p>
+<p>您可以通过将<a href="#">DUPEFILTER_CLASS</a>设置为<code>'scrapy.dupefilters.BaseDupeFilter'</code>来禁用对重复请求的过滤。但是要非常小心，因为您可能会进入抓取循环。对于不应该被过滤的特定<a href="#">Request</a>，最好将<code>dont_filter</code>参数设置为<code>True</code>。</p>
+<h3 id="dupefilter_debug">DUPEFILTER_DEBUG</h3>
+<p>默认: <code>False</code></p>
+<p>默认情况下，<code>RFPDupeFilter</code>只记录第一个重复请求。将<code>DUPEFILTER_DEBUG</code>设置为<code>True</code>将使它记录所有重复的请求。</p>
+<h3 id="editor">EDITOR</h3>
+<p>默认: <code>vi</code>(在Unix系统上)或闲置编辑器(在Windows上)</p>
+<p>使用<a href="#">edit</a>命令编辑spiders的编辑器。此外，如果设置了<code>EDITOR</code>环境变量，那么<a href="#">edit</a>命令将更喜欢它而不是默认设置。</p>
+<h3 id="extensions">EXTENSIONS</h3>
+<p>默认: <code>{}</code></p>
+<p>包含项目中启用的extensions(扩展)及其对应的数字的dict。</p>
+<h3 id="extensions_base">EXTENSIONS_BASE</h3>
+<p>默认:</p>
+<pre><code class="python">{
+    'scrapy.extensions.corestats.CoreStats': 0,
+    'scrapy.extensions.telnet.TelnetConsole': 0,
+    'scrapy.extensions.memusage.MemoryUsage': 0,
+    'scrapy.extensions.memdebug.MemoryDebugger': 0,
+    'scrapy.extensions.closespider.CloseSpider': 0,
+    'scrapy.extensions.feedexport.FeedExporter': 0,
+    'scrapy.extensions.logstats.LogStats': 0,
+    'scrapy.extensions.spiderstate.SpiderState': 0,
+    'scrapy.extensions.throttle.AutoThrottle': 0,
+}
+</code></pre>
+
+<p>默认情况下，Scrapy中包含项目中启用的extensions(扩展)及其对应的数字权重的dict。此设置包含所有稳定的内置扩展。请记住，其中一些需要通过设置启用。</p>
+<p>有关更多信息，请参阅<a href="#">扩展用户指南</a>和<a href="#">可用扩展列表</a>。</p>
+<h3 id="feed_tempdir">FEED_TEMPDIR</h3>
+<p>Feed Temp dir允许您在上传<a href="#">FTP feed storage</a>和<a href="#">Amazon S3</a>之前设置一个自定义文件夹来保存爬虫临时文件。</p>
+<h3 id="ftp_passive_mode">FTP_PASSIVE_MODE</h3>
+<p>默认: <code>True</code></p>
+<p>启动FTP传输时是否使用被动模式。</p>
+<h3 id="ftp_password">FTP_PASSWORD</h3>
+<p>默认: <code>"guest"</code></p>
+<p>当FTP连接时使用的密码没有写在<code>Request</code> meta里的<code>"ftp_password"</code></p>
+<pre><code class="note">叙述[RFC 1635](https://tools.ietf.org/html/rfc1635)，
+尽管通常在匿名FTP上使用“guest”密码或电子邮件地址很常见，
+但一些FTP服务器明确要求用户的电子邮件地址，不允许使用“guest”密码登录。
+</code></pre>
+
+<h3 id="ftp_user">FTP_USER</h3>
+<p>默认: "anonymous"</p>
+<p>当FTP连接时使用的密码没有写在<code>Request</code> meta里的<code>"ftp_user"</code></p>
+<h3 id="item_pipelines">ITEM_PIPELINES</h3>
+<p>默认: <code>{}</code></p>
+<p>一种字典，包含要使用的item pipelines及其对应的数字。数字值是任意的，但是通常在0-1000范围内定义它们。低数字在搞数字之前处理。</p>
+<p>例子:</p>
+<pre><code class="python">ITEM_PIPELINES = {
+    'mybot.pipelines.validate.ValidateMyItem': 300,
+    'mybot.pipelines.validate.StoreMyItem': 800,
+}
+</code></pre>
+
+<h3 id="item_pipelines_base">ITEM_PIPELINES_BASE</h3>
+<p>默认: <code>{}</code></p>
+<p>在Scrapy中默认启用的包含pipelines的dict。永远不要在项目中修改这个设置，修改<a href="#">ITEM_PIPELINES</a>除外。</p>
+<h3 id="log_enabled">LOG_ENABLED</h3>
+<p>默认: <code>True</code></p>
+<p>是否启用日志记录。</p>
+<h3 id="log_encoding">LOG_ENCODING</h3>
+<p>默认值: <code>'utf - 8'</code></p>
+<p>用于日志记录的编码。</p>
+<h3 id="log_file">LOG_FILE</h3>
+<p>默认值: <code>None</code></p>
+<p>用于记录输出的文件名。如果没有，则使用标准错误</p>
+<h3 id="log_format">LOG_FORMAT</h3>
+<p>默认: '%(asctime)s [%(name)s] %(levelname)s: %(message)s'</p>
+<p>用于格式化日志消息的字符串。有关可用占位符的完整列表，请参阅<a href="https://docs.python.org/2/library/logging.html#logrecord-attributes">Python日志记录文档</a>。</p>
+<h3 id="log_dateformat">LOG_DATEFORMAT</h3>
+<p>Default: <code>'%Y-%m-%d %H:%M:%S'</code></p>
+<p>用于格式化日期/时间的字符串，以<a href="#">LOG_FORMAT</a>展开<code>%(asctime)s</code>的占位符, 有关可用指令的完整列表，请参阅<a href="https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior">Python datetime文档</a>。</p>
+<h3 id="log_level">LOG_LEVEL</h3>
+<p>默认: <code>'DEBUG'</code></p>
+<p>日志的最低级别。可用的级别是:<code>CRITICAL</code>(关键级别)、<code>ERROR</code>(错误级别)、<code>WARNING</code>(警告级别)、<code>INFO</code>(信息级别)、<code>DEBUG</code>(调试级别)。有关更多信息，请参见<a href="https://docs.scrapy.org/en/latest/topics/logging.html#topics-logging">日志记录</a>。</p>
+<h3 id="log_stdout">LOG_STDOUT</h3>
+<p>默认: <code>False</code></p>
+<p>如果为<code>True</code>，进程的所有标准输出(和错误)将被重定向到日志。例如，如果您<code>print 'hello'</code>，它将出现在Scrapy日志中。</p>
+<h3 id="log_short_names">LOG_SHORT_NAMES</h3>
+<p>默认: <code>False</code></p>
+<p>如果为<code>True</code>，日志只包含根路径。如果设置为<code>False</code>，则显示负责日志输出的组件</p>
+<h3 id="memdebug_enabled">MEMDEBUG_ENABLED</h3>
+<p>默认: <code>False</code></p>
+<p>是否启用内存调试。</p>
+<h3 id="memdebug_notify">MEMDEBUG_NOTIFY</h3>
+<p>默认: <code>[]</code></p>
+<p>当启用内存调试时，如果该设置不是空的，内存报告将被发送到指定的地址，否则报告将被写入日志。</p>
+<p>例子:</p>
+<pre><code class="python">MEMDEBUG_NOTIFY = ['user@example.com']
+</code></pre>
+
+<h3 id="memusage_enabled">MEMUSAGE_ENABLED</h3>
+<p>默认: <code>True</code></p>
+<p>范围: <code>scrapy.extensions.memusage</code></p>
+<p>是否启用内存使用扩展。此扩展跟踪进程使用的峰值内存(将其写到stats中)。当内存超过限制(请参阅<a href="#">MEMUSAGE_LIMIT_MB</a>)时，它还可以选择关闭Scrapy进程，并在出现这种情况时通过电子邮件通知(请参阅<a href="#">MEMUSAGE_NOTIFY_MAIL</a>)。</p>
+<p>参见<a href="#">内存使用扩展</a>。</p>
+<h3 id="memusage_limit_mb">MEMUSAGE_LIMIT_MB</h3>
+<p>默认: <code>0</code></p>
+<p>范围: <code>scrapy.extensions.memusage</code></p>
+<p>关闭Scrapy(如果MEMUSAGE_ENABLED为True)之前允许的最大内存数量(以兆字节为单位)。如果为零，则不执行检查。</p>
+<p>参见<a href="#">内存使用扩展</a>。</p>
+<h3 id="memusage_check_interval_seconds">MEMUSAGE_CHECK_INTERVAL_SECONDS</h3>
+<p>最新版本1.1</p>
+<p>默认: <code>60.0</code></p>
+<p><a href="#">内存使用扩展</a>检查当前内存使用情况，而不是<a href="#">MEMUSAGE_LIMIT_MB</a>和<a href="#">MEMUSAGE_WARNING_MB</a>在固定时间间隔设置的限制。</p>
+<p>这将设置这些间隔的长度，以秒为单位。</p>
+<p>参见<a href="#">内存使用扩展</a>。</p>
+<h3 id="memusage_notify_mail">MEMUSAGE_NOTIFY_MAIL</h3>
+<p>默认: <code>False</code></p>
+<p>范围: <code>scrapy.extensions.memusage</code></p>
+<p>一个电子邮件列表，如果内存达到限制就通知。</p>
+<p>例子:</p>
+<pre><code class="python">MEMUSAGE_NOTIFY_MAIL = ['user@example.com']
+</code></pre>
+
+<p>参见<a href="#">内存使用扩展</a>。</p>
+<h3 id="memusage_warning_mb">MEMUSAGE_WARNING_MB</h3>
+<p>默认: <code>0</code></p>
+<p>范围: <code>scrapy.extensions.memusage</code></p>
+<p>发送警告邮件通知之前允许的最大内存容量(以兆字节为单位)。如果为零，则不会发出警告。</p>
+<h3 id="newspider_module">NEWSPIDER_MODULE</h3>
+<p>默认: <code>''</code></p>
+<p>使用genspider命令创建新spider的模块。</p>
+<p>例子:</p>
+<pre><code class="python">NEWSPIDER_MODULE = 'mybot.spiders_dev'
+</code></pre>
+
+<h3 id="randomize_download_delay">RANDOMIZE_DOWNLOAD_DELAY</h3>
+<p>默认: <code>True</code></p>
+<p>如果启用了,Scrapy在从同一网站获取请求时将会等待一段随机的时间(介于0.5 * <a href="#">DOWNLOAD_DELAY</a>和1.5 * <a href="#">DOWNLOAD_DELAY</a>之间)。</p>
+<p>这种随机化降低了爬虫程序被分析请求的站点检测到(并随后被阻止)的机会，这些站点在请求之间寻找统计上显著的相似性。</p>
+<p>随机化策略与<a href="https://www.gnu.org/software/wget/manual/wget.html">wget</a><code>—-random-wait</code>选项相同。</p>
+<p>如果<a href="#">DOWNLOAD_DELAY</a>为零(默认)，此选项无效。</p>
+<h3 id="reactor_threadpool_maxsize">REACTOR_THREADPOOL_MAXSIZE</h3>
+<p>默认: <code>10</code></p>
+<p>Twisted Reactor线程池大小的最大限制。这是常用的多用途线程池，用于各种无用的组件。线程DNS解析器、BlockingFeedStorage、S3FilesStore等等。如果遇到阻塞IO不足的问题，请增加此值。</p>
+<h3 id="redirect_max_times">REDIRECT_MAX_TIMES</h3>
+<p>默认: <code>20</code></p>
+<p>定义可重定向请求的最大次数。在此最大值之后，请求的响应将按原样返回。对于同一任务，我们使用Firefox默认值。</p>
+<h3 id="redirect_priority_adjust">REDIRECT_PRIORITY_ADJUST</h3>
+<p>默认: <code>+2</code></p>
+<p>范围: <code>scrapy.downloadermiddlewares.redirect.RedirectMiddleware</code></p>
+<p>调整重定向请求优先级相对于原始请求:</p>
+<blockquote>
+<ul>
+<li>正优先级调整(默认)意味着更高优先级。</li>
+<li>负优先级调整意味着低优先级。</li>
+</ul>
+</blockquote>
+<h3 id="retry_priority_adjust">RETRY_PRIORITY_ADJUST</h3>
+<p>默认: <code>-1</code></p>
+<p>范围: <code>scrapy.downloadermiddlewares.retry.RetryMiddleware</code></p>
+<p>调整重试请求优先级相对于原始请求:</p>
+<blockquote>
+<ul>
+<li>正优先级调整意味着更高优先级。</li>
+<li>负优先级调整(默认)意味着低优先级。</li>
+</ul>
+</blockquote>
+<h3 id="robotstxt_obey">ROBOTSTXT_OBEY</h3>
+<p>默认: <code>False</code></p>
+<p>范围: <code>scrapy.downloadermiddlewares.robotstxt</code></p>
+<p>如果启用，Scrapy将尊重robots.txt。三种政策。有关更多信息，请参阅<a href="#">RobotsTxtMiddleware</a>。</p>
+<pre><code class="note">由于历史原因，默认值为`False`，但在设置中默认启用此选项。
+由`scrapy startproject`命令生成的py文件。
+</code></pre>
+
+<h3 id="scheduler">SCHEDULER</h3>
+<p>默认: <code>'scrapy.core.scheduler.Scheduler'</code></p>
+<p>用于抓取的调度程序。</p>
+<h3 id="scheduler_debug">SCHEDULER_DEBUG</h3>
+<p>默认: <code>False</code></p>
+<p>设置为<code>True</code>将记录有关requests scheduler的调试信息。如果requests不能序列化到磁盘上，则当前日志记录(仅一次)。Stats计数器(<code>scheduler/unserializable</code>)跟踪发生这种情况的次数。</p>
+<p>日志中的示例:</p>
+<pre><code class="shell">1956-01-31 00:00:00+0800 [scrapy.core.scheduler] ERROR: Unable to serialize request:
+&lt;GET http://example.com&gt; - reason: cannot serialize &lt;Request at 0x9a7c7ec&gt;
+(type Request)&gt; - no more unserializable requests will be logged
+(see 'scheduler/unserializable' stats counter)
+</code></pre>
+
+<h3 id="scheduler_disk_queue">SCHEDULER_DISK_QUEUE</h3>
+<p>默认: <code>'scrapy.squeues.PickleLifoDiskQueue'</code></p>
+<p>scheduler将使用的磁盘队列的类型。 其他可用的类型是<code>scrapy.squeues.PickleFifoDiskQueue</code>, <code>scrapy.squeues.MarshalFifoDiskQueue</code>, <code>scrapy.squeues.MarshalLifoDiskQueue</code></p>
+<h3 id="scheduler_memory_queue">SCHEDULER_MEMORY_QUEUE</h3>
+<p>默认: <code>'scrapy.squeues.LifoMemoryQueue'</code></p>
+<p>scheduler使用的内存队列的类型。其他可用的类型是:<code>scrapy.squeues.FifoMemoryQueue</code></p>
+<h3 id="scheduler_priority_queue">SCHEDULER_PRIORITY_QUEUE</h3>
+<p>默认: <code>'queuelib.PriorityQueue'</code></p>
+<p>scheduler使用的优先队列的类型。</p>
+<h3 id="spider_contracts">SPIDER_CONTRACTS</h3>
+<p>默认: <code>{}</code></p>
+<p>包含在你的项目中启用的spider的contracts的dict，用于测试spiders。有关更多信息，请参见<a href="#">Spiders Contracts</a>。</p>
+<h3 id="spider_contracts_base">SPIDER_CONTRACTS_BASE</h3>
+<p>默认: </p>
+<pre><code class="python">{
+    'scrapy.contracts.default.UrlContract' : 1,
+    'scrapy.contracts.default.ReturnsContract': 2,
+    'scrapy.contracts.default.ScrapesContract': 3,
+}
+</code></pre>
+
+<p>在scrapy中默认启用包含scrapy contracts的dict。永远不要在项目中修改这个设置，修改<a href="#">spider_contract</a>除外。有关更多信息，请参见<a href="#">Spiders Contracts</a>。</p>
+<p>您可以通过在<a href="#">SPIDER_CONTRACTS</a>中为它们的类路径分配<code>None</code>来禁用任何这些contracts。例如，要禁用内置的<code>ScrapesContract</code>，请将其放在您的<code>settings.py</code>中。</p>
+<pre><code class="python">SPIDER_CONTRACTS = {
+    'scrapy.contracts.default.ScrapesContract': None,
+}
+</code></pre>
+
+<h3 id="spider_loader_class">SPIDER_LOADER_CLASS</h3>
+<p>默认: <code>'scrapy.spiderloader.SpiderLoader'</code></p>
+<p>用于装载spider的类，它必须实现<a href="#">SpiderLoader API</a>。</p>
+<h3 id="spider_loader_warn_only">SPIDER_LOADER_WARN_ONLY</h3>
+<p>最新版本1.3.3</p>
+<p>默认: <code>False</code></p>
+<p>默认情况下，当scrapy试图从<a href="#">SPIDER_MODULES</a>中导入spider类时，如果存在<code>ImportError</code>异常，它将会显著失败。但是您可以选择关闭这个异常，并通过设置<code>SPIDER_LOADER_WARN_ONLY = True</code>将其转换为一个简单的警告。</p>
+<pre><code class="note">一些[scrapy命令](#)在这个setting为True时已经运行(即它们只会发出警告并且不会失败)
+，
+因为它们实际上不需要加载spider类来工作:[scrapy runspider](#)、[scrapy设置](#)、
+[scrapy startproject](#)、[scrapy版本](#)。
+</code></pre>
+
+<h3 id="spider_middlewares">SPIDER_MIDDLEWARES</h3>
+<p>默认: <code>{}</code></p>
+<p>包含在您的项目中启用的spider middlewares及其对应的数字的dict。有关更多信息，请参见<a href="#">激活spider middleware</a>。</p>
+<h3 id="spider_middlewares_base">SPIDER_MIDDLEWARES_BASE</h3>
+<p>默认</p>
+<pre><code class="python">{
+    'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': 50,
+    'scrapy.spidermiddlewares.offsite.OffsiteMiddleware': 500,
+    'scrapy.spidermiddlewares.referer.RefererMiddleware': 700,
+    'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware': 800,
+    'scrapy.spidermiddlewares.depth.DepthMiddleware': 900,
+}
+</code></pre>
+
+<p>在Scrapy中默认启用的包含spider middlewares及其对应的数字的dict, 低数字更接近engine，高数字更接近spider, 请参见<a href="#">激活spider middleware</a>。</p>
+<h3 id="spider_modules">SPIDER_MODULES</h3>
+<p>默认: <code>[]</code></p>
+<p>一个模块列表，其中Scrapy将查找spider。</p>
+<p>例子:</p>
+<pre><code class="python">SPIDER_MODULES = ['mybot.spiders_prod', 'mybot.spiders_dev']
+</code></pre>
+
+<h3 id="stats_class">STATS_CLASS</h3>
+<p>默认: <code>'scrapy.statscollectors.MemoryStatsCollector'</code></p>
+<p>用于收集统计数据的类，它必须实例化<a href="#">Stats Collector API</a>。</p>
+<h3 id="stats_dump">STATS_DUMP</h3>
+<p>默认: <code>True</code></p>
+<p>在spider完成后，将<a href="#">Scrapy stats</a>转储(到Scrapy log)。</p>
+<p>有关更多信息，请参见:<a href="#">Stats Collection</a>。</p>
+<h3 id="statsmailer_rcpts">STATSMAILER_RCPTS</h3>
+<p>默认: <code>[]</code>(空列表)</p>
+<p>在spider完成抓取后发送Scrapy stats。有关更多信息，请参阅<code>StatsMailer</code>。</p>
+<h3 id="telnetconsole_enabled">TELNETCONSOLE_ENABLED</h3>
+<p>默认: <code>True</code></p>
+<p>一个布尔值，用于指定是否启用<a href="#">telnet控制台</a>(如果它的扩展也是启用的)。</p>
+<h3 id="telnetconsole_port">TELNETCONSOLE_PORT</h3>
+<p>默认: [6023, 6073]</p>
+<p>用于telnet控制台的端口范围, 如果设置为<code>None</code>或<code>0</code>, ，则使用动态分配的端口, 有关更多信息，请参阅<a href="#">Telnet控制台</a>。</p>
+<h3 id="templates_dir">TEMPLATES_DIR</h3>
+<p>默认: 在scrapy模块内的<code>templates</code>目录</p>
+<p>使用<a href="#">startproject</a>命令创建新项目和使用<a href="#">genspider</a>命令创建新spier时查找模板的目录。</p>
+<p>项目名称不得与<code>project</code>子目录中的自定义文件或目录的名称相冲突。</p>
+<h3 id="urllength_limit">URLLENGTH_LIMIT</h3>
+<p>默认: <code>2083</code></p>
+<p>范围: <code>spidermiddlewares.urllength</code></p>
+<p>允许抓取URL的最大URL长度, 有关此设置的默认值的更多信息，请参阅<a href="https://boutell.com/newfaq/misc/urllength.html">https://boutell.com/newfaq/misc/urllength.html</a></p>
+<h3 id="user_agent">USER_AGENT</h3>
+<p>默认: <code>"Scrapy/VERSION (+https://scrapy.org)"</code></p>
+<p>爬行时要使用的默认用户代理，除非重写。</p>
+<h3 id="settings_2">Settings其他记录:</h3>
+<p>以下设置已在其他地方记录在案，请检查每个特定的情况，以查看如何启用和使用它们。</p>
+<blockquote>
+<ul>
+<li><a href="#">AJAXCRAWL_ENABLED</a></li>
+<li><a href="#">AUTOTHROTTLE_DEBUG</a></li>
+<li><a href="#">AUTOTHROTTLE_ENABLED</a></li>
+<li><a href="#">AUTOTHROTTLE_MAX_DELAY</a></li>
+<li><a href="#">AUTOTHROTTLE_START_DELAY</a></li>
+<li><a href="#">AUTOTHROTTLE_TARGET_CONCURRENCY</a></li>
+<li><a href="#">CLOSESPIDER_ERRORCOUNT</a></li>
+<li><a href="#">CLOSESPIDER_ITEMCOUNT</a></li>
+<li><a href="#">CLOSESPIDER_PAGECOUNT</a></li>
+<li><a href="#">CLOSESPIDER_TIMEOUT</a></li>
+<li><a href="#">COMMANDS_MODULE</a></li>
+<li><a href="#">COMPRESSION_ENABLED</a></li>
+<li><a href="#">COOKIES_DEBUG</a></li>
+<li><a href="#">COOKIES_ENABLED</a></li>
+<li><a href="#">FEED_EXPORTERS</a></li>
+<li><a href="#">FEED_EXPORTERS_BASE</a></li>
+<li><a href="#">FEED_EXPORT_ENCODING</a></li>
+<li><a href="#">FEED_EXPORT_FIELDS</a></li>
+<li><a href="#">FEED_EXPORT_INDENT</a></li>
+<li><a href="#">FEED_FORMAT</a></li>
+<li><a href="#">FEED_STORAGES</a></li>
+<li><a href="#">FEED_STORAGES_BASE</a></li>
+<li><a href="#">FEED_STORE_EMPTY</a></li>
+<li><a href="#">FEED_URI</a></li>
+<li><a href="#">FILES_EXPIRES</a></li>
+<li><a href="#">FILES_RESULT_FIELD</a></li>
+<li><a href="#">FILES_STORE</a></li>
+<li><a href="#">FILES_STORE_S3_ACL</a></li>
+<li><a href="#">FILES_URLS_FIELD</a></li>
+<li><a href="#">GCS_PROJECT_ID</a></li>
+<li><a href="#">HTTPCACHE_ALWAYS_STORE</a></li>
+<li><a href="#">HTTPCACHE_DBM_MODULE</a></li>
+<li><a href="#">HTTPCACHE_DIR</a></li>
+<li><a href="#">HTTPCACHE_ENABLED</a></li>
+<li><a href="#">HTTPCACHE_EXPIRATION_SECS</a></li>
+<li><a href="#">HTTPCACHE_GZIP</a></li>
+<li><a href="#">HTTPCACHE_IGNORE_HTTP_CODES</a></li>
+<li><a href="#">HTTPCACHE_IGNORE_MISSING</a></li>
+<li><a href="#">HTTPCACHE_IGNORE_RESPONSE_CACHE_CONTROLS</a></li>
+<li><a href="#">HTTPCACHE_IGNORE_SCHEMES</a></li>
+<li><a href="#">HTTPCACHE_POLICY</a></li>
+<li><a href="#">HTTPCACHE_STORAGE</a></li>
+<li><a href="#">HTTPERROR_ALLOWED_CODES</a></li>
+<li><a href="#">HTTPERROR_ALLOW_ALL</a></li>
+<li><a href="#">HTTPPROXY_AUTH_ENCODING</a></li>
+<li><a href="#">HTTPPROXY_ENABLED</a></li>
+<li><a href="#">IMAGES_EXPIRES</a></li>
+<li><a href="#">IMAGES_MIN_HEIGHT</a></li>
+<li><a href="#">IMAGES_MIN_WIDTH</a></li>
+<li><a href="#">IMAGES_RESULT_FIELD</a></li>
+<li><a href="#">IMAGES_STORE</a></li>
+<li><a href="#">IMAGES_STORE_S3_ACL</a></li>
+<li><a href="#">IMAGES_THUMBS</a></li>
+<li><a href="#">IMAGES_URLS_FIELD</a></li>
+<li><a href="#">MAIL_FROM</a></li>
+<li><a href="#">MAIL_HOST</a></li>
+<li><a href="#">MAIL_PASS</a></li>
+<li><a href="#">MAIL_PORT</a></li>
+<li><a href="#">MAIL_SSL</a></li>
+<li><a href="#">MAIL_TLS</a></li>
+<li><a href="#">MAIL_USER</a></li>
+<li><a href="#">MEDIA_ALLOW_REDIRECTS</a></li>
+<li><a href="#">METAREFRESH_ENABLED</a></li>
+<li><a href="#">METAREFRESH_MAXDELAY</a></li>
+<li><a href="#">REDIRECT_ENABLED</a></li>
+<li><a href="#">REDIRECT_MAX_TIMES</a></li>
+<li><a href="#">REFERER_ENABLED</a></li>
+<li><a href="#">REFERRER_POLICY</a></li>
+<li><a href="#">RETRY_ENABLED</a></li>
+<li><a href="#">RETRY_HTTP_CODES</a></li>
+<li><a href="#">RETRY_TIMES</a></li>
+<li><a href="#">TELNETCONSOLE_HOST</a></li>
+<li><a href="#">TELNETCONSOLE_PORT</a></li>
+</ul>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about/" class="btn btn-neutral float-right" title="about">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../15-extractors/" class="btn btn-neutral" title="Link Extractors(链接提取器)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../15-extractors/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

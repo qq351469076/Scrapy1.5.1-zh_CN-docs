@@ -86,7 +86,7 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../06-command_line_tool/">命令行工具</a>
+    <a class="" href="../06-command_line_tool/">Command line tool(命令行工具)</a>
                 </li>
                 <li class="">
                     
@@ -159,7 +159,28 @@
         </ul>
     
 
+    <li class="toctree-l3"><a href="#response_1">Response子类</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#textresponse">TextResponse对象</a></li>
+        
+            <li><a class="toctree-l4" href="#htmlresponse">HtmlResponse对象</a></li>
+        
+            <li><a class="toctree-l4" href="#xmlresponse">XmlResponse对象</a></li>
+        
+        </ul>
+    
+
     </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../16-settings/">Settings(设置)</a>
                 </li>
                 <li class="">
                     
@@ -574,6 +595,133 @@ class LoginSpider(scrapy.Spider):
 <p>一个类似于字典的对象，它包含response headers。可以使用<code>get()</code>来取值，用指定的名字返回第一个header的值或<code>getlist()</code>用指定的名字返回所有的header值。 例如，调用这个会提供headers中所有的cookie：</p>
 <p><code>response.headers.getlist('Set-Cookie')</code></p>
 </blockquote>
+<p><code>body</code></p>
+<blockquote>
+<p>response的body。请牢记<code>Response.body</code>总是一个<code>bytes</code>对象。如果你想要unicode版本，使用<a href="#">TextResponse.text</a>(仅在<a href="#">TextResponse</a>和子类中可用)。</p>
+<p>这个属性是只读的。要更改response body，请使用<a href="#">replace()</a>。</p>
+</blockquote>
+<p><code>request</code></p>
+<blockquote>
+<p>生成此response的<a href="#">Request</a>对象。在response和request通过所有<a href="#">Downloader Middlewares</a>之后，这个属性被分配到Scrapy引擎中。特别地，这意味着:</p>
+<blockquote>
+<ul>
+<li>HTTP重定向将导致原始请求(重定向前的URL)被分配给重定向response(重定向后的最终URL)。</li>
+<li>Response.request.url并不总是等于Response.url</li>
+<li>该属性仅在spider代码和<a href="#">Spider Middlewares</a>中可用，但在<a href="#">Downloader Middlewares</a>中不可用(尽管您可以通过其他方式获得请求)和<a href="#">response_downloaded</a> 信号的处理程序中不可用。</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>meta</code></p>
+<blockquote>
+<p><a href="#">Response.request</a>对象(即。<code>self.request.meta</code>)的<a href="#">Request.meta</a>属性的快捷方式。</p>
+<p>不同于<a href="#">Response.request</a>属性, <a href="#">Response.meta</a>属性通过重定向和重试传播, 你会从你的spider得到原始的<a href="#">Request.meta</a>
+。</p>
+</blockquote>
+</blockquote>
+<pre><code class="note">参见Request.meta属性
+</code></pre>
+
+<blockquote>
+<p><code>flags</code></p>
+<blockquote>
+<p>包含此response flag的列表。 flag是用于标记response的标签。例如:'cached'，'redirect'等等，它们显示在response的字符串表示上(__str__方法)，该方法被引擎用于日志记录。</p>
+</blockquote>
+<p><code>copy()</code></p>
+<blockquote>
+<p>返回一个新response，该response是此response的副本。</p>
+</blockquote>
+<p><code>replace([url, status, headers, body, request, flags, cls])</code></p>
+<blockquote>
+<p>返回具有相同成员的response对象，除了那些由指定的关键字参数赋予新值的成员。默认情况下，<a href="#">Response.meta</a>会被复制。</p>
+</blockquote>
+<p><code>urljoin(url)</code></p>
+<blockquote>
+<p>通过将response的url与相对url相结合来构造一个绝对url。</p>
+<p>这是<a href="#">urlparse.urljoin</a>之上的一个包装器，它只是进行此调用的别名:
+<code>urlparse.urljoin(response.url, url)</code></p>
+</blockquote>
+<p><strong>follow</strong>(url, callback=None, method='GET', headers=None, body=None, cookies=None, meta=None, encoding='utf-8', priority=0, dont_filter=False, errback=None)</p>
+<blockquote>
+<p>返回<a href="#">Request</a>实例以跟随链接<code>url</code>。它接受与<code>Request.__init__</code>方法相同的参数。，但<code>url</code>可以是相对url或<code>scrapy.link.Link</code>对象，不只是绝对URL。</p>
+<p><a href="#">TextResponse</a>提供了<a href="#">follow()</a>方法，该方法除了支持绝对/相对url和链接对象之外，还支持选择器。</p>
+</blockquote>
+</blockquote>
+<h1 id="response_1">Response子类</h1>
+<h2 id="textresponse">TextResponse对象</h2>
+<h4 id="scrapyhttptextresponseurl-encoding-class">scrapy.http.TextResponse(url[, encoding[, ...]])   这是一个类(class)</h4>
+<p><a href="#">TextResponse</a>对象向<a href="#">Response</a>基类添加编码功能，<a href="#">Response</a>基类只用于二进制数据，如图像、声音或任何媒体文件。</p>
+<p>除了基本<a href="#">Response</a>对象之外，<a href="#">TextResponse</a>对象还支持一个新的构造函数参数, 其余的功能与<a href="#">Response</a>类相同</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>encoding (字符串) – 包含用于此response的编码的字符串, 如果您使用unicode body创建一个<a href="#">TextResponse</a>对象, 它将使用这种编码进行编码(请记住body属性总是一个字符串), 如果<code>encoding</code>为<code>None</code>(默认值)，则在response headers和body中查找编码。</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>除了支持标准的<a href="#">Response</a>属性外，<a href="#">TextResponse</a>对象还支持以下属性:</p>
+<p><code>text</code></p>
+<blockquote>
+<p>response body，作为unicode。</p>
+<blockquote>
+<p>与<code>response.body.decode(response.encoding)</code>相同，但是结果在第一次调用之后缓存，所以你可以访问<code>response.text</code>多次，没有额外的开销。</p>
+</blockquote>
+</blockquote>
+<pre><code class="note">unicode(response.body)不是将response body转换为unicode的正确方法:
+您将使用系统默认编码(通常是ascii)，而不是response编码。
+</code></pre>
+
+<p><code>encoding</code>
+带有此response编码的字符串。按照顺序，可以通过尝试以下机制来解决编码问题:</p>
+<blockquote>
+<ol>
+<li>在构造函数编码参数中传递的编码</li>
+<li>HTTP headers头里Content-Type声明编码。如果此编码无效(即未知)，它被忽略，并尝试下一个解决机制。</li>
+<li>response body体中声明的编码。<a href="#">TextResponse</a>类没有为此提供任何特殊功能。然而，<a href="#">HtmlResponse</a>和<a href="#">XmlResponse</a>类do。</li>
+<li>编码是通过观察response body体来推断的。这是比较脆弱的方法，也是最后一个尝试的方法。</li>
+</ol>
+</blockquote>
+<p><code>selector</code></p>
+<blockquote>
+<p>使用response作为目标的<a href="#">Selector</a>实例。选择器在第一次访问时惰性实例化。</p>
+</blockquote>
+<p><a href="#">TextResponse</a>对象除了支持标准<a href="#">Response</a>方法外，还支持以下方法:</p>
+<p><code>xpath(query)</code></p>
+<blockquote>
+<p><code>TextResponse.selector.xpath(query)</code>的快捷方式</p>
+<p><code>response.xpath('//p')</code></p>
+</blockquote>
+<p><code>css(query)</code></p>
+<blockquote>
+<p><code>TextResponse.selector.css(query)</code>的快捷方式</p>
+<p><code>response.css('p')</code></p>
+</blockquote>
+<p><code>follow(url, callback=None, method='GET', headers=None, body=None, cookies=None, meta=None, encoding=None, priority=0, dont_filter=False, errback=None)</code></p>
+<blockquote>
+<p>返回<a href="#">Request</a>实例以跟随链接<code>url</code>。它接受与<code>Request.__init__</code>相同的参数。 但<code>url</code>不仅可以是一个绝对url，而且也是</p>
+<blockquote>
+<ul>
+<li>一个相对URL</li>
+<li>一个scrapy.link.Link对象(如link extractor(链接提取器)结果);</li>
+<li>一个属性Selector(不是SelectorList) - 比如<code>response.css('a::attr(href)')[0]</code>或<code>response.xpath('//img/@src')[0]</code>。</li>
+<li>一个<code>&lt;a&gt;</code>或<code>&lt;link&gt;</code>元素的Selector, 比如<code>response.css('a.my_link')[0]</code></li>
+</ul>
+</blockquote>
+</blockquote>
+<p>请参阅<a href="#">创建Requests的快捷方式</a>使用例子</p>
+<p><code>body_as_unicode()</code></p>
+<blockquote>
+<p>与<a href="#">text</a>相同，但作为方法可用。这种方法是为了向后兼容;请选择<code>response.text</code>。</p>
+</blockquote>
+<h2 id="htmlresponse">HtmlResponse对象</h2>
+<h4 id="scrapyhttphtmlresponseurl-class">scrapy.http.HtmlResponse(url[, ...])   这是一个类(class)</h4>
+<blockquote>
+<p><a href="#">HtmlResponse</a>类是<a href="#">TextResponse</a>的一个子类，它通过查找HTML的<a href="https://www.w3schools.com/TAGS/att_meta_http_equiv.asp">meta http-equiv</a>属性来添加编码自动发现支持。看<a href="#">TextResponse.encoding</a>。</p>
+</blockquote>
+<h2 id="xmlresponse">XmlResponse对象</h2>
+<h4 id="scrapyhttpxmlresponseurl-class">scrapy.http.XmlResponse(url[, ...])   这是一个类(class)</h4>
+<blockquote>
+<p><a href="#">XmlResponse</a>类是<a href="#">TextResponse</a>的子类，它通过查看XML声明行添加编码自动发现支持。看<a href="#">TextResponse.encoding</a>。</p>
 </blockquote>
               
             </div>
@@ -582,7 +730,7 @@ class LoginSpider(scrapy.Spider):
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../about/" class="btn btn-neutral float-right" title="about">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../15-extractors/" class="btn btn-neutral float-right" title="Link Extractors(链接提取器)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../13-feed_exports/" class="btn btn-neutral" title="Feed exports"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -614,7 +762,7 @@ class LoginSpider(scrapy.Spider):
         <span><a href="../13-feed_exports/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../15-extractors/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

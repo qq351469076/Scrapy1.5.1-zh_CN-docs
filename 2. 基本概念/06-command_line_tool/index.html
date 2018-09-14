@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>命令行工具 - Scrapy 1.5.1 中文文档</title>
+  <title>Command line tool(命令行工具) - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u547d\u4ee4\u884c\u5de5\u5177";
+    var mkdocs_page_name = "Command line tool(\u547d\u4ee4\u884c\u5de5\u5177)";
     var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\06-command_line_tool.md";
     var mkdocs_page_url = null;
   </script>
@@ -86,20 +86,20 @@
     <ul class="subnav">
                 <li class=" current">
                     
-    <a class="current" href="./">命令行工具</a>
+    <a class="current" href="./">Command line tool(命令行工具)</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#_1">命令行工具</a></li>
+    <li class="toctree-l3"><a href="#command-line-tool">Command line tool(命令行工具)</a></li>
     
         <ul>
         
-            <li><a class="toctree-l4" href="#_2">配置设置</a></li>
+            <li><a class="toctree-l4" href="#_1">配置设置</a></li>
         
             <li><a class="toctree-l4" href="#scrapy">使用scrapy工具</a></li>
         
-            <li><a class="toctree-l4" href="#_3">创建项目</a></li>
+            <li><a class="toctree-l4" href="#_2">创建项目</a></li>
         
-            <li><a class="toctree-l4" href="#_4">可用的工具命令</a></li>
+            <li><a class="toctree-l4" href="#_3">可用的工具命令</a></li>
         
         </ul>
     
@@ -140,6 +140,14 @@
                 </li>
                 <li class="">
                     
+    <a class="" href="../15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../16-settings/">Settings(设置)</a>
+                </li>
+                <li class="">
+                    
     <a class="" href="../about/">about</a>
                 </li>
     </ul>
@@ -171,7 +179,7 @@
         
       
     
-    <li>命令行工具</li>
+    <li>Command line tool(命令行工具)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -181,12 +189,12 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">命令行工具</h1>
+                <h1 id="command-line-tool">Command line tool(命令行工具)</h1>
 <p>最新的版本是0.10</p>
 <p>Scrapy是通过<code>scrapy</code>命令行工具进行控制的，在这里被称为“Scrapy工具”，以便将其与子命令区分开来，子命令我们称为“命令”或“Scrapy命令”。</p>
 <p>Scrapy工具为多种目的提供了几个命令，每个命令都接受一组不同的参数和选项。</p>
 <p>(在1.0版中，已删除了<code>scrapy deploy</code>命令，支持独立的<code>scrapdy -deploy</code>。参见<a href="#">部署您的项目</a>)。</p>
-<h2 id="_2">配置设置</h2>
+<h2 id="_1">配置设置</h2>
 <p>Scrapy将在标准的位置内采用<code>scrapy.cfg</code>文件中寻找内置样式并查找配置参数:</p>
 <p>linux <code>/etc/scrapy.cfg</code>, <code>~/.config/scrapy.cfg</code>, (<code>$XDG_CONFIG_HOME</code>)和<code>~/.scrapy.cfg</code>(<code>$HOME</code>)等全局设置和<code>scrapy.cfg</code>在scrapy项目的根目录中(参见下一节)。</p>
 <p>这些文件中的设置按照列出的优先级顺序合并:用户定义的值具有比系统范围内的默认值更高的优先级，并且在定义时项目范围内的设置将覆盖所有其他设置。</p>
@@ -266,7 +274,7 @@ Available commands:
 Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
 </code></pre>
 
-<h2 id="_3">创建项目</h2>
+<h2 id="_2">创建项目</h2>
 <p>通常使用<code>scrapy</code>工具做的第一件事是创建一个scrapy项目:</p>
 <pre><code>scrapy startproject myproject [project_dir]
 </code></pre>
@@ -283,7 +291,7 @@ Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
 
 <p>一些Scrapy命令(比如<a href="#">crawl</a>])必须在一个Scrapy项目里运行。关于哪些命令必须在项目内部运行，哪些不能运行，请参阅下面的<a href="#">命令参考</a>资料。</p>
 <p>还要记住，在从内部项目运行命令时，有些命令的行为可能略有不同。例如，如果获取的url与某个特定的爬虫相关联，fetch命令将使用spider覆盖的行为(例如<code>user_agent</code>来覆盖用户代理)。这是有意为之的，因为<code>fetch</code>命令用于检查爬虫如何下载页面。</p>
-<h2 id="_4">可用的工具命令</h2>
+<h2 id="_3">可用的工具命令</h2>
 <p>本节包含可用的内置命令列表和描述以及一些使用示例。记住，你可以通过运行以下命令获得更多信息:</p>
 <pre><code>scrapy &lt;command&gt; -h
 </code></pre>
@@ -543,9 +551,9 @@ $ scrapy settings --get DOWNLOAD_DELAY
 <li>需要项目: no</li>
 </ul>
 <p>运行一个快速的基准测试. <a href="#">基准点</a></p>
-<h3 id="_5">自定义项目的命令</h3>
+<h3 id="_4">自定义项目的命令</h3>
 <p>还可以使用<a href="#">COMMANDS_MODULE</a>设置添加定制项目命令。有关如何实现命令的示例，请参阅<a href="#">Scrapy/commands</a>中的Scrapy命令。</p>
-<h3 id="_6">命令模块</h3>
+<h3 id="_5">命令模块</h3>
 <p>默认值:”(空字符串)</p>
 <p>用于查找自定义Scrapy命令的模块。这用于为您的Scrapy项目添加自定义命令。</p>
 <p>例子:</p>
