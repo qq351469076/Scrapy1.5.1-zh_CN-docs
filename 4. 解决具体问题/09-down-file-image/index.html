@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>下载并处理文件和图像 - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u4e0b\u8f7d\u5e76\u5904\u7406\u6587\u4ef6\u548c\u56fe\u50cf";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\09-down-file-image.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">3. 内置服务</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/17-logging/">Logging(日志记录)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/19-send-email/">Sending e-mail(发送一个邮件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/20-telnet-console/">Telnet Console(Telnet控制台)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/21-web-service/">Web Service(Web服务)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">4. 解决具体问题</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../03-Spiders Contracts/">Spiders Contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../04-common-practices/">Common Practices(常用实践)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../05-broad-crawls/">Broad Crawls</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">下载并处理文件和图像</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#_1">下载并处理文件和图像</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#files-pipeline">使用Files Pipeline</a></li>
+        
+            <li><a class="toctree-l4" href="#images-pipeline">使用Images Pipeline</a></li>
+        
+            <li><a class="toctree-l4" href="#media-pipeline">启用Media Pipeline</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">支持存储</a></li>
+        
+            <li><a class="toctree-l4" href="#_5">使用案例</a></li>
+        
+            <li><a class="toctree-l4" href="#_6">额外特性</a></li>
+        
+            <li><a class="toctree-l4" href="#media-pipelines">扩展Media Pipelines</a></li>
+        
+            <li><a class="toctree-l4" href="#images-pipeline_1">自定义Images pipeline示例</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-Benchmark/">基准测试</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">5. Scrapy扩展</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/01-Architecture-overview/">架构概述</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/02-Downloader-Middleware/">Downloader Middleware</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>4. 解决具体问题 &raquo;</li>
+        
+      
+    
+    <li>下载并处理文件和图像</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">下载并处理文件和图像</h1>
+<p>Scrapy提供了可重用的<a href="#">item pipelines</a>，用于下载附加到特定item的文件(例如，当您抓取产品并希望在本地下载其图像时)。这些管道共享一些功能和结构(我们将它们称为media pipelines)，但通常您将使用Files Pipeline或Images Pipeline。</p>
+<p>两个pipelines都实现了以下特性:</p>
+<blockquote>
+<ul>
+<li>避免重新下载最近下载的media</li>
+<li>指定存储media的位置(文件系统目录、Amazon S3 bucket、谷歌云存储bucket)</li>
+</ul>
+</blockquote>
+<p>Images Pipeline有一些额外的处理图像的功能:</p>
+<blockquote>
+<ul>
+<li>将所有下载的图片转换为通用格式(JPG)和模式(RGB)</li>
+<li>生成缩略图</li>
+<li>检查图像的宽度/高度以确保它们满足最小约束</li>
+</ul>
+</blockquote>
+<p>pipelines还保留那些正在计划下载的media url的内部队列，并将包含相同media的responses连接到该队列。当同一media被多个items共享时，这可以避免多次下载。</p>
+<h2 id="files-pipeline">使用Files Pipeline</h2>
+<p>使用<code>FilesPipeline</code>时，典型的工作流是这样的:</p>
+<blockquote>
+<ol>
+<li>在spider中，您抓取一个item，并将所需的url放入<code>file_urls</code>(字段)</li>
+<li>item从spider返回并进入item pipeline。</li>
+<li>当item到达<code>FilesPipeline</code>时，<code>file_urls</code>字段中的url将被安排使用标准的Scrapy scheduler和downloader(这意味着scheduler和downloader middlewares被重用)进行下载，但是具有更高的优先级，在其他页面被抓取之前对它们进行处理。在文件下载完成(或由于某种原因失败)之前，该item在特定的pipeline阶段保持“锁定”状态。</li>
+<li>下载文件时，将结果填充另一个字段(<code>files</code>)。该字段将包含关于下载文件的信息的dicts列表，例如下载的路径、原始的抓取url(从<code>file_urls</code>字段中获取)和文件校验。<code>files</code>字段列表中的文件将保持原始<code>file_urls</code>字段的顺序。如果某些文件下载失败，将log一个错误，文件将不会出现在<code>files</code>字段中。</li>
+</ol>
+</blockquote>
+<h2 id="images-pipeline">使用Images Pipeline</h2>
+<p>使用<a href="#">ImagesPipeline</a>非常类似于使用<a href="#">FilesPipeline</a>，只是使用的默认字段名不同:使用<code>image_urls</code>作为item的图像url，它将填充一个<code>images</code>字段以获得关于下载图像的信息。</p>
+<p>使用<a href="#">ImagesPipeline</a>处理图像文件的优点是，您可以配置一些额外的函数，比如生成缩略图和根据它们的大小过滤图像。</p>
+<p>Images Pipeline使用<a href="https://github.com/python-pillow/Pillow">Pillow</a>将图像压缩到JPEG/RGB格式，因此你需要安装这个库才能使用它。<a href="http://www.pythonware.com/products/pil/">Python Imaging Library</a> (PIL)在大多数情况下也可以工作，但众所周知，它会在一些设置中带来麻烦，所以我们建议使用Pillow而不是PIL。</p>
+<h2 id="media-pipeline">启用Media Pipeline</h2>
+<p>要启用media pipeline，必须首先将其添加到项目<a href="#">ITEM_PIPELINES</a> setting中。</p>
+<p>对于Images Pipeline，使用:</p>
+<pre><code class="python">ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+</code></pre>
+
+<p>对于Files Pipeline，使用:</p>
+<pre><code class="python">ITEM_PIPELINES = {'scrapy.pipelines.files.FilesPipeline': 1}
+</code></pre>
+
+<pre><code class="note">您还可以同时使用Files和Images Pipeline。
+</code></pre>
+
+<p>然后，将目标存储setting配置为一个有效值，该有效值将用于存储下载的图像。否则，管道将保持禁用状态，即使您将其包含在<a href="#">ITEM_PIPELINES</a>设置中。</p>
+<p>对于Files Pipeline，设置<a href="#">FILES_STORE</a> setting:</p>
+<pre><code class="python">FILES_STORE = '/path/to/valid/dir'
+</code></pre>
+
+<p>对于Images Pipeline，设置<a href="#">IMAGES_STORE</a> setting:</p>
+<pre><code class="python">IMAGES_STORE = '/path/to/valid/dir'
+</code></pre>
+
+<h2 id="_2">支持存储</h2>
+<p>文件系统是目前唯一官方支持的存储，但也支持在<a href="https://aws.amazon.com/s3/">Amazon S3</a>和<a href="https://cloud.google.com/storage/">谷歌云存储</a>中存储文件。</p>
+<h3 id="_3">文件系统存储</h3>
+<p>这些文件使用它们的url的SHA1 hash来存储文件名。</p>
+<p>例如，以下图片URL:</p>
+<pre><code class="python">http://www.example.com/image.jpg
+</code></pre>
+
+<p>其SHA1散列为:</p>
+<pre><code class="python">3afec3b4765f8f0a07b78f98c07b83f013567a0a
+</code></pre>
+
+<p>将下载并储存于以下路径:</p>
+<pre><code class="python">&lt;IMAGES_STORE&gt;/full/3afec3b4765f8f0a07b78f98c07b83f013567a0a.jpg
+</code></pre>
+
+<p>目标:</p>
+<blockquote>
+<ul>
+<li><code>&lt;IMAGES_STORE&gt;</code>为Images Pipeline在<a href="#">IMAGES_STORE</a>设置中定义的目录。。</li>
+<li><code>full</code>是一个子目录，用于从缩略图(如果使用)中分离完整的图像。有关更多信息，请参见<a href="#">缩略图生成</a>。</li>
+</ul>
+</blockquote>
+<h3 id="amazon-s3">Amazon S3存储</h3>
+<p><a href="#">FILES_STORE</a>和<a href="#">IMAGES_STORE</a>可以表示一个Amazon S3 bucket。Scrapy会自动将文件上传到bucket。</p>
+<p>例如，这是一个有效的<a href="#">IMAGES_STORE</a>值:</p>
+<pre><code class="python">IMAGES_STORE = 's3://bucket/images'
+</code></pre>
+
+<p>您可以修改用于存储文件的访问控制列表(ACL)策略，该策略由<a href="#">FILES_STORE_S3_ACL</a>设置和<a href="#">IMAGES_STORE_S3_ACL</a> settings定义。默认情况下，ACL设置为<code>private</code>。要使文件公开可用，请使用<code>public-read</code>策略:</p>
+<pre><code class="python">IMAGES_STORE_S3_ACL = 'public-read'
+</code></pre>
+
+<p>有关更多信息，请参阅Amazon S3开发人员指南中的<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">canned ACLs</a>。</p>
+<h3 id="_4">谷歌云存储</h3>
+<p><a href="#">FILES_STORE</a>和<a href="#">IMAGES_STORE</a>可以表示谷歌云存储bucket。Scrapy会自动将文件上传到bucket。(需要<a href="https://cloud.google.com/storage/docs/reference/libraries#client-libraries-install-python">谷歌云存储</a>)</p>
+<p>例如，这些是有效的<a href="#">IMAGES_STORE</a>和<a href="#">GCS_PROJECT_ID</a> settings:</p>
+<pre><code class="python">IMAGES_STORE = 'gs://bucket/images/'
+GCS_PROJECT_ID = 'project_id'
+</code></pre>
+
+<p>有关身份验证的信息，请参阅此<a href="https://cloud.google.com/docs/authentication/production">文档</a>。</p>
+<h2 id="_5">使用案例</h2>
+<p>为了首先使用media pipeline，请<a href="#">启用它</a>。</p>
+<p>然后，如果spider返回一个带有url键(分别用于文件或图像管道的<code>file_urls</code>或<code>image_urls</code>)的dict，管道将把结果放在相应的键(<code>files</code>或<code>images</code>)下。</p>
+<p>如果您喜欢使用<a href="#">Item</a>，那么可以使用必要的字段定义一个定制的Item，例如在这个示例中为Images Pipeline:</p>
+<pre><code class="python">import scrapy
+
+class MyItem(scrapy.Item):
+
+    # ... 其他item字段 ...
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
+</code></pre>
+
+<p>如果您想为url键或结果键使用另一个字段名，也可以覆盖它。</p>
+<p>对于Files Pipeline，设置<a href="#">FILES_URLS_FIELD</a>和/或<a href="#">FILES_RESULT_FIELD</a> settings:</p>
+<pre><code class="python">FILES_URLS_FIELD = '文件url的字段名'
+FILES_RESULT_FIELD = '处理后的文件的字段名'
+</code></pre>
+
+<p>对于Images Pipeline，设置<a href="#">IMAGES_URLS_FIELD</a>和/或<a href="#">IMAGES_RESULT_FIELD</a>设置:</p>
+<pre><code class="python">IMAGES_URLS_FIELD = '图像url的字段名'
+IMAGES_RESULT_FIELD = '处理后的图像的字段名'
+</code></pre>
+
+<p>如果您需要更复杂的内容并希望覆盖自定义pipeline行为，请参阅<a href="#">扩展Media Pipelines</a>。</p>
+<p>如果您有多个从ImagePipeline继承的image pipelines，并且希望在不同的管道中有不同的设置，那么可以设置在管道类的大写名称之前的设置键。例如，如果您的管道被称为MyPipeline，并且您想要自定义IMAGES_URLS_FIELD，您可以定义设置MYPIPELINE_IMAGES_URLS_FIELD，您的自定义设置将被使用。</p>
+<h2 id="_6">额外特性</h2>
+<h3 id="_7">文件过期</h3>
+<p>Image Pipeline避免下载最近下载的文件。要调整这种保留延迟，使用<a href="#">FILES_EXPIRES</a> setting(或者<a href="#">IMAGES_EXPIRES</a>，如果是Images Pipeline)，它指定延迟天数:</p>
+<pre><code class="python"># 文件延迟保留120天
+FILES_EXPIRES = 120
+
+# 图像延迟保留30天
+IMAGES_EXPIRES = 30
+</code></pre>
+
+<p>这两个设置的默认值都是90天。</p>
+<p>如果你有这个子类FilesPipeline并且你希望它有不同的设置你可以设置大写类名之前的设置键。例如，给定pipeline类MyPipeline你可以设置设置键:</p>
+<blockquote>
+<p>MYPIPELINE_FILES_EXPIRES = 180</p>
+</blockquote>
+<p>而pipeline类MyPipeline的过期时间将设置为180。</p>
+<h3 id="_8">图像的缩略图生成</h3>
+<p>Images Pipeline可以自动创建下载图像的缩略图。</p>
+<p>为了使用这个特性，您必须将<a href="#">IMAGES_THUMBS</a>设置为字典，其中键是缩略图名称，值是它们的维度。</p>
+<p>例子:</p>
+<pre><code class="python">IMAGES_THUMBS = {
+    'small': (50, 50),
+    'big': (270, 270),
+}
+</code></pre>
+
+<p>当您使用此功能时，图像管道将使用以下格式创建每个指定大小的缩略图:</p>
+<pre><code class="python">&lt;IMAGES_STORE&gt;/thumbs/&lt;size_name&gt;/&lt;image_id&gt;.jpg
+</code></pre>
+
+<p>目标:</p>
+<blockquote>
+<ul>
+<li><code>&lt;size_name&gt;</code>是<a href="#">IMAGES_THUMBS</a>字典键(<code>small</code>,<code>big</code>,等等)中指定的值</li>
+<li><code>&lt;image_id&gt;</code>是图像url的<a href="https://en.wikipedia.org/wiki/SHA_hash_functions">SHA1 hash</a></li>
+</ul>
+</blockquote>
+<p>图像文件的例子存储使用<code>small</code>和<code>big</code>缩略名称:</p>
+<pre><code class="python">&lt;IMAGES_STORE&gt;/full/63bbfea82b8880ed33cdb762aa11fab722a90a24.jpg
+&lt;IMAGES_STORE&gt;/thumbs/small/63bbfea82b8880ed33cdb762aa11fab722a90a24.jpg
+&lt;IMAGES_STORE&gt;/thumbs/big/63bbfea82b8880ed33cdb762aa11fab722a90a24.jpg
+</code></pre>
+
+<p>第一个是从网站下载的完整的图像。</p>
+<h3 id="_9">过滤小图像</h3>
+<p>在使用Images Pipeline时，可以通过在<a href="#">IMAGES_MIN_HEIGHT</a>和<a href="#">IMAGES_MIN_WIDTH</a> settings中指定允许的最小值来删除太小的图像。</p>
+<p>例子:</p>
+<pre><code class="python">IMAGES_MIN_HEIGHT = 110
+IMAGES_MIN_WIDTH = 110
+</code></pre>
+
+<pre><code class="note">尺寸约束完全不会影响缩略图的生成。
+</code></pre>
+
+<p>可以只设置一个尺寸约束，也可以同时设置两个尺寸约束。当设置它们时，只会保存满足这两个最小尺寸的图像。对于上面的示例，大小(105 x 105)或(105 x 200)或(200 x 105)的图像都将被删除，因为至少有一个维度比约束更短。</p>
+<p>默认情况下，没有尺寸限制，所以所有的图像都会被处理。</p>
+<h3 id="_10">允许重定向</h3>
+<p>默认情况下，media pipelines会忽略重定向，即HTTP重定向到media文件URL请求将意味着media下载被认为失败。</p>
+<p>要处理media重定向，请将此setting设置为<code>True</code>:</p>
+<pre><code class="python">MEDIA_ALLOW_REDIRECTS = True
+</code></pre>
+
+<h2 id="media-pipelines">扩展Media Pipelines</h2>
+<p>请看这里的方法，你可以覆盖在你的自定义Files Pipeline:</p>
+<h4 id="scrapypipelinesfilesfilespipeline-class">scrapy.pipelines.files.FilesPipeline   这是一个类(class)</h4>
+<blockquote>
+<p><code>get_media_requests(item, info)</code></p>
+<blockquote>
+<p>正如在工作流中看到的，pipeline将从item中获取图像的url。为了做到这一点，您可以覆盖<a href="#">get_media_requests()</a>方法，并为每个文件URL返回一个Request:</p>
+</blockquote>
+</blockquote>
+<pre><code>def get_media_requests(self, item, info):
+    for file_url in item['file_urls']:
+        yield scrapy.Request(file_url)
+</code></pre>
+
+<blockquote>
+<blockquote>
+<p>这些requests将由pipeline处理，当它们完成下载后，结果将作为一个2个元素的元组列表发送到<a href="#">item_completed()</a>方法。每个元组将包含<code>(success, file_info_or_error)</code>:</p>
+<ul>
+<li><code>success</code>是一个布尔值，如果图片下载成功，则为<code>True</code>;如果由于某种原因失败，则为<code>False</code></li>
+<li><code>file_info_or_error</code>是一个包含以下键(如果success是<code>True</code>)的字典，如果出现问题则是<a href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Twisted错误</a>。<blockquote>
+<ul>
+<li><code>url</code> - 下载文件的url。这是<a href="#">get_media_requests()</a>方法返回的request的url。</li>
+<li><code>path</code> - 存储文件的路径(相对于<a href="#">FILES_STORE</a>)</li>
+<li><code>checksum</code> - 图像内容的<a href="https://en.wikipedia.org/wiki/MD5">MD5 hash</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><a href="#">item_completed()</a>收到的元组列表保证保留<a href="#">get_media_requests()</a>方法返回的requests的顺序相同。</p>
+<p>下面是<code>results</code>参数的一个典型值:</p>
+</blockquote>
+</blockquote>
+<pre><code class="python">[(True,
+  {'checksum': '2b00042f7481c7b056c4b410d28f33cf',
+   'path': 'full/0a79c461a4062ac383dc4fade7bc09f1384a3910.jpg',
+   'url': 'http://www.example.com/files/product1.pdf'}),
+ (False,
+  Failure(...))]
+</code></pre>
+
+<blockquote>
+<blockquote>
+<p>默认情况下，<a href="#">get_media_requests()</a>方法返回<code>None</code>，这意味着没有文件可下载。</p>
+</blockquote>
+<p><code>item_completed(results, item, info)</code></p>
+<blockquote>
+<p>当对单个item的所有文件requests都已完成(下载完成或由于某种原因失败)时，调用<a href="#">FilesPipeline.item_completed()</a>方法。</p>
+<p><a href="#">item_completed()</a>方法必须返回将发送到后续项目管道阶段的输出，因此必须返回(或删除)item，就像在任何pipeline中一样。</p>
+<p>下面是<a href="#">item_completed()</a>方法的一个例子，我们在<code>file_paths</code> item字段中存储下载的文件路径(以结果的形式传递)，如果item不包含任何文件，我们将删除它:</p>
+</blockquote>
+</blockquote>
+<pre><code class="python">from scrapy.exceptions import DropItem
+
+def item_completed(self, results, item, info):
+    file_paths = [x['path'] for ok, x in results if ok]
+    if not file_paths:
+        raise DropItem(&quot;Item contains no files&quot;)
+    item['file_paths'] = file_paths
+    return item
+</code></pre>
+
+<blockquote>
+<blockquote>
+<p>默认情况下，<a href="#">item_completed()</a>方法返回item。</p>
+</blockquote>
+</blockquote>
+<p>请看这里的方法，你可以覆盖在你的定制Images Pipeline:</p>
+<h4 id="scrapypipelinesimagesimagespipeline-class">scrapy.pipelines.images.ImagesPipeline   这是一个类(class)</h4>
+<blockquote>
+<p><a href="#">ImagesPipeline</a>是<code>FilesPipeline</code>的扩展，定制字段名并为图像添加自定义行为。</p>
+<p><code>get_media_requests(item, info)</code></p>
+<blockquote>
+<p>方法的工作方式与<code>FilesPipeline.get_media_requests()</code>方法相同，但对图像url使用不同的字段名。</p>
+<p>必须返回每个图像URL的Request。</p>
+</blockquote>
+<p><code>item_completed(results, item, info)</code></p>
+<blockquote>
+<p><a href="#">ImagesPipeline.item_completed()</a>方法在单个item的所有图像requests都完成(或者下载完成，或者由于某种原因失败)时调用。</p>
+<p>工作方式与<code>FilesPipeline.item_completed()</code>方法相同，但使用不同的字段名存储图像下载结果。</p>
+<p>默认情况下，<a href="#">item_completed()</a>方法返回item。</p>
+</blockquote>
+</blockquote>
+<h2 id="images-pipeline_1">自定义Images pipeline示例</h2>
+<p>下面是Images Pipeline的完整示例，其方法在上面进行了示例:</p>
+<pre><code class="python">import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+from scrapy.exceptions import DropItem
+
+class MyImagesPipeline(ImagesPipeline):
+
+    def get_media_requests(self, item, info):
+        for image_url in item['image_urls']:
+            yield scrapy.Request(image_url)
+
+    def item_completed(self, results, item, info):
+        image_paths = [x['path'] for ok, x in results if ok]
+        if not image_paths:
+            raise DropItem(&quot;Item contains no images&quot;)
+        item['image_paths'] = image_paths
+        return item
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../10-deploying-spider/" class="btn btn-neutral float-right" title="部署Spider">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../08-debugging-memory/" class="btn btn-neutral" title="调试内存泄漏"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../08-debugging-memory/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../10-deploying-spider/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

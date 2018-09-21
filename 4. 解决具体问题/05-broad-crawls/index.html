@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Broad Crawls - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Broad Crawls";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\05-broad-crawls.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">3. 内置服务</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/17-logging/">Logging(日志记录)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/19-send-email/">Sending e-mail(发送一个邮件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/20-telnet-console/">Telnet Console(Telnet控制台)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/21-web-service/">Web Service(Web服务)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">4. 解决具体问题</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../03-Spiders Contracts/">Spiders Contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../04-common-practices/">Common Practices(常用实践)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Broad Crawls</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#broad-crawls">Broad Crawls</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">提高并发性</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">增加全局并发性的使用:</a></li>
+        
+            <li><a class="toctree-l4" href="#twisted-io">增加Twisted IO线程池的最大容量</a></li>
+        
+            <li><a class="toctree-l4" href="#dns">设置您自己的DNS</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">减少日志级别</a></li>
+        
+            <li><a class="toctree-l4" href="#cookies">禁用Cookies</a></li>
+        
+            <li><a class="toctree-l4" href="#_4">禁用重试</a></li>
+        
+            <li><a class="toctree-l4" href="#_5">减少下载超时</a></li>
+        
+            <li><a class="toctree-l4" href="#_6">禁用重定向</a></li>
+        
+            <li><a class="toctree-l4" href="#ajax-crawlable">启用“Ajax Crawlable页面”的爬行</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../09-down-file-image/">下载并处理文件和图像</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-Benchmark/">基准测试</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">5. Scrapy扩展</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/01-Architecture-overview/">架构概述</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/02-Downloader-Middleware/">Downloader Middleware</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>4. 解决具体问题 &raquo;</li>
+        
+      
+    
+    <li>Broad Crawls</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="broad-crawls">Broad Crawls</h1>
+<p>Scrapy默认是针对抓取特定站点进行优化的。这些站点通常由一个Scrapy spider处理，尽管这不是必须的或必需的(例如，有一些通用的spider，可以处理向它们抛出的任何给定站点)。</p>
+<p>除了这种“聚焦爬虫”,还有另一个常见的爬行涵盖数量大(可能是无限)的domain,并且仅受时间或其他任意约束的限制，而不是在domain爬行到完成时停止或者当没有更多的请求来执行。这些被称为“广泛爬行”，是搜索引擎使用的典型的爬虫。</p>
+<p>这些是一些常见的性质，经常在广泛的爬行发现:</p>
+<blockquote>
+<ul>
+<li>它们搜索许多domain(通常,无限)，而不是特定的一组站点</li>
+<li>它们并不一定要遍历domain才能完成，因为这样做是不实际的(或不可能的)，而是应该根据抓取的时间或页数来限制抓取</li>
+<li>它们在逻辑上更简单(与具有许多提取规则的非常复杂的爬行器相反)，因为数据通常在单独的阶段进行后期处理</li>
+<li>它们可以同时爬行多个domain，这使得它们不受任何特定站点约束的限制，从而获得更快的爬行速度(为了礼貌起见，每个站点都是缓慢爬行的，但是许多站点是并行爬行的)</li>
+</ul>
+</blockquote>
+<p>如上所述，Scrapy默认设置是针对有重点的spider而不是广泛的爬虫进行优化的。但是，由于其异步体系结构，Scrapy非常适合执行快速广泛的爬行。这个页面总结了在使用Scrapy进行广泛爬行时需要记住的一些内容，并提供了一些Scrapy settings关于如何进行优化以实现高效的广泛爬行的具体建议。</p>
+<h2 id="_1">提高并发性</h2>
+<p>并发性是并行处理的请求数。有一个全局限制和一个针对每个domain限制。</p>
+<p>Scrapy中的默认全局并发限制不适用于并行地爬行许多不同的domain，因此您需要增加它。增加多少取决于爬虫程序有多少CPU可用。一个好的起点是<code>100</code>，但最好的方法是做一些试验，并确定什么并发性会限制你的Scrapy处理过程。为了获得最佳性能，您应该选择CPU使用率在80-90%的并发性。</p>
+<h2 id="_2">增加全局并发性的使用:</h2>
+<pre><code class="python">CONCURRENT_REQUESTS = 100
+</code></pre>
+
+<h2 id="twisted-io">增加Twisted IO线程池的最大容量</h2>
+<p>目前，Scrapy使用线程池以阻塞的方式进行DNS解析。随着并发级别的提高，爬行速度可能会变慢，甚至失败，导致DNS解析超时。可能的解决方案是增加处理DNS查询的线程数。DNS队列将被更快地处理，加快连接的建立和爬行。</p>
+<p>增加最大线程池大小使用:</p>
+<pre><code class="python">REACTOR_THREADPOOL_MAXSIZE = 20
+</code></pre>
+
+<h2 id="dns">设置您自己的DNS</h2>
+<p>如果您有多个爬虫进程和一个中央DNS，它可能会像DoS攻击一样攻击DNS服务器，导致整个网络速度减慢，甚至阻塞您的计算机。为了避免这种情况，您可以使用本地缓存和上游到一些大型DNS服务器，如OpenDNS或Verizon。</p>
+<h2 id="_3">减少日志级别</h2>
+<p>在进行广泛的爬行时，您通常只对所获得的爬行速度和发现的任何错误感兴趣。这些数据是由Scrapy在使用<code>INFO</code>日志级别时报告的。为了节省CPU(和日志存储需求)，在生产环境中预生成大范围爬虫时，不应该使用<code>DEBUG</code>日志级别。不过，在开发(广泛的)爬虫程序时使用<code>DEBUG</code>级别可能不错。</p>
+<p>设置log级别使用:</p>
+<pre><code class="python">LOG_LEVEL = 'INFO'
+</code></pre>
+
+<h2 id="cookies">禁用Cookies</h2>
+<p>除非您确实需要，否则禁用cookie。在进行广泛的爬虫时，通常不需要cookie(搜索引擎爬虫会忽略它们)，它们通过节省CPU周期和减少scrapy爬虫的内存占用来提高性能。</p>
+<p>禁用cookies使用:</p>
+<pre><code class="python">COOKIES_ENABLED = False
+</code></pre>
+
+<h2 id="_4">禁用重试</h2>
+<p>重新失败的HTTP请求会大大降低爬行速度，特别是当站点原因响应非常慢(或失败)时，会导致超时错误，导致多次不必要地重试，从而阻止爬行器容量被其他domain重用。</p>
+<p>禁用重试:</p>
+<pre><code class="python">RETRY_ENABLED = False
+</code></pre>
+
+<h2 id="_5">减少下载超时</h2>
+<p>除非您正在从一个非常慢的连接中爬行(对于广泛的爬行来说不应该是这样的)，否则应该将减少下载超时，以便快速丢弃被卡住的请求，并释放出处理下一个请求的能力。</p>
+<p>为了减少下载超时使用</p>
+<pre><code class="python">DOWNLOAD_TIMEOUT = 15
+</code></pre>
+
+<h2 id="_6">禁用重定向</h2>
+<p>考虑禁用重定向，除非您有兴趣跟踪它们。在进行广泛的爬行时，通常在稍后的爬行中重新访问站点时保存重定向并解决它们。这也有助于保持每次抓取批处理的请求数量不变，否则重定向循环可能会导致爬虫程序在任何特定domain上占用太多的资源。</p>
+<p>禁止重定向使用</p>
+<pre><code class="python">REDIRECT_ENABLED = False
+</code></pre>
+
+<h2 id="ajax-crawlable">启用“Ajax Crawlable页面”的爬行</h2>
+<p>一些页面(根据2013年的经验数据，最高达到1%)声明自己是ajax crawlable。这意味着它们提供的内容的纯HTML版本通常只能通过AJAX获得。页面可以用两种方式表示:</p>
+<blockquote>
+<ol>
+<li>在URL使用<code>#!</code> - 这是默认的方式</li>
+<li>使用特殊的meta tag - 这种方法在“main”、“index”网站页面上使用。</li>
+</ol>
+</blockquote>
+<p>Scrapy handles </p>
+<blockquote>
+<ol>
+<li>自动处理</li>
+<li>激活<a href="#">AjaxCrawlMiddleware</a></li>
+</ol>
+</blockquote>
+<pre><code class="python">AJAXCRAWL_ENABLED = True
+</code></pre>
+
+<p>当进行广泛的爬行时，通常会抓取大量的“index”web页面;</p>
+<p>AjaxCrawlMiddleware有助于正确地抓取它们。默认情况下，它是关闭的，因为它有一些性能开销，启用它来聚焦爬虫没有多大意义。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../06-use-firefox-scraping/" class="btn btn-neutral float-right" title="使用Firefox进行抓取(没写)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../04-common-practices/" class="btn btn-neutral" title="Common Practices(常用实践)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../04-common-practices/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../06-use-firefox-scraping/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

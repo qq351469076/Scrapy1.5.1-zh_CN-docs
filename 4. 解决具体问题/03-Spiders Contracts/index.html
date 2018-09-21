@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>安装指导 - Scrapy 1.5.1 中文文档</title>
+  <title>Spiders Contracts - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5b89\u88c5\u6307\u5bfc";
-    var mkdocs_page_input_path = "1. \u7b2c\u4e00\u6b65\\03-install.md";
+    var mkdocs_page_name = "Spiders Contracts";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\03-Spiders Contracts.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -59,29 +59,23 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../01-index/">Scrapy 1.5 中文文档</a>
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../02-overview/">一眼了解Scrapy</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">安装指导</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">安装指导</a></li>
-    
-
-    </ul>
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../04-scrapy tutorial/">Scrapy 教程</a>
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../05-examples/">例子</a>
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
                 </li>
     </ul>
 	    </li>
@@ -170,55 +164,73 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+    <a class="" href="../02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Spiders Contracts</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#spiders-contracts">Spiders Contracts</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#scrapycontractsdefaulturlcontract-class">scrapy.contracts.default.UrlContract   这是一个类(class)</a></li>
+        
+            <li><a class="toctree-l4" href="#scrapycontractsdefaultreturnscontract-class">scrapy.contracts.default.ReturnsContract   这是一个类(class)</a></li>
+        
+            <li><a class="toctree-l4" href="#scrapycontractsdefaultscrapescontract-class">scrapy.contracts.default.ScrapesContract   这是一个类(class)</a></li>
+        
+            <li><a class="toctree-l4" href="#contracts">自定义Contracts</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+    <a class="" href="../04-common-practices/">Common Practices(常用实践)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+    <a class="" href="../05-broad-crawls/">Broad Crawls</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+    <a class="" href="../09-down-file-image/">下载并处理文件和图像</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+    <a class="" href="../10-deploying-spider/">部署Spider</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+    <a class="" href="../11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+    <a class="" href="../12-Benchmark/">基准测试</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
                 </li>
     </ul>
 	    </li>
@@ -260,11 +272,11 @@
     
       
         
-          <li>1. 第一步 &raquo;</li>
+          <li>4. 解决具体问题 &raquo;</li>
         
       
     
-    <li>安装指导</li>
+    <li>Spiders Contracts</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -274,8 +286,87 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">安装指导</h1>
-<p>本页不写了, 浪费时间, 基本都会安装</p>
+                <h1 id="spiders-contracts">Spiders Contracts</h1>
+<p>最新版本0.15</p>
+<pre><code class="note">这是一个新特性(在Scrapy 0.15中介绍)，可能会受到小功能/API更新的影响。
+检查[发布记录](https://docs.scrapy.org/en/latest/news.html#news)，以通知更新。
+</code></pre>
+
+<p>测试spider可能会特别烦人，虽然没有什么可以阻止您编写单元测试，但任务会很快变得很麻烦。Scrapy提供了一种通过contract的方式来测试您的spider的综合方法。</p>
+<p>这允许您通过硬编码示例url来测试spider的每个callback，并检查callback如何处理response的各种约束。每个contract的前缀都是<code>@</code>，并包含在文档字符串中。请看下面的例子:</p>
+<pre><code class="python">def parse(self, response):
+    &quot;&quot;&quot; 该函数解析了一个简单的response. 有些contract与这个文档字符串混杂在一起.
+
+    @url http://www.amazon.com/s?field-keywords=selfish+gene
+    @returns items 1 16
+    @returns requests 0 0
+    @scrapes Title Author Year Price
+    &quot;&quot;&quot;
+</code></pre>
+
+<p>此callback使用三个内置contracts进行测试:</p>
+<h4 id="scrapycontractsdefaulturlcontract-class">scrapy.contracts.default.UrlContract   这是一个类(class)</h4>
+<blockquote>
+<p>此contract(<code>@url</code>)设置在检查此spider的其他contract条件时使用的示例url。这份contract是强制性的。在运行检查时，所有缺少contract的callback都被忽略:</p>
+<p><code>@url url</code></p>
+</blockquote>
+<h4 id="scrapycontractsdefaultreturnscontract-class">scrapy.contracts.default.ReturnsContract   这是一个类(class)</h4>
+<p>这个contract(<code>@returns</code>)为spider返回的items和requests设置了下限和上限。上限是可选的:</p>
+<blockquote>
+<p><code>@returns item(s)|request(s) [min [max]]</code></p>
+</blockquote>
+<h4 id="scrapycontractsdefaultscrapescontract-class">scrapy.contracts.default.ScrapesContract   这是一个类(class)</h4>
+<p>这个contract(<code>@scrapes</code>)检查callback返回的所有items是否具有指定的字段:</p>
+<blockquote>
+<p><code>@scrapes field_1 field_2 ...</code></p>
+</blockquote>
+<h2 id="contracts">自定义Contracts</h2>
+<p>如果您发现您需要比内置的scrapy contracts更强大的功能，您可以使用<a href="#">SPIDER_CONTRACTS</a> settings在项目中创建和加载您自己的contracts:</p>
+<pre><code class="python">SPIDER_CONTRACTS = {
+    'myproject.contracts.ResponseCheck': 10,
+    'myproject.contracts.ItemValidate': 10,
+}
+</code></pre>
+
+<p>每个合同必须从<a href="#">scrapy.contracts.Contract</a>继承，并可以覆盖三个方法:</p>
+<h4 id="scrapycontractscontractmethod-42args-class">scrapy.contracts.Contract(method, *args)   这是一个类(class)</h4>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>method (方法) – 与contract相关联的callback函数</li>
+<li>args (列表) – 传入docstring的参数列表(空格分隔)</li>
+</ul>
+</blockquote>
+<p><code>adjust_request_args(args)</code></p>
+<blockquote>
+<p>这将接收一个<code>dict</code>作为一个参数，其中包含<a href="#">Request</a>对象的默认参数。必须返回它的相同或修改版本。</p>
+</blockquote>
+<p><code>pre_process(response)</code></p>
+<blockquote>
+<p>这允许在将response传递给callback之前，对从实例requests接收到的response进行各种检查。</p>
+</blockquote>
+<p><code>post_process(output)</code></p>
+<blockquote>
+<p>这允许处理callback的输出。迭代器在传递到此钩子之前被转换成listified。</p>
+</blockquote>
+</blockquote>
+<p>下面是一个contract demo，它检查接收到的response中是否存在自定义标头。抛出<code>scrapy.exceptions.ContractFail</code>是为了让失败被很好地打印出来::</p>
+<pre><code class="python">from scrapy.contracts import Contract
+from scrapy.exceptions import ContractFail
+
+class HasHeaderContract(Contract):
+    &quot;&quot;&quot; 演示contract, 检查自定义的标头是否存在
+        @has_header X-CustomHeader
+    &quot;&quot;&quot;
+
+    name = 'has_header'
+
+    def pre_process(self, response):
+        for header in self.args:
+            if header not in response.headers:
+                raise ContractFail('X-CustomHeader not present')
+</code></pre>
               
             </div>
           </div>
@@ -283,10 +374,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../04-scrapy tutorial/" class="btn btn-neutral float-right" title="Scrapy 教程">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../04-common-practices/" class="btn btn-neutral float-right" title="Common Practices(常用实践)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../02-overview/" class="btn btn-neutral" title="一眼了解Scrapy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02-debugind-spider/" class="btn btn-neutral" title="Debugging Spiders(调试Spiders)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -312,10 +403,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../02-overview/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../02-debugind-spider/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../04-scrapy tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../04-common-practices/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

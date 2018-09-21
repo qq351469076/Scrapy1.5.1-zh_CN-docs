@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Link Extractors(链接提取器) - Scrapy 1.5.1 中文文档</title>
+  <title>Sending e-mail(发送一个邮件) - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Link Extractors(\u94fe\u63a5\u63d0\u53d6\u5668)";
-    var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\15-extractors.md";
+    var mkdocs_page_name = "Sending e-mail(\u53d1\u9001\u4e00\u4e2a\u90ae\u4ef6)";
+    var mkdocs_page_input_path = "3. \u5185\u7f6e\u670d\u52a1\\19-send-email.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -86,61 +86,47 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../06-command_line_tool/">Command line tool(命令行工具)</a>
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../07-spiders/">Spiders(自定义爬虫类)</a>
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../08-selctor/">Selector(选择器)</a>
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../09-items/">Items(模型)</a>
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../12-item_pipeline/">Item Pipeline(模组管道)</a>
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../13-feed_exports/">Feed exports(导出各种格式文件)</a>
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../14-requests_response/">Requests和Responses</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">Link Extractors(链接提取器)</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#link-extractors">Link Extractors(链接提取器)</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#link-extractors_1">内置link extractors参考</a></li>
-        
-            <li><a class="toctree-l4" href="#lxmllinkextractor">LxmlLinkExtractor</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../16-settings/">Settings(设置)</a>
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
                 </li>
     </ul>
 	    </li>
@@ -151,23 +137,39 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../3. 内置服务/17-logging/">Logging(日志记录)</a>
+    <a class="" href="../17-logging/">Logging(日志记录)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../3. 内置服务/18-stats-collection/">Stats Collection(状态收集)</a>
+    <a class="" href="../18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Sending e-mail(发送一个邮件)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#sending-e-mail">Sending e-mail(发送一个邮件)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">简单的例子</a></li>
+        
+            <li><a class="toctree-l4" href="#mailsender">MailSender类引用</a></li>
+        
+            <li><a class="toctree-l4" href="#mail-settings">Mail settings</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../3. 内置服务/19-send-email/">Sending e-mail(发送一个邮件)</a>
+    <a class="" href="../20-telnet-console/">Telnet Console(Telnet控制台)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../3. 内置服务/20-telnet-console/">Telnet Console(Telnet控制台)</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../3. 内置服务/21-web-service/">Web Service(Web服务)</a>
+    <a class="" href="../21-web-service/">Web Service(Web服务)</a>
                 </li>
     </ul>
 	    </li>
@@ -268,11 +270,11 @@
     
       
         
-          <li>2. 基本概念 &raquo;</li>
+          <li>3. 内置服务 &raquo;</li>
         
       
     
-    <li>Link Extractors(链接提取器)</li>
+    <li>Sending e-mail(发送一个邮件)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -282,52 +284,95 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="link-extractors">Link Extractors(链接提取器)</h1>
-<p>Link extractors是只用于从web页面(<a href="#">scrapy.http.Response</a>对象)中提取链接的对象，最终将被跟踪。</p>
-<p><code>scrapy.linkextractors.LinkExtractor</code>可以在Scrapy中使用，但是您可以通过一个简单的接口创建自己的自定义Link Extractors来满足您的需求。</p>
-<p>每个link extractor都拥有的惟一公共方法是<code>extract_links</code>，它接收一个<a href="#">Response</a>对象并返回一个<code>scrapy.link.Link</code>对象列表。Link extractors只需要实例化一次，它们的<code>extract_links</code>方法要调用好几次，使用不同的responses提取要跟踪的链接。</p>
-<p>Link extractors用于<a href="#">CrawlSpider</a>类(Scrapy中可用)，通过一组规则，但是您也可以在spiders中使用它，即使您没有从<a href="#">CrawlSpider</a>子类化它，因为它的目的非常简单:提取链接。</p>
-<h2 id="link-extractors_1">内置link extractors参考</h2>
-<p><a href="#">scrapy.linkextractors</a>模块中提供了与Scrapy绑定的Link extractors类。</p>
-<p>默认的link extractor是<code>LinkExtractor</code>，与<a href="#">LxmlLinkExtractor</a>相同:</p>
-<pre><code class="python">from scrapy.linkextractors import LinkExtractor
+                <h1 id="sending-e-mail">Sending e-mail(发送一个邮件)</h1>
+<p>虽然Python使通过<a href="https://docs.python.org/2/library/smtplib.html">smtplib</a>库发送电子邮件相对容易，但Scrapy提供了自己的电子邮件发送功能，使用起来非常简单，并且使用<a href="https://twistedmatrix.com/documents/current/core/howto/defer-intro.html">Twisted非阻塞IO</a>实现，以避免干扰爬虫程序的非阻塞IO。它还为发送附件提供了一个简单的API，并且非常容易配置，只有几个<a href="#">settings</a>。</p>
+<h2 id="_1">简单的例子</h2>
+<p>有两种方法可以实例化邮件发送方。您可以使用标准构造函数实例化它:</p>
+<pre><code class="python">from scrapy.mail import MailSender
+mailer = MailSender()
 </code></pre>
 
-<p>在以前的Scrapy按本中曾经有其他的link extractor类，但是现在它们已经被废弃了。</p>
-<h2 id="lxmllinkextractor">LxmlLinkExtractor</h2>
-<h4 id="scrapylinkextractorslxmlhtmllxmllinkextractorallow-deny-allow_domains-deny_domains-deny_extensionsnone-restrict_xpaths-restrict_css-tagsa-area-attrshref-canonicalizefalse-uniquetrue-process_valuenone-striptrue-class">scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor(allow=(), deny=(), allow_domains=(), deny_domains=(), deny_extensions=None, restrict_xpaths=(), restrict_css=(), tags=('a', 'area'), attrs=('href', ), canonicalize=False, unique=True, process_value=None, strip=True)   这是一个类(class)</h4>
-<p>LxmlLinkExtractor是推荐的具有方便过滤选项的link extractor。它是使用健壮的lxml HTMLParser实现的。</p>
+<p>或者你可以通过一个Scrapy settings对象来实例化它，这个对象会尊重<a href="#">settings</a>:</p>
+<pre><code class="python">mailer = MailSender.from_settings(settings)
+</code></pre>
+
+<p>下面是如何使用它发送电子邮件(没有附件):</p>
+<pre><code class="python">mailer.send(
+    to=[&quot;someone@example.com&quot;], 
+    subject=&quot;Some subject&quot;, 
+    body=&quot;Some body&quot;, 
+    cc=[&quot;another@example.com&quot;]
+    )
+</code></pre>
+
+<h2 id="mailsender">MailSender类引用</h2>
+<p>MailSender是从Scrapy发送电子邮件的首选类，因为它使用了<a href="https://twistedmatrix.com/documents/current/core/howto/defer-intro.html">Twisted非阻塞IO</a>，就像框架的其他部分一样。</p>
+<h4 id="scrapymailmailsendersmtphostnone-mailfromnone-smtpusernone-smtppassnone-smtpportnone-class">scrapy.mail.MailSender(smtphost=None, mailfrom=None, smtpuser=None, smtppass=None, smtpport=None)   这是一个类(class)</h4>
+<blockquote>
+<p>参数</p>
+<blockquote>
+<ul>
+<li>smtphost (字符串或bytes) – 用于发送电子邮件的SMTP主机。如果省略，将使用<a href="#">MAIL_HOST</a> settings。</li>
+<li>mailfrom (字符串) – 用于发送电子邮件的地址(在<code>From:</code>header中)。如果省略，将使用<a href="#">MAIL_FROM</a> settings。</li>
+<li>smtpuser – SMTP用户。如果省略，将使用<a href="#">MAIL_USER</a> settings。如果没有指定，则不会执行SMTP身份验证。</li>
+<li>smtppass (字符串或bytes) – 通过身份验证的SMTP密码</li>
+<li>smtpport (int) – 要连接的SMTP端口</li>
+<li>smtptls (布尔类型) – 强制使用SMTP STARTTLS</li>
+<li>smtpssl (布尔类型) – 强制使用安全SSL连接</li>
+</ul>
+</blockquote>
+<p><code>from_settings(settings)</code>      类方法(classmethod)</p>
+<blockquote>
+<p>使用一个Scrapy settings对象实例化，该对象将尊重<a href="#">这些Scrapy settings</a></p>
+<p>参数</p>
+<blockquote>
+<ul>
+<li>settings (<a href="#">scrapy.settings.Settings</a>对象) – 电子邮件收件人</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>send(to, subject, body, cc=None, attachs=(), mimetype='text/plain', charset=None)</code></p>
+<blockquote>
+<p>向指定的收件人发送电子邮件。</p>
 <blockquote>
 <p>参数:</p>
 <blockquote>
 <ul>
-<li>allow (正则表达式(或列表)) – 单个正则表达式(或正则表达式列表), (绝对)url必须匹配才能被提取, 如果没有给出(或空)，它将匹配所有链接。</li>
-<li>deny (正则表达式(或列表)) - 单个正则表达式(或正则表达式列表), (绝对)url必须匹配才能被排除。(既,不提取)。 它优先于<code>allow</code>参数, 如果没有给出(或空)，它不会排除任何链接。</li>
-<li>allow_domains (字符串或列表) - 用于提取链接的单个值或包含domains的字符串列表</li>
-<li>deny_domains (字符串或列表) - 包含domains的单个值或字符串列表，这些domains不用于提取链接</li>
-<li>deny_extensions (列表) - 包含在提取链接时应忽略的extensions(扩展)的单个值或字符串列表。如果没有指定，它将默认设置为scrapy中定义的<code>IGNORED_EXTENSIONS</code>列表在<a href="https://github.com/scrapy/scrapy/blob/master/scrapy/linkextractors/__init__.py">scrapy.linkextractors</a>包下。</li>
-<li>restrict_xpaths (字符串或列表) – 一个XPath(或XPath的列表)，它定义了response中的链接应该从哪里提取。 如果给定，则只扫描这些XPath选择的文本以查找链接。请参见下面的例子。</li>
-<li>restrict_css (字符串或列表) – 一个CSS选择器(或selectors列表)，它定义了response中的链接应该从哪里提取。 具有与<code>restrict_xpaths</code>相同的行为。</li>
-<li>tags (字符串或列表) – 提取链接时要考虑的标记或标记列表。 默认为<code>('a'， 'area')</code>。</li>
-<li>attrs (列表) – 在寻找要提取的链接时应该考虑的属性或属性列表(仅适用于<code>tags</code>参数中指定的标记), 默认为<code>('href')</code></li>
-<li>canonicalize (布尔类型) – 规范化每个提取的url(使用w3lib.url.canonicalize_url), 默认为<code>False</code>, 注意，canonicalize_url是用于重复检查的: 它可以改变在服务器端可见的URL, 因此，对于具有规范化和原始url的requests，response可能不同, 如果您使用LinkExtractor来跟踪链接，那么保持默认设置<code>canonicalize=False</code>会更加健壮</li>
-<li>unique (布尔类型) – 是否对提取的链接应用重复过滤。</li>
-<li>process_value (可调用的) – 一个函数，它接收从已扫描的tag和attributes中提取的每个值，并且可以修改这个值并返回一个新的值，或者返回<code>None</code>以完全忽略链接。 如果没有给出，<code>process_value</code>默认为<code>lambda x: x</code></li>
-</ul>
-<blockquote>
-<p>例如，从这段代码中提取链接:</p>
-<p><code>&lt;a href="javascript:goToPage('../other/page.html'); return false"&gt;Link text&lt;/a&gt;</code></p>
-<p>您可以在<code>process_value</code>中使用以下函数:</p>
-<p><code>def process_value(value):
-    m = re.search("javascript:goToPage\('(.*?)'", value)
-    if m:
-        return m.group(1)</code></p>
-</blockquote>
-<ul>
-<li>strip (布尔类型) – 是否从提取的attributes中删除空白, 根据HTML5标准，必须从<code>&lt;a&gt;</code>、<code>&lt;area&gt;</code>等元素的href属性、<code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code>元素的<code>src</code>属性中去掉开头和结尾的空白, 等等，所以默认情况下，LinkExtractor会在默认情况下删除空格字符, 设置<code>strip=False</code>来关闭它(例如，如果你正在从elements或attributes中提取url，这些elements或attributes允许开头/结尾有空格)</li>
+<li>to (字符串或字符串列表) – 电子邮件收件人</li>
+<li>subject (字符串) – 电子邮件的主题</li>
+<li>cc (字符串或字符串列表) – 给CC的邮件</li>
+<li>body (字符串) – 电子邮件的内容</li>
+<li>attachs (可迭代) – 可迭代的元组<code>(attach_name, mimetype, file_object)</code> <code>attach_name</code>是一个字符串，该字符串的名称将出现在电子邮件的附件中，<code>mimetype</code>是附件的mimetype, <code>file_object</code>是一个具有附件内容的可读文件对象</li>
+<li>mimetype (字符串) – 电子邮件的MIME类型</li>
+<li>charset (字符串) – 用于电子邮件内容的字符编码</li>
 </ul>
 </blockquote>
 </blockquote>
+</blockquote>
+</blockquote>
+<h2 id="mail-settings">Mail settings</h2>
+<p>这些settings定义了<a href="#">MailSender</a>类的默认构造函数值，可用于在项目中配置电子邮件通知，而无需编写任何代码(用于那些使用<a href="#">MailSender</a>的扩展和代码)。</p>
+<h3 id="mail_from">MAIL_FROM</h3>
+<p>默认: <code>'scrapy@localhost'</code></p>
+<p>发件人电子邮件使用(<code>From:</code>: header)发送电子邮件。</p>
+<h3 id="mail_host">MAIL_HOST</h3>
+<p>默认: <code>'localhost'</code></p>
+<p>用于发送电子邮件的SMTP主机。</p>
+<h3 id="mail_port">MAIL_PORT</h3>
+<p>默认: <code>25</code></p>
+<p>用于发送电子邮件的SMTP端口。</p>
+<h3 id="mail_user">MAIL_USER</h3>
+<p>默认: <code>None</code></p>
+<p>用于SMTP身份验证的用户。如果禁用，则不执行SMTP身份验证。</p>
+<h3 id="mail_pass">MAIL_PASS</h3>
+<p>默认: <code>None</code></p>
+<p>用于SMTP身份验证的密码，以及<a href="#">MAIL_USER</a>。</p>
+<h3 id="mail_tls">MAIL_TLS</h3>
+<p>默认: <code>False</code></p>
+<p>强制使用STARTTLS. STARTTLS是将现有的不安全连接升级为使用SSL/TLS的安全连接的一种方法。</p>
+<h3 id="mail_ssl">MAIL_SSL</h3>
+<p>默认: <code>False</code></p>
+<p>使用SSL加密的连接强制连接</p>
               
             </div>
           </div>
@@ -335,10 +380,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../16-settings/" class="btn btn-neutral float-right" title="Settings(设置)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../20-telnet-console/" class="btn btn-neutral float-right" title="Telnet Console(Telnet控制台)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../14-requests_response/" class="btn btn-neutral" title="Requests和Responses"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../18-stats-collection/" class="btn btn-neutral" title="Stats Collection(状态收集)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -364,10 +409,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../14-requests_response/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../18-stats-collection/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../16-settings/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../20-telnet-console/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

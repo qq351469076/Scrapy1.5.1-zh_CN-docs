@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>安装指导 - Scrapy 1.5.1 中文文档</title>
+  <title>Debugging Spiders(调试Spiders) - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5b89\u88c5\u6307\u5bfc";
-    var mkdocs_page_input_path = "1. \u7b2c\u4e00\u6b65\\03-install.md";
+    var mkdocs_page_name = "Debugging Spiders(\u8c03\u8bd5Spiders)";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\02-debugind-spider.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -59,29 +59,23 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../01-index/">Scrapy 1.5 中文文档</a>
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../02-overview/">一眼了解Scrapy</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">安装指导</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">安装指导</a></li>
-    
-
-    </ul>
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../04-scrapy tutorial/">Scrapy 教程</a>
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../05-examples/">例子</a>
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
                 </li>
     </ul>
 	    </li>
@@ -170,55 +164,73 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Debugging Spiders(调试Spiders)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#debugging-spidersspiders">Debugging Spiders(调试Spiders)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#parse">Parse命令</a></li>
+        
+            <li><a class="toctree-l4" href="#scrapy-shell">Scrapy Shell</a></li>
+        
+            <li><a class="toctree-l4" href="#_1">打开浏览器</a></li>
+        
+            <li><a class="toctree-l4" href="#logging">Logging</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+    <a class="" href="../03-Spiders Contracts/">Spiders Contracts</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+    <a class="" href="../04-common-practices/">Common Practices(常用实践)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+    <a class="" href="../05-broad-crawls/">Broad Crawls</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+    <a class="" href="../09-down-file-image/">下载并处理文件和图像</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+    <a class="" href="../10-deploying-spider/">部署Spider</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+    <a class="" href="../11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+    <a class="" href="../12-Benchmark/">基准测试</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
                 </li>
     </ul>
 	    </li>
@@ -260,11 +272,11 @@
     
       
         
-          <li>1. 第一步 &raquo;</li>
+          <li>4. 解决具体问题 &raquo;</li>
         
       
     
-    <li>安装指导</li>
+    <li>Debugging Spiders(调试Spiders)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -274,8 +286,111 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">安装指导</h1>
-<p>本页不写了, 浪费时间, 基本都会安装</p>
+                <h1 id="debugging-spidersspiders">Debugging Spiders(调试Spiders)</h1>
+<p>本文介绍调试spider的最常见技术。考虑以下的scrapy spider:</p>
+<pre><code class="python">import scrapy
+from myproject.items import MyItem
+
+class MySpider(scrapy.Spider):
+    name = 'myspider'
+    start_urls = (
+        'http://example.com/page1',
+        'http://example.com/page2',
+        )
+
+    def parse(self, response):
+        # 收集 `item_urls`
+        for item_url in item_urls:
+            yield scrapy.Request(item_url, self.parse_item)
+
+    def parse_item(self, response):
+        item = MyItem()
+        # 填充 `item` 字段
+        # 并且提取item_details_url
+        yield scrapy.Request(item_details_url, self.parse_details, meta={'item': item})
+
+    def parse_details(self, response):
+        item = response.meta['item']
+        # 填充更多的 `item` 字段
+        return item
+</code></pre>
+
+<p>基本上，这是一个简单的spider，它解析两页items(start_urls)。item还有一个包含附加信息的详细信息页面，因此我们使用<a href="#">Request</a>的<code>meta</code>功能传递部分填充的item。</p>
+<h2 id="parse">Parse命令</h2>
+<p>检查spider输出的最基本方法是使用<a href="#">parse</a>命令。它允许在方法级别检查spider的不同部分的行为。它的优点是灵活且易于使用，但不允许在方法内部调试代码。</p>
+<p>为了看到从一个特定的url抓取的项目:</p>
+<pre><code class="shell">$ scrapy parse --spider=myspider -c parse_item -d 2 &lt;item_url&gt;
+[ ... scrapy log lines crawling example.com spider ... ]
+
+&gt;&gt;&gt; STATUS DEPTH LEVEL 2 &lt;&lt;&lt;
+# Scraped Items  ------------------------------------------------------------
+[{'url': &lt;item_url&gt;}]
+
+# Requests  -----------------------------------------------------------------
+[]
+</code></pre>
+
+<p>使用<code>-verbose</code>或<code>-v</code>选项，我们可以看到在每个深度级别的状态:</p>
+<pre><code class="shell">$ scrapy parse --spider=myspider -c parse_item -d 2 -v &lt;item_url&gt;
+[ ... scrapy log lines crawling example.com spider ... ]
+
+&gt;&gt;&gt; DEPTH LEVEL: 1 &lt;&lt;&lt;
+# Scraped Items  ------------------------------------------------------------
+[]
+
+# Requests  -----------------------------------------------------------------
+[&lt;GET item_details_url&gt;]
+
+
+&gt;&gt;&gt; DEPTH LEVEL: 2 &lt;&lt;&lt;
+# Scraped Items  ------------------------------------------------------------
+[{'url': &lt;item_url&gt;}]
+
+# Requests  -----------------------------------------------------------------
+[]
+</code></pre>
+
+<p>检查从单个start_url抓取下来的items，也可以很容易地实现使用:</p>
+<pre><code class="shell">$ scrapy parse --spider=myspider -d 3 'http://example.com/page1'
+</code></pre>
+
+<h2 id="scrapy-shell">Scrapy Shell</h2>
+<p>虽然<a href="#">parse</a>命令对于检查spider的行为非常有用，但是除了显示接收到的响应和输出之外，检查callback内部发生了什么并没有什么帮助。当<code>parse_details</code>有时不接收item时，如何调试这种情况?</p>
+<p>幸运的是，在这种情况下，<a href="#">shell</a>就是您的面包和黄油(参见<a href="#">调用spider中的shell来检查response</a>):</p>
+<pre><code class="python">from scrapy.shell import inspect_response
+
+def parse_details(self, response):
+    item = response.meta.get('item', None)
+    if item:
+        # 填充更多 `item` 字段
+        return item
+    else:
+        inspect_response(response, self)
+</code></pre>
+
+<p>参见:<a href="#">从spider调用shell以检查response</a>。</p>
+<h2 id="_1">打开浏览器</h2>
+<p>有时候，您只是想看看浏览器中的某个resposne是什么样子的，您可以使用<code>open_in_browser</code>函数进行处理。下面是一个如何使用它的例子:</p>
+<pre><code class="python">from scrapy.utils.response import open_in_browser
+
+def parse_details(self, response):
+    if &quot;item name&quot; not in response.body:
+        open_in_browser(response)
+</code></pre>
+
+<p><code>open_in_browser</code>将打开一个浏览器，其中包含从Scrapy接收到的response，并调整<a href="https://www.w3schools.com/tags/tag_base.asp">base tag</a>，以便正确显示图像和样式。</p>
+<h2 id="logging">Logging</h2>
+<p>Logging是获取有关spider运行信息的另一个有用选项。虽然不那么方便，但它的优点是，如果需要日志，在以后的所有运行中都可以使用:</p>
+<pre><code class="python">def parse_details(self, response):
+    item = response.meta.get('item', None)
+    if item:
+        # 填充更多 `item` 字段
+        return item
+    else:
+        self.logger.warning('No item received for %s', response.url)
+</code></pre>
+
+<p>有关更多信息，请参阅<a href="#">Logging</a>部分。</p>
               
             </div>
           </div>
@@ -283,10 +398,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../04-scrapy tutorial/" class="btn btn-neutral float-right" title="Scrapy 教程">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../03-Spiders Contracts/" class="btn btn-neutral float-right" title="Spiders Contracts">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../02-overview/" class="btn btn-neutral" title="一眼了解Scrapy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../01-常见问题解答/" class="btn btn-neutral" title="常见问题解答"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -312,10 +427,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../02-overview/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../01-常见问题解答/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../04-scrapy tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../03-Spiders Contracts/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

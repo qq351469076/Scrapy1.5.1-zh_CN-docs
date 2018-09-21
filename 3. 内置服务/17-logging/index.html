@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Logging(日志记录) - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Logging(\u65e5\u5fd7\u8bb0\u5f55)";
+    var mkdocs_page_input_path = "3. \u5185\u7f6e\u670d\u52a1\\17-logging.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">3. 内置服务</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Logging(日志记录)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#logging">Logging(日志记录)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#log">Log级别</a></li>
+        
+            <li><a class="toctree-l4" href="#log_1">如何log消息</a></li>
+        
+            <li><a class="toctree-l4" href="#logging-from-spiders">Logging from Spiders</a></li>
+        
+            <li><a class="toctree-l4" href="#logging_1">Logging配置</a></li>
+        
+            <li><a class="toctree-l4" href="#_1">命令行选项</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">高级定制</a></li>
+        
+            <li><a class="toctree-l4" href="#scrapyutilslog">scrapy.utils.log模块</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../19-send-email/">Sending e-mail(发送一个邮件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../20-telnet-console/">Telnet Console(Telnet控制台)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../21-web-service/">Web Service(Web服务)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">4. 解决具体问题</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">5. Scrapy扩展</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/01-Architecture-overview/">架构概述</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/02-Downloader-Middleware/">Downloader Middleware</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>3. 内置服务 &raquo;</li>
+        
+      
+    
+    <li>Logging(日志记录)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="logging">Logging(日志记录)</h1>
+<pre><code class="note">`scrapy.log`已经被弃用，它的功能支持对Python标准logging的显式调用。
+继续阅读以了解更多关于新logging系统的信息。
+</code></pre>
+
+<p>Scrapy使用<a href="#">Python的内置logging系统</a>进行事件日志记录。我们将提供一些简单的示例，以使您入门，但是对于更高级的用例，我们强烈建议您彻底阅读它的文档。</p>
+<p>Logging可以从盒子中工作，并且可以在一定程度上配置<a href="#">Logging设置</a>中列出的Scrapy设置。</p>
+<p>Scrapy调用<a href="#">scrapy.utils.log.configure_logging()</a>来设置一些合理的默认值，并在运行命令时在<a href="#">Logging设置</a>中处理这些settings，因此，如果你在脚本(<a href="#">从脚本中运行剪贴簿</a>)中运行Scrapy，建议手动调用它</p>
+<h2 id="log">Log级别</h2>
+<p>Python的内置logging定义了5个不同的级别，以指示给定日志消息的严重性。下面是标准的列表，按递减顺序列出：</p>
+<blockquote>
+<ul>
+<li><code>logging.CRITICAL</code> - 日志记录。关键错误（最高严重性）</li>
+<li><code>logging.ERROR</code> - 常规错误</li>
+<li><code>logging.WARNING</code> - 警告消息</li>
+<li><code>logging.INFO</code> - 信息消息</li>
+<li><code>logging.DEBUG</code> - 调试消息（最低严重性）</li>
+</ul>
+</blockquote>
+<h2 id="log_1">如何log消息</h2>
+<p>下面是一个使用<code>logging.WARNING</code>级别来记录消息的快速示例</p>
+<pre><code class="python">import logging
+logging.warning(u&quot;这是一个警告&quot;)
+</code></pre>
+
+<p>在任何标准的5级上发布日志消息都有捷径，而且还有一个通用<code>logging.log</code>方法，它以一个给定的级别作为参数。如果需要，最后一个例子可以重写为：</p>
+<pre><code class="python">import logging
+logging.log(logging.WARNING, &quot;这是一个警告&quot;)
+</code></pre>
+
+<p>最重要的是，您可以创建不同的“loggers”来封装消息。（例如，一个常见的做法是为每个模块创建不同的loggers）。这些loggers可以独立配置，并且允许分层结构。</p>
+<p>前面的例子幕后使用了根logger，它是一个顶级的logger，其中所有的消息都被传播到（除非另有说明）。使用<code>logging</code>助手仅仅是显式获取根日志记录器的快捷方式，因此这也相当于最后的片段：</p>
+<pre><code class="python">import logging
+logger = logging.getLogger()
+logger.warning(u&quot;这是一个警告&quot;)
+</code></pre>
+
+<p>您可以使用一个不同的logger，只需通过<code>logging.getLogger</code>函数获得它的名称：</p>
+<pre><code class="python">import logging
+logger = logging.getLogger(u'我的自定义logger')
+logger.warning(u&quot;这是一个警告&quot;)
+</code></pre>
+
+<p>最后，您可以使用<code>__name__</code>变量来确保为您正在处理的任何模块都有一个自定义logger，该名称变量由当前模块的路径填充：</p>
+<pre><code class="python">import logging
+logger = logging.getLogger(__name__)
+logger.warning(&quot;This is a warning&quot;)
+</code></pre>
+
+<pre><code class="note">logging模块, [基本知识](https://docs.python.org/2/howto/logging.html)
+    基本的Logging教程
+
+logging模块, [Loggers](https://docs.python.org/2/library/logging.html#logger-objects)
+    关于Loggers的进一步文档
+</code></pre>
+
+<h2 id="logging-from-spiders">Logging from Spiders</h2>
+<p>Scrapy在每个spider实例中提供一个<a href="#">logger</a>，可以像这样访问和使用：</p>
+<pre><code class="python">import scrapy
+
+class MySpider(scrapy.Spider):
+
+    name = 'myspider'
+    start_urls = ['https://scrapinghub.com']
+
+    def parse(self, response):
+        self.logger.info(u'调用解析函数 %s', response.url)
+</code></pre>
+
+<p>这个logger是使用Spider名称创建的，但是您可以使用任何您想要的定制Python logger。例如:</p>
+<pre><code class="python">import logging
+import scrapy
+
+logger = logging.getLogger('mycustomlogger')
+
+class MySpider(scrapy.Spider):
+
+    name = 'myspider'
+    start_urls = ['https://scrapinghub.com']
+
+    def parse(self, response):
+        logger.info(u'调用解析函数 %s', response.url)
+</code></pre>
+
+<h2 id="logging_1">Logging配置</h2>
+<p>Loggers本身无法控制通过它们发送的消息是如何显示的。对于这个任务，不同的“handlers”可以附加到任何logger实例，它们会将这些消息重定向到适当的目的地，比如标准输出、文件、电子邮件等。</p>
+<p>在默认情况下，基于下面的设置，Scrapy设置并配置根logger的handler。</p>
+<h3 id="logging_2">Logging设置</h3>
+<p>这些设置可用于配置logging：</p>
+<blockquote>
+<ul>
+<li><a href="#">LOG_FILE</a></li>
+<li><a href="#">LOG_ENABLED</a></li>
+<li><a href="#">LOG_ENCODING</a></li>
+<li><a href="#">LOG_LEVEL</a></li>
+<li><a href="#">LOG_FORMAT</a></li>
+<li><a href="#">LOG_DATEFORMAT</a></li>
+<li><a href="#">LOG_STDOUT</a></li>
+<li><a href="#">LOG_SHORT_NAMES</a></li>
+</ul>
+</blockquote>
+<p>最初的几个设置定义了日志消息的目的地。如果设置了<a href="#">LOG_FILE</a>，则通过根logger发送的消息将被重定向到一个名为<a href="#">LOG_FILE</a>的文件，并使用编码<a href="#">LOG_ENCODING</a>。如果unset和<a href="#">LOG_ENABLED</a>是<code>True</code>，那么日志消息将显示在标准错误上。最后，如果<a href="#">LOG_ENABLED</a>是<code>False</code>，就不会有任何可见的日志输出。</p>
+<p><a href="#">LOG_LEVEL</a>决定显示的最低级别的严重性，那些较低级别的消息将被过滤掉。它包括在<a href="#">日志级别</a>中列出的可能级别。</p>
+<p><a href="#">LOG_FORMAT</a>和<a href="#">LOG_DATEFORMAT</a>指定格式化字符串作为所有消息的布局。这些字符串可以包含在<a href="https://docs.python.org/2/library/logging.html#logrecord-attributes">日志记录的日志记录属性文档</a>中列出的任何占位符，它们分别是<a href="#">datetime的strftime和strptime指令</a>。</p>
+<p>如果设置了<a href="#">LOG_SHORT_NAMES</a>，那么日志将不会显示打印日志的Scrapy组件。It is unset by default，因此logs包含负责该日志输出的Scrapy组件。</p>
+<h2 id="_1">命令行选项</h2>
+<p>有一些命令行参数可供所有命令使用，您可以使用它来覆盖关于日志记录的一些剪贴设置。</p>
+<blockquote>
+<ul>
+<li><code>--logfile FILE</code></li>
+</ul>
+<blockquote>
+<p>覆盖<a href="#">LOG_FILE</a></p>
+</blockquote>
+<ul>
+<li><code>--loglevel/-L LEVEL</code></li>
+</ul>
+<blockquote>
+<p>覆盖<a href="#">LOG_LEVEL</a></p>
+</blockquote>
+<ul>
+<li><code>--nolog</code></li>
+</ul>
+<blockquote>
+<p>设置<a href="#">LOG_ENABLED</a>为<code>False</code></p>
+</blockquote>
+</blockquote>
+<pre><code class="note">请参见
+[logging.handlers](https://docs.python.org/2/library/logging.handlers.html)模块
+关于可用handlers的进一步文档
+</code></pre>
+
+<h2 id="_2">高级定制</h2>
+<p>因为Scrapy使用stdlib logging模块，所以您可以使用stdlib logging的所有特性来定制logging。</p>
+<p>例如，假设您正在抓取一个返回许多HTTP 404和500响应的网站，您想要隐藏所有这样的消息：</p>
+<pre><code class="shell">2016-12-16 22:00:06 [scrapy.spidermiddlewares.httperror] INFO: Ignoring
+response &lt;500 http://quotes.toscrape.com/page/1-34/&gt;: HTTP status code
+is not handled or not allowed
+</code></pre>
+
+<p>首先要注意的是logger的名字 - 它在括号里：<code>[scrapy.spidermiddlewares.httperror]</code>。如果你只得到了<code>scrapy</code>，那么<code>LOG_SHORT_NAMES</code>很可能是True;把它设置为False，然后重新运行crawl。</p>
+<p>接下来，我们可以看到消息具有INFO级别。为了隐藏它，我们应该设置比信息更高的<code>scrapy.spidermiddlewares.httperror</code>的日志级别;下一层信息是WARNING。可以这样做，例如在spider的<code>__init__</code>方法中：</p>
+<pre><code class="python">import logging
+import scrapy
+
+
+class MySpider(scrapy.Spider):
+    # ...
+    def __init__(self, *args, **kwargs):
+        logger = logging.getLogger('scrapy.spidermiddlewares.httperror')
+        logger.setLevel(logging.WARNING)
+        super().__init__(*args, **kwargs)
+</code></pre>
+
+<p>如果您再次运行这个spider，那么来自<code>scrapy.spidermiddlewares.httperror</code>的logger的信息将会消失。</p>
+<h2 id="scrapyutilslog">scrapy.utils.log模块</h2>
+<h4 id="scrapyutilslogconfigure_loggingsettingsnone-install_root_handlertrue-class">scrapy.utils.log.configure_logging(settings=None, install_root_handler=True)   这是一个类(class)</h4>
+<blockquote>
+<p>初始化Scrapy的logging默认值。</p>
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li><strong>settings</strong> (字典, <a href="#">Settings</a>对象或者<code>None</code>) – 用于为根logger创建和配置handler的设置（默认：None）。</li>
+<li><strong>install_root_handler</strong> (布尔类型) – 是否要安装根logging handler（默认：True）</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>这个函数:</p>
+<blockquote>
+<ul>
+<li>通过Python标准日志记录路由警告和twisted日志记录</li>
+<li>分别为Scrapy和Twisted loggers分配DEBUG和ERROR级别</li>
+<li>如果LOG_STDOUT设置为True，则将stdout路由到日志</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>当<code>install_root_handler</code>为True（默认）时，这个函数也会根据给定的设置为根logger创建一个handler（参见<a href="#">Logging settings</a>）。您可以使用<code>settings</code>参数覆盖默认选项。当设置为空或None时，会使用默认值。</p>
+<p>在使用Scrapy命令时，会自动调用<code>configure_logging</code>，但是在运行自定义脚本时需要显式地调用configure_logging。在这种情况下，它的用法不是必需的，但它是推荐的。</p>
+<p>如果您打算自己配置handlers，那么您仍然建议您调用这个函数，传递install_root_handler=False。请记住，在这种情况下，默认情况下不会输出任何日志集。</p>
+<p>为了让您开始手动配置logging的输出，您可以使用<a href="#">logging.basicConfig()</a>来设置基本root handler。这是一个关于如何将<code>INFO</code>或更高消息重定向到文件的示例：</p>
+<pre><code class="python">import logging
+from scrapy.utils.log import configure_logging
+
+configure_logging(install_root_handler=False)
+logging.basicConfig(
+    filename='log.txt',
+    format='%(levelname)s: %(message)s',
+    level=logging.INFO
+)
+</code></pre>
+
+<p>从<a href="#">脚本中引用Scrapy</a>来了解关于使用Scrapy的更多细节。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../18-stats-collection/" class="btn btn-neutral float-right" title="Stats Collection(状态收集)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../2. 基本概念/16-settings/" class="btn btn-neutral" title="Settings(设置)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../2. 基本概念/16-settings/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../18-stats-collection/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

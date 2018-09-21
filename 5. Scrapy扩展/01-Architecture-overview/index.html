@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Link Extractors(链接提取器) - Scrapy 1.5.1 中文文档</title>
+  <title>架构概述 - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Link Extractors(\u94fe\u63a5\u63d0\u53d6\u5668)";
-    var mkdocs_page_input_path = "2. \u57fa\u672c\u6982\u5ff5\\15-extractors.md";
+    var mkdocs_page_name = "\u67b6\u6784\u6982\u8ff0";
+    var mkdocs_page_input_path = "5. Scrapy\u6269\u5c55\\01-Architecture-overview.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -86,61 +86,47 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../06-command_line_tool/">Command line tool(命令行工具)</a>
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../07-spiders/">Spiders(自定义爬虫类)</a>
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../08-selctor/">Selector(选择器)</a>
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../09-items/">Items(模型)</a>
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../10-itemloaders/">Item Loaders(Item加载器)</a>
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../12-item_pipeline/">Item Pipeline(模组管道)</a>
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../13-feed_exports/">Feed exports(导出各种格式文件)</a>
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../14-requests_response/">Requests和Responses</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">Link Extractors(链接提取器)</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#link-extractors">Link Extractors(链接提取器)</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#link-extractors_1">内置link extractors参考</a></li>
-        
-            <li><a class="toctree-l4" href="#lxmllinkextractor">LxmlLinkExtractor</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../16-settings/">Settings(设置)</a>
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
                 </li>
     </ul>
 	    </li>
@@ -235,13 +221,31 @@
 		
     <span class="caption-text">5. Scrapy扩展</span>
     <ul class="subnav">
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../../5. Scrapy扩展/01-Architecture-overview/">架构概述</a>
+    <a class="current" href="./">架构概述</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#_1">架构概述</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_2">概述</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">数据流</a></li>
+        
+            <li><a class="toctree-l4" href="#_4">组件</a></li>
+        
+            <li><a class="toctree-l4" href="#_5">事件驱动的网络</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../5. Scrapy扩展/02-Downloader-Middleware/">Downloader Middleware</a>
+    <a class="" href="../02-Downloader-Middleware/">Downloader Middleware</a>
                 </li>
     </ul>
 	    </li>
@@ -268,11 +272,11 @@
     
       
         
-          <li>2. 基本概念 &raquo;</li>
+          <li>5. Scrapy扩展 &raquo;</li>
         
       
     
-    <li>Link Extractors(链接提取器)</li>
+    <li>架构概述</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -282,51 +286,71 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="link-extractors">Link Extractors(链接提取器)</h1>
-<p>Link extractors是只用于从web页面(<a href="#">scrapy.http.Response</a>对象)中提取链接的对象，最终将被跟踪。</p>
-<p><code>scrapy.linkextractors.LinkExtractor</code>可以在Scrapy中使用，但是您可以通过一个简单的接口创建自己的自定义Link Extractors来满足您的需求。</p>
-<p>每个link extractor都拥有的惟一公共方法是<code>extract_links</code>，它接收一个<a href="#">Response</a>对象并返回一个<code>scrapy.link.Link</code>对象列表。Link extractors只需要实例化一次，它们的<code>extract_links</code>方法要调用好几次，使用不同的responses提取要跟踪的链接。</p>
-<p>Link extractors用于<a href="#">CrawlSpider</a>类(Scrapy中可用)，通过一组规则，但是您也可以在spiders中使用它，即使您没有从<a href="#">CrawlSpider</a>子类化它，因为它的目的非常简单:提取链接。</p>
-<h2 id="link-extractors_1">内置link extractors参考</h2>
-<p><a href="#">scrapy.linkextractors</a>模块中提供了与Scrapy绑定的Link extractors类。</p>
-<p>默认的link extractor是<code>LinkExtractor</code>，与<a href="#">LxmlLinkExtractor</a>相同:</p>
-<pre><code class="python">from scrapy.linkextractors import LinkExtractor
-</code></pre>
-
-<p>在以前的Scrapy按本中曾经有其他的link extractor类，但是现在它们已经被废弃了。</p>
-<h2 id="lxmllinkextractor">LxmlLinkExtractor</h2>
-<h4 id="scrapylinkextractorslxmlhtmllxmllinkextractorallow-deny-allow_domains-deny_domains-deny_extensionsnone-restrict_xpaths-restrict_css-tagsa-area-attrshref-canonicalizefalse-uniquetrue-process_valuenone-striptrue-class">scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor(allow=(), deny=(), allow_domains=(), deny_domains=(), deny_extensions=None, restrict_xpaths=(), restrict_css=(), tags=('a', 'area'), attrs=('href', ), canonicalize=False, unique=True, process_value=None, strip=True)   这是一个类(class)</h4>
-<p>LxmlLinkExtractor是推荐的具有方便过滤选项的link extractor。它是使用健壮的lxml HTMLParser实现的。</p>
+                <h1 id="_1">架构概述</h1>
+<p>本文描述了Scrapy的体系结构及其组件之间的交互方式。</p>
+<h2 id="_2">概述</h2>
+<p>下图显示了Scrapy体系结构及其组件的概述，以及系统内部发生的数据流的概要(红色箭头所示)。下面包含了对组件的简要描述，以及关于这些组件的详细信息的链接。下面还描述了数据流。</p>
+<h2 id="_3">数据流</h2>
+<p><img alt="" src="https://docs.scrapy.org/en/latest/_images/scrapy_architecture_02.png" />
+Scrapy中的数据流由engine执行控制，如下所示:</p>
 <blockquote>
-<p>参数:</p>
+<ol>
+<li><a href="#">Engine</a>从<a href="#">Spider</a>中获得最初的Requests</li>
+<li><a href="#">Engine</a>在<a href="#">Scheduler</a>里调度Requests并不断寻求下一个Requests进行抓取</li>
+<li><a href="#">Scheduler</a>将下一个Requests返回到<a href="#">Engine</a></li>
+<li>Engine通过<a href="#">Downloader Middlewares</a>(看<a href="#">process_request()</a>)将Requests发送到<a href="#">Downloader</a></li>
+<li>一旦页面下载完成, <a href="#">Downloader</a>生成Response(用这个页面), 并且通过<a href="#">Downloader Middlewares</a>(看<a href="#">process_response()</a>)将Response发送到Engine</li>
+<li><a href="#">Engine</a>接受<a href="#">Downloader</a>发送过来的Response, 并且通过<a href="#">Spider Middleware</a>(看<a href="">process_spider_input()</a>)将Response发送给<a href="#">Spider</a></li>
+<li><a href="#">Spider</a>处理Response, 并且通过<a href="#">Spider Middleware</a>(看<a href="#">process_spider_output()</a>)将抓取的items和新Requests返回给<a href="#">Engine</a></li>
+<li><a href="#">Engine</a>将处理过的items发送到<a href="#">Item Pipelines</a>, 然后将后续Requests发送到<a href="#">Scheduler</a>, 并且尽可能寻求下一个Requests进行抓取</li>
+<li>这个过程重复(从第1步)，直到<a href="#">Scheduler</a>不再发出请求。</li>
+</ol>
+</blockquote>
+<h2 id="_4">组件</h2>
+<h3 id="scrapy-engine">Scrapy Engine</h3>
+<p>engine负责控制系统所有组件之间的数据流，并在某些操作发生时触发事件。有关更多细节，请参阅上面的<a href="#">数据流</a>部分。</p>
+<h3 id="scheduler">Scheduler</h3>
+<p>Scheduler接收来自engine的请求，并对它们进行排队，以便在engine请求它们时以便稍后提供这些请求(同时也提供给engine)。</p>
+<h3 id="downloader">Downloader</h3>
+<p>Downloader负责获取web页面并将其提供给engine，而engine又将这些页面提供给spider。</p>
+<h3 id="spiders">Spiders</h3>
+<p>Spiders是由Scrapy用户编写的自定义类，用于解析responses并从其中提取items (也称为已抓取的items)或随后的其他请求。有关更多信息，请参见<a href="#">Spiders</a>。</p>
+<h3 id="item-pipeline">Item Pipeline</h3>
+<p>Item Pipeline负责处理被spider提取(或已抓取)的items。典型的任务包括清理、验证和持久性(比如将item存储在数据库中)。有关更多信息，请参阅<a href="#">Item Pipeline</a>。</p>
+<h3 id="downloader-middlewares">Downloader middlewares</h3>
+<p>Downloader middlewares是位于Engine和Downloader之间的特定hooks(钩子)，当它们从Engine传递到Downloader时，处理requests，以及从Downloader传递到Engine的responses。</p>
+<p>如果您需要执行以下操作之一，请使用Downloader middleware:</p>
 <blockquote>
 <ul>
-<li>allow (正则表达式(或列表)) – 单个正则表达式(或正则表达式列表), (绝对)url必须匹配才能被提取, 如果没有给出(或空)，它将匹配所有链接。</li>
-<li>deny (正则表达式(或列表)) - 单个正则表达式(或正则表达式列表), (绝对)url必须匹配才能被排除。(既,不提取)。 它优先于<code>allow</code>参数, 如果没有给出(或空)，它不会排除任何链接。</li>
-<li>allow_domains (字符串或列表) - 用于提取链接的单个值或包含domains的字符串列表</li>
-<li>deny_domains (字符串或列表) - 包含domains的单个值或字符串列表，这些domains不用于提取链接</li>
-<li>deny_extensions (列表) - 包含在提取链接时应忽略的extensions(扩展)的单个值或字符串列表。如果没有指定，它将默认设置为scrapy中定义的<code>IGNORED_EXTENSIONS</code>列表在<a href="https://github.com/scrapy/scrapy/blob/master/scrapy/linkextractors/__init__.py">scrapy.linkextractors</a>包下。</li>
-<li>restrict_xpaths (字符串或列表) – 一个XPath(或XPath的列表)，它定义了response中的链接应该从哪里提取。 如果给定，则只扫描这些XPath选择的文本以查找链接。请参见下面的例子。</li>
-<li>restrict_css (字符串或列表) – 一个CSS选择器(或selectors列表)，它定义了response中的链接应该从哪里提取。 具有与<code>restrict_xpaths</code>相同的行为。</li>
-<li>tags (字符串或列表) – 提取链接时要考虑的标记或标记列表。 默认为<code>('a'， 'area')</code>。</li>
-<li>attrs (列表) – 在寻找要提取的链接时应该考虑的属性或属性列表(仅适用于<code>tags</code>参数中指定的标记), 默认为<code>('href')</code></li>
-<li>canonicalize (布尔类型) – 规范化每个提取的url(使用w3lib.url.canonicalize_url), 默认为<code>False</code>, 注意，canonicalize_url是用于重复检查的: 它可以改变在服务器端可见的URL, 因此，对于具有规范化和原始url的requests，response可能不同, 如果您使用LinkExtractor来跟踪链接，那么保持默认设置<code>canonicalize=False</code>会更加健壮</li>
-<li>unique (布尔类型) – 是否对提取的链接应用重复过滤。</li>
-<li>process_value (可调用的) – 一个函数，它接收从已扫描的tag和attributes中提取的每个值，并且可以修改这个值并返回一个新的值，或者返回<code>None</code>以完全忽略链接。 如果没有给出，<code>process_value</code>默认为<code>lambda x: x</code></li>
+<li>在将request发送到Downloader之前处理request(即在Scrapy将request发送到网站之前);</li>
+<li>在传递给spider之前收到更改后的response;</li>
+<li>发送一个新的Request，而不是将接收到的response交给spider;</li>
+<li>将response传递给spider而不是获取web页面</li>
+<li>静静地删除一些requests。</li>
 </ul>
+</blockquote>
+<p>有关更多信息，请参见<a href="#">Downloader Middleware</a>。</p>
+<h3 id="spider-middlewares">Spider middlewares</h3>
+<p>Spider middlewares是位于引擎和Spider之间的特定hooks(钩子)，能够处理spider输入(responses)和输出(items and requests)。</p>
+<p>如果需要，可以使用Spider middleware</p>
 <blockquote>
-<p>例如，从这段代码中提取链接:</p>
-<p><code>&lt;a href="javascript:goToPage('../other/page.html'); return false"&gt;Link text&lt;/a&gt;</code></p>
-<p>您可以在<code>process_value</code>中使用以下函数:</p>
-<p><code>def process_value(value):
-    m = re.search("javascript:goToPage\('(.*?)'", value)
-    if m:
-        return m.group(1)</code></p>
-</blockquote>
 <ul>
-<li>strip (布尔类型) – 是否从提取的attributes中删除空白, 根据HTML5标准，必须从<code>&lt;a&gt;</code>、<code>&lt;area&gt;</code>等元素的href属性、<code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code>元素的<code>src</code>属性中去掉开头和结尾的空白, 等等，所以默认情况下，LinkExtractor会在默认情况下删除空格字符, 设置<code>strip=False</code>来关闭它(例如，如果你正在从elements或attributes中提取url，这些elements或attributes允许开头/结尾有空格)</li>
+<li>spider callbacks的post-process(后)处理输出-更改/添加/删除requests或items;</li>
+<li>start_requests post-process(后)处理;</li>
+<li>处理蜘蛛异常;</li>
+<li>对一些基于response内容的requests调用errback而不是callback。</li>
 </ul>
 </blockquote>
+<p>有关更多信息，请参见<a href="#">Spider Middleware</a>。</p>
+<h2 id="_5">事件驱动的网络</h2>
+<p>Scrapy是用Python的一个流行的事件驱动网络框架<a href="https://twistedmatrix.com/trac/">Twisted</a>编写的。因此，它使用非阻塞(即异步)代码实现并发。</p>
+<p>有关异步编程和Twisted的更多信息，请参阅以下链接:</p>
+<blockquote>
+<ul>
+<li><a href="https://twistedmatrix.com/documents/current/core/howto/defer-intro.html">Twisted的延迟介绍</a></li>
+<li><a href="http://jessenoller.com/2009/02/11/twisted-hello-asynchronous-programming/">Twisted - hello，异步编程</a></li>
+<li><a href="http://krondo.com/an-introduction-to-asynchronous-programming-and-twisted/">Twisted介绍 - Krondo</a></li>
+</ul>
 </blockquote>
               
             </div>
@@ -335,10 +359,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../16-settings/" class="btn btn-neutral float-right" title="Settings(设置)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../02-Downloader-Middleware/" class="btn btn-neutral float-right" title="Downloader Middleware">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../14-requests_response/" class="btn btn-neutral" title="Requests和Responses"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../4. 解决具体问题/13-pausing-resuming-crawls/" class="btn btn-neutral" title="作业: 暂停和恢复爬虫"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -364,10 +388,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../14-requests_response/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../../4. 解决具体问题/13-pausing-resuming-crawls/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../16-settings/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../02-Downloader-Middleware/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

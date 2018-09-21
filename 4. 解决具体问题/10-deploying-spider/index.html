@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>安装指导 - Scrapy 1.5.1 中文文档</title>
+  <title>部署Spider - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5b89\u88c5\u6307\u5bfc";
-    var mkdocs_page_input_path = "1. \u7b2c\u4e00\u6b65\\03-install.md";
+    var mkdocs_page_name = "\u90e8\u7f72Spider";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\10-deploying-spider.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -59,29 +59,23 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../01-index/">Scrapy 1.5 中文文档</a>
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../02-overview/">一眼了解Scrapy</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">安装指导</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">安装指导</a></li>
-    
-
-    </ul>
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../04-scrapy tutorial/">Scrapy 教程</a>
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../05-examples/">例子</a>
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
                 </li>
     </ul>
 	    </li>
@@ -170,55 +164,69 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+    <a class="" href="../02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+    <a class="" href="../03-Spiders Contracts/">Spiders Contracts</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+    <a class="" href="../04-common-practices/">Common Practices(常用实践)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+    <a class="" href="../05-broad-crawls/">Broad Crawls</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+    <a class="" href="../09-down-file-image/">下载并处理文件和图像</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">部署Spider</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#spider">部署Spider</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#scrapyd">部署到Scrapyd服务器</a></li>
+        
+            <li><a class="toctree-l4" href="#scrapy">部署到Scrapy云</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+    <a class="" href="../11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+    <a class="" href="../12-Benchmark/">基准测试</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
                 </li>
     </ul>
 	    </li>
@@ -260,11 +268,11 @@
     
       
         
-          <li>1. 第一步 &raquo;</li>
+          <li>4. 解决具体问题 &raquo;</li>
         
       
     
-    <li>安装指导</li>
+    <li>部署Spider</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -274,8 +282,24 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">安装指导</h1>
-<p>本页不写了, 浪费时间, 基本都会安装</p>
+                <h1 id="spider">部署Spider</h1>
+<p>本节描述了您可以使用各种不同的选项来部署您的Scrapy spider，以便定期运行它们。在本地机器上运行Scrapy spider对于(早期)开发阶段非常方便，但在需要执行长时间运行的spider或移动spider以在生产环境中连续运行时，就不那么方便了。这就是部署Scrapy spider的解决方案。</p>
+<p>部署Scrapy spider的流行选择是:</p>
+<blockquote>
+<ul>
+<li><a href="#">Scrapyd</a> (开源)</li>
+<li><a href="#">Scrapy云</a> (基于云)</li>
+</ul>
+</blockquote>
+<h2 id="scrapyd">部署到Scrapyd服务器</h2>
+<p><a href="https://github.com/scrapy/scrapyd">Scrapyd</a>是一个运行Scrapy spider的开放源码应用程序。它提供了一个具有HTTP API的服务器，能够运行和监视各种Scrapy spider。</p>
+<p>要将spider部署到Scrapyd，可以使用<a href="https://github.com/scrapy/scrapyd-client">scrapyd-client</a>包提供的scrapyd-deploy工具。有关更多信息，请参阅<a href="https://scrapyd.readthedocs.io/en/latest/deploy.html">scrapyd-deploy文档</a>。</p>
+<p>Scrapyd是由一些Scrapy开发人员维护的。</p>
+<h2 id="scrapy">部署到Scrapy云</h2>
+<p><a href="https://scrapinghub.com/scrapy-cloud?_ga=2.160998269.1785070979.1537252039-279211932.1532404155">Scrapy云</a>是由<a href="https://scrapinghub.com/?_ga=2.227583965.1785070979.1537252039-279211932.1532404155">Scrapinghub</a>公司提供的基于云的托管服务。</p>
+<p>Scrapy云不需要安装和监视服务器，并提供了一个很好的用户UI界面来管理spider并查看已抓取的items、log和stats。</p>
+<p>要将spider部署到Scrapy云，可以使用<a href="https://doc.scrapinghub.com/shub.html?_ga=2.202018001.1785070979.1537252039-279211932.1532404155">shub</a>命令行工具。有关更多信息，请参阅<a href="https://doc.scrapinghub.com/scrapy-cloud.html?_ga=2.127126349.1785070979.1537252039-279211932.1532404155">Scrapy云文档</a>。</p>
+<p>Scrapy云与Scrapyd兼容，可以根据需要在它们之间进行切换 - 从<code>scrapy.cfg</code>读取配置文件就像<code>scrapyd-deploy</code>。</p>
               
             </div>
           </div>
@@ -283,10 +307,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../04-scrapy tutorial/" class="btn btn-neutral float-right" title="Scrapy 教程">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../11-auto-throttle-extension/" class="btn btn-neutral float-right" title="AutoThrottle extension(自动节流扩展)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../02-overview/" class="btn btn-neutral" title="一眼了解Scrapy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../09-down-file-image/" class="btn btn-neutral" title="下载并处理文件和图像"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -312,10 +336,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../02-overview/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../09-down-file-image/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../04-scrapy tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../11-auto-throttle-extension/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Common Practices(常用实践) - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Common Practices(\u5e38\u7528\u5b9e\u8df5)";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\04-common-practices.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">3. 内置服务</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/17-logging/">Logging(日志记录)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/19-send-email/">Sending e-mail(发送一个邮件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/20-telnet-console/">Telnet Console(Telnet控制台)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/21-web-service/">Web Service(Web服务)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">4. 解决具体问题</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../03-Spiders Contracts/">Spiders Contracts</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Common Practices(常用实践)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#common-practices">Common Practices(常用实践)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#scrapy">从脚本中运行Scrapy</a></li>
+        
+            <li><a class="toctree-l4" href="#spider">在同一个进程中运行多个spider</a></li>
+        
+            <li><a class="toctree-l4" href="#_1">分布式爬虫</a></li>
+        
+            <li><a class="toctree-l4" href="#ban">避免被ban</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../05-broad-crawls/">Broad Crawls</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../09-down-file-image/">下载并处理文件和图像</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../12-Benchmark/">基准测试</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">5. Scrapy扩展</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/01-Architecture-overview/">架构概述</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../5. Scrapy扩展/02-Downloader-Middleware/">Downloader Middleware</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>4. 解决具体问题 &raquo;</li>
+        
+      
+    
+    <li>Common Practices(常用实践)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="common-practices">Common Practices(常用实践)</h1>
+<p>本节记录使用Scrapy时的常见实践。这些内容涵盖了许多主题，通常不属于任何其他特定部分。</p>
+<h2 id="scrapy">从脚本中运行Scrapy</h2>
+<p>您可以使用<a href="#">API</a>从脚本中运行Scrapy，而不是通过<code>scrapy crawl</code>典型方式运行Scrapy。</p>
+<p>记住，Scrapy是在Twisted异步网络库之上构建的，所以您需要在Twisted reactor中运行它。</p>
+<p>运行spiders的第一个实用程序是<a href="#">scrapy.crawler.CrawlerProcess</a>。这个类将为您启动一个Twisted reactor，配置logging并设置关闭handlers。这个类是所有Scrapy命令所使用的类。</p>
+<p>下面是一个示例，演示如何使用它运行单个spider。</p>
+<pre><code class="python">import scrapy
+from scrapy.crawler import CrawlerProcess
+
+class MySpider(scrapy.Spider):
+    # 定义你的spider
+    ...
+
+process = CrawlerProcess({
+    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
+})
+
+process.crawl(MySpider)
+process.start() # 脚本将在这里阻塞，直到完成爬行
+</code></pre>
+
+<p>确保检查<a href="#">CrawlerProcess</a>文档以了解其使用细节。</p>
+<p>如果您在Scrapy项目中，可以使用一些额外的助手来导入项目中的组件。你可以自动导入你的spider通过传递它们的名字给<a href="#">CrawlerProcess</a>，并使用<code>get_project_settings</code>获得带有项目settings的<a href="#">Settings</a>实例。</p>
+<p>下面是一个使用<a href="https://github.com/scrapinghub/testspiders">testspider</a>项目作为示例的工作示例，说明如何做到这一点。</p>
+<pre><code class="python">from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+
+process = CrawlerProcess(get_project_settings())
+
+# 'followall' 是这个项目的spider的名字.
+process.crawl('followall', domain='scrapinghub.com')
+process.start() # 脚本将在这里阻塞，直到完成爬行
+</code></pre>
+
+<p>还有一个Scrapy实用程序可以提供对抓取过程的更多控制:<code>scrapy.crawler.CrawlerRunner</code>。这个类是一个瘦小的包装器，它封装了一些简单的助手来运行多个crawlers，但是它不会以任何方式启动或干扰现有的reactors。</p>
+<pre><code class="note">[Twisted Reactor的概述](https://twistedmatrix.com/documents/current/core/howto/reactor-basics.html)。
+</code></pre>
+
+<h2 id="spider">在同一个进程中运行多个spider</h2>
+<p>默认情况下，当您运行<code>scrapy crawl</code>时，每个进程只运行一个spider.  然而，Scrapy支持使用<a href="#">内部API</a>在每个进程上运行多个爬行器。</p>
+<p>下面是一个同时运行多个spider的例子:</p>
+<pre><code class="python">import scrapy
+from scrapy.crawler import CrawlerProcess
+
+class MySpider1(scrapy.Spider):
+    # 你定义的第一个spider
+    ...
+
+class MySpider2(scrapy.Spider):
+    # 你定义的第二个spider
+    ...
+
+process = CrawlerProcess()
+process.crawl(MySpider1)
+process.crawl(MySpider2)
+process.start() # 脚本将在这里阻塞，直到所有爬行作业完成
+</code></pre>
+
+<p>使用<a href="#">CrawlerRunner</a>的例子是一样的:</p>
+<pre><code class="python">import scrapy
+from twisted.internet import reactor
+from scrapy.crawler import CrawlerRunner
+from scrapy.utils.log import configure_logging
+
+class MySpider1(scrapy.Spider):
+    # 你定义的第一个spider
+    ...
+
+class MySpider2(scrapy.Spider):
+    # 你定义的第二个spider
+    ...
+
+configure_logging()
+runner = CrawlerRunner()
+runner.crawl(MySpider1)
+runner.crawl(MySpider2)
+d = runner.join()
+d.addBoth(lambda _: reactor.stop())
+
+reactor.run() # 脚本将在这里阻塞，直到所有爬行作业完成
+</code></pre>
+
+<p>同样的例子，但通过一连串的延迟来连续运行spider:</p>
+<pre><code class="python">from twisted.internet import reactor, defer
+from scrapy.crawler import CrawlerRunner
+from scrapy.utils.log import configure_logging
+
+class MySpider1(scrapy.Spider):
+    # 你定义的第一个spider
+    ...
+
+class MySpider2(scrapy.Spider):
+    # 你定义的第二个spider
+    ...
+
+configure_logging()
+runner = CrawlerRunner()
+
+@defer.inlineCallbacks
+def crawl():
+    yield runner.crawl(MySpider1)
+    yield runner.crawl(MySpider2)
+    reactor.stop()
+
+crawl()
+reactor.run() # 脚本将在这里阻塞，直到所有爬行作业完成
+</code></pre>
+
+<pre><code class="note">[从脚本运行Scrapy](#)。
+</code></pre>
+
+<h2 id="_1">分布式爬虫</h2>
+<p>Scrapy不提供任何以分布式(多服务器)方式运行爬行的内置功能。但是，有一些分发crawls的方法，这些方法取决于您计划如何分发它们。</p>
+<p>如果有许多spider，分配负载的明显方法是设置许多Scrapyd实例并在这些实例之间分发spider。</p>
+<p>如果您想在许多机器上运行单个(大型)spider，通常要做的是对url进行分区，然后将它们发送到每个单独的spider。下面是一个具体的例子:</p>
+<p>首先，准备好要抓取的url列表，并将它们放入单独的文件/url中:</p>
+<pre><code>http://somedomain.com/urls-to-crawl/spider1/part1.list
+http://somedomain.com/urls-to-crawl/spider1/part2.list
+http://somedomain.com/urls-to-crawl/spider1/part3.list
+</code></pre>
+
+<p>然后在3个不同的Scrapyd服务器上启动一个爬行器。爬行器将接收一个(spider)参数<code>part</code>，其中包含要抓取的分区数目:</p>
+<pre><code>curl http://scrapy1.mycompany.com:6800/schedule.json -d project=myproject -d spider=spider1 -d part=1
+curl http://scrapy2.mycompany.com:6800/schedule.json -d project=myproject -d spider=spider1 -d part=2
+curl http://scrapy3.mycompany.com:6800/schedule.json -d project=myproject -d spider=spider1 -d part=3
+</code></pre>
+
+<h2 id="ban">避免被ban</h2>
+<p>一些网站采取了一定的措施来防止bots从它们身上爬来爬去，其复杂程度各不相同。绕过这些措施可能是困难和棘手的，有时可能需要特殊的基础设施。如有疑问，请考虑联系<a href="https://scrapy.org/support/">商业支持</a>。</p>
+<p>在处理这类网站时，这里有一些提示要记住:</p>
+<blockquote>
+<ul>
+<li>将user agent从浏览器的知名代理池中轮询(通过谷歌获得它们的列表)</li>
+<li>禁用cookie(请参阅<a href="#">COOKIES_ENABLED</a>)，因为一些站点可能使用cookie来发现bot行为</li>
+<li>使用download delays(2或更高)。看<a href="#">DOWNLOAD_DELAY</a> settings。</li>
+<li>如果可能，使用<a href="http://www.googleguide.com/cached_pages.html">谷歌缓存</a>来获取页面，而不是直接访问站点</li>
+<li>轮询使用ip池。例如，免费<a href="https://www.torproject.org/">Tor项目</a>或付费服务，如<a href="https://proxymesh.com/">ProxyMesh</a>。一种开源的替代方法是<a href="https://scrapoxy.io/">scrapoxy</a>，一种可以将自己的代理附加到其上的超级代理。</li>
+<li>使用高度分布式的downloader，它可以绕过内部的禁止，这样您就可以专注于解析干净的页面。这种downloader的一个例子是<a href="https://scrapinghub.com/crawlera?_ga=2.165374847.1785070979.1537252039-279211932.1532404155">Crawlera</a></li>
+</ul>
+</blockquote>
+<p>如果你仍然不能阻止你的bot被禁止，考虑联系<a href="https://scrapy.org/support/">商业支持</a>。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../05-broad-crawls/" class="btn btn-neutral float-right" title="Broad Crawls">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../03-Spiders Contracts/" class="btn btn-neutral" title="Spiders Contracts"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../03-Spiders Contracts/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../05-broad-crawls/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

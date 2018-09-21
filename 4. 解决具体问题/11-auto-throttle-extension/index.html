@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>安装指导 - Scrapy 1.5.1 中文文档</title>
+  <title>AutoThrottle extension(自动节流扩展) - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5b89\u88c5\u6307\u5bfc";
-    var mkdocs_page_input_path = "1. \u7b2c\u4e00\u6b65\\03-install.md";
+    var mkdocs_page_name = "AutoThrottle extension(\u81ea\u52a8\u8282\u6d41\u6269\u5c55)";
+    var mkdocs_page_input_path = "4. \u89e3\u51b3\u5177\u4f53\u95ee\u9898\\11-auto-throttle-extension.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -59,29 +59,23 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../01-index/">Scrapy 1.5 中文文档</a>
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../02-overview/">一眼了解Scrapy</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">安装指导</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">安装指导</a></li>
-    
-
-    </ul>
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../04-scrapy tutorial/">Scrapy 教程</a>
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../05-examples/">例子</a>
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
                 </li>
     </ul>
 	    </li>
@@ -170,55 +164,73 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+    <a class="" href="../01-常见问题解答/">常见问题解答</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+    <a class="" href="../02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+    <a class="" href="../03-Spiders Contracts/">Spiders Contracts</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+    <a class="" href="../04-common-practices/">Common Practices(常用实践)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+    <a class="" href="../05-broad-crawls/">Broad Crawls</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+    <a class="" href="../06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+    <a class="" href="../07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+    <a class="" href="../08-debugging-memory/">调试内存泄漏</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+    <a class="" href="../09-down-file-image/">下载并处理文件和图像</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+    <a class="" href="../10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">AutoThrottle extension(自动节流扩展)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#autothrottle-extension">AutoThrottle extension(自动节流扩展)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">设计目标</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">如何运作</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">节流算法</a></li>
+        
+            <li><a class="toctree-l4" href="#settings">Settings</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+    <a class="" href="../12-Benchmark/">基准测试</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+    <a class="" href="../13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
                 </li>
     </ul>
 	    </li>
@@ -260,11 +272,11 @@
     
       
         
-          <li>1. 第一步 &raquo;</li>
+          <li>4. 解决具体问题 &raquo;</li>
         
       
     
-    <li>安装指导</li>
+    <li>AutoThrottle extension(自动节流扩展)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -274,8 +286,78 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">安装指导</h1>
-<p>本页不写了, 浪费时间, 基本都会安装</p>
+                <h1 id="autothrottle-extension">AutoThrottle extension(自动节流扩展)</h1>
+<p>这是一个扩展，可以根据Scrapy服务器和要爬行的网站的负载自动调节爬行速度。</p>
+<h3 id="_1">设计目标</h3>
+<blockquote>
+<ol>
+<li>对网站更好，而不是使用默认的download delay为0</li>
+<li>自动调整Scrapy的最佳爬行速度，所以用户不必调整download delay来找到最佳的。用户只需要指定它允许的maximum concurrent request(最大并发请求)，扩展就可以完成剩下的工作。</li>
+</ol>
+</blockquote>
+<h3 id="_2">如何运作</h3>
+<p>自动节流扩展动态调整download delay，使spider平均向每个远程网站发送<a href="#">AUTOTHROTTLE_TARGET_CONCURRENCY</a>并发requests。</p>
+<p>它使用download latency来计算延迟。其主要思想如下:如果服务器需要<code>latency</code>秒来响应，那么客户机应该在每<code>latency/N</code>秒内发送request，以使<code>N</code>个request并行处理。</p>
+<p>与其调整延迟，不如设置一个小的固定download delay并使用<a href="#">CONCURRENT_REQUESTS_PER_DOMAIN</a>或<a href="#">CONCURRENT_REQUESTS_PER_IP</a>选项对并发性施加硬限制。它将提供类似的效果，但有一些重要的区别:</p>
+<blockquote>
+<ul>
+<li>因为download delay很小，偶尔会请求爆发;</li>
+<li>通常，非200(错误)response的返回速度会比常规response快，因此，当服务器开始返回错误时，并发限制爬虫会更快地向服务器发送请求。但这与spider应该做的相反 - 在出现错误时，放慢速度更有意义:这些错误可能是由高request频率引起的。</li>
+</ul>
+</blockquote>
+<p>自动节流没有这些问题。</p>
+<h2 id="_3">节流算法</h2>
+<p>自动节流算法根据以下规则调整download delay:</p>
+<blockquote>
+<ol>
+<li>spider总是以<a href="#">AUTOTHROTTLE_START_DELAY</a>的download delay开始</li>
+<li>当接收到response时，目标下载延迟计算为<code>latency / N</code>，其中<code>latency</code>是响应的latency(延迟)，<code>N</code>是<a href="#">AUTOTHROTTLE_TARGET_CONCURRENCY</a>。</li>
+<li>下一个请求的download delay设置为之前的download delay和目标下载延迟的平均值;</li>
+<li>不允许非200 response延迟以减少延迟;</li>
+<li>download delay不能小于<a href="#">DOWNLOAD_DELAY</a>或大于<a href="#">AUTOTHROTTLE_MAX_DELAY</a></li>
+</ol>
+</blockquote>
+<pre><code class="note">自动节流扩展支持标准Scrapy的并发和延迟settings。
+这意味着它将尊重[CONCURRENT_REQUESTS_PER_DOMAIN](#)和[CONCURRENT_REQUESTS_PER_IP](#)选项，
+并且不会设置download delay低于[DOWNLOAD_DELAY](#)。
+</code></pre>
+
+<p>在Scrapy中，download latency是指建立TCP连接和接收HTTP headers之间经过的时间。</p>
+<p>请注意，这些latency(延迟)在协同多任务环境中很难精确测量，因为Scrapy可能正忙于处理一个spider callback，例如，无法参加下载。但是，这些latency(延迟)仍然应该能够合理地估计出Scrapy繁忙程度(最终是服务器)，而这个扩展是建立在这个前提之上的。</p>
+<h2 id="settings">Settings</h2>
+<p>用于控制自动节流扩展的settings如下:</p>
+<blockquote>
+<ul>
+<li><a href="#">AUTOTHROTTLE_ENABLED</a></li>
+<li><a href="#">AUTOTHROTTLE_START_DELAY</a></li>
+<li><a href="#">AUTOTHROTTLE_MAX_DELAY</a></li>
+<li><a href="#">AUTOTHROTTLE_TARGET_CONCURRENCY</a></li>
+<li><a href="#">AUTOTHROTTLE_DEBUG</a></li>
+<li><a href="#">CONCURRENT_REQUESTS_PER_DOMAIN</a></li>
+<li><a href="#">CONCURRENT_REQUESTS_PER_IP</a></li>
+<li><a href="#">DOWNLOAD_DELAY</a></li>
+</ul>
+</blockquote>
+<p>有关更多信息，请参见它的<a href="#">工作原理</a>。</p>
+<h3 id="autothrottle_enabled">AUTOTHROTTLE_ENABLED</h3>
+<p>默认: <code>False</code></p>
+<p>启用自动节流扩展。</p>
+<h3 id="autothrottle_start_delay">AUTOTHROTTLE_START_DELAY</h3>
+<p>默认: <code>5.0</code></p>
+<p>初始download delay(以秒为单位)。</p>
+<h3 id="autothrottle_max_delay">AUTOTHROTTLE_MAX_DELAY</h3>
+<p>默认: <code>60.0</code></p>
+<p>最大download delay(以秒为单位)在高latency(延迟)情况下设置。</p>
+<h3 id="autothrottle_target_concurrency">AUTOTHROTTLE_TARGET_CONCURRENCY</h3>
+<p>最新版本1.1</p>
+<p>默认: <code>1.0</code></p>
+<p>Scrapy请求的平均数量应该与远程网站并行发送。</p>
+<p>默认情况下，自动节流调整延迟发送单个并发请求到每个远程网站。将此选项设置为更高的值(例如<code>2.0</code>)，以增加远程服务器上的吞吐量和负载。较低的<code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>值(例如<code>0.5</code>)使spider更加保守和礼貌。</p>
+<p>请注意，当启用自动节流扩展时，<a href="#">CONCURRENT_REQUESTS_PER_DOMAIN</a>和<a href="#">CONCURRENT_REQUESTS_PER_IP</a>选项仍然受到尊重。这意味着，如果<code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>设置的值高于<a href="#">CONCURRENT_REQUESTS_PER_DOMAIN</a>或<a href="#">CONCURRENT_REQUESTS_PER_IP</a>，那么爬虫程序不会达到这个并发请求数。</p>
+<p>在每个给定的时间点，Scrapy可以发送比<code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>或多或少的并发请求;这是爬虫试图接近的一个建议值，而不是一个硬性限制。</p>
+<h3 id="autothrottle_debug">AUTOTHROTTLE_DEBUG</h3>
+<p>默认: <code>False</code></p>
+<p>启用“自动节流”调试模式，该模式将在接收到的每个response上显示stats信息，因此您可以看到节流参数是如何实时调整的。</p>
               
             </div>
           </div>
@@ -283,10 +365,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../04-scrapy tutorial/" class="btn btn-neutral float-right" title="Scrapy 教程">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../12-Benchmark/" class="btn btn-neutral float-right" title="基准测试">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../02-overview/" class="btn btn-neutral" title="一眼了解Scrapy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../10-deploying-spider/" class="btn btn-neutral" title="部署Spider"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -312,10 +394,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../02-overview/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../10-deploying-spider/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../04-scrapy tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../12-Benchmark/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
