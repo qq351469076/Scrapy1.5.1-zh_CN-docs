@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Spider Middleware - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Spider Middleware";
+    var mkdocs_page_input_path = "5. Scrapy\u6269\u5c55\\03-spider-middleware.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">3. 内置服务</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/17-logging/">Logging(日志记录)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/19-send-email/">Sending e-mail(发送一个邮件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/20-telnet-console/">Telnet Console(Telnet控制台)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/21-web-service/">Web Service(Web服务)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">4. 解决具体问题</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">5. Scrapy扩展</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../01-Architecture-overview/">架构概述</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../02-Downloader-Middleware/">Downloader Middleware(下载器中间件)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Spider Middleware</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#spider-middleware">Spider Middleware</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#spider-middleware_1">激活一个spider middleware</a></li>
+        
+            <li><a class="toctree-l4" href="#spider-middleware_2">编写自己的spider middleware</a></li>
+        
+            <li><a class="toctree-l4" href="#spider-middleware_3">内置的spider middleware引用</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../04-Extensions/">Extensions(扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../05-api/">核心API</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../06-signals/">Signals(信号)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../07-exporters/">Item Exporters(Items导出器)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">6. 其他的</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../6. 其他的/01-news/">发行说明</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>5. Scrapy扩展 &raquo;</li>
+        
+      
+    
+    <li>Spider Middleware</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="spider-middleware">Spider Middleware</h1>
+<p>spider middleware是一个hooks(钩子)的框架，可以插入到Scrapy的spider处理机制当中，在那里您可以插入定制的功能来处理发送给spider的response，并处理来自于spider的requests和items。</p>
+<h2 id="spider-middleware_1">激活一个spider middleware</h2>
+<p>要激活一个spider middleware组件，将它添加到<a href="#">SPIDER_MIDDLEWARES</a> setting中，它的键是middleware类的路径, 并且它们的值是对应的数字。</p>
+<p>这有一个例子:</p>
+<pre><code class="python">SPIDER_MIDDLEWARES = {
+    'myproject.middlewares.CustomSpiderMiddleware': 543,
+}
+</code></pre>
+
+<p><a href="#">SPIDER_MIDDLEWARES</a> setting与Scrapy中定义的<a href="#">SPIDER_MIDDLEWARES_BASE</a> setting合并(而不是覆盖),然后按顺序排序,得到最终排序的middlewares列表):第一个middleware接近engine,最后一个接近spider。换句话说，每个middleware的<a href="#">process_spider_input()</a>方法将在增加的middleware顺序（100、200、300、。）中被调用，并且每个中间件的<a href="#">process_spider_output()</a>方法将以递减的顺序被调用。</p>
+<p>要决定分配给您的middleware的顺序，请参阅<a href="#">SPIDER_MIDDLEWARES_BASE</a> setting，并根据您想要插入middleware的位置选择一个值。这个顺序很重要，因为每个middleware执行不同的操作，您的middleware可能依赖于应用的一些以前（或后续）middleware。</p>
+<p>如果您想要禁用内置的middleware（在<a href="#">SPIDER_MIDDLEWARES_BASE</a>中定义的，在默认情况下启用），您必须在项目<a href="#">SPIDER_MIDDLEWARES</a> setting中定义它，并将None赋值为其值。例如，如果您想要禁用off-site middleware：</p>
+<pre><code class="python">SPIDER_MIDDLEWARES = {
+    'myproject.middlewares.CustomSpiderMiddleware': 543,
+    'scrapy.spidermiddlewares.offsite.OffsiteMiddleware': None,
+}
+</code></pre>
+
+<p>最后，请记住，有些middleware可能需要通过特定的setting来启用。查看每个middleware文档以获得更多信息。</p>
+<h2 id="spider-middleware_2">编写自己的spider middleware</h2>
+<p>每个middleware组件都是一个Python类，它定义了下列方法中的一个或多个：</p>
+<h4 id="scrapyspidermiddlewaresspidermiddleware-class">scrapy.spidermiddlewares.SpiderMiddleware   这是一个类(class)</h4>
+<blockquote>
+<p><code>process_spider_input(response, spider)</code></p>
+<blockquote>
+<p>这个方法被调用来处理通过spider middleware和进入spider的每一个response。</p>
+<p><a href="#">process_spider_input()</a>应该返回<code>None</code>或抛出异常。</p>
+<p>如果它返回<code>None</code>，Scrapy将继续处理这个response，执行所有其他的middlewares，直到最后，response被交给spider进行处理。</p>
+<p>如果它抛出了一个异常，那么Scrapy就不会调用任何其他的spider middleware的<a href="#">process_spider_input()</a>，并将调用request errback。errback的输出被链接回另一个方向，以便<a href="#">process_spider_output()</a>处理它，或者如果它引发了异常以便<a href="#">process_spider_exception()</a>来处理。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>response (<a href="#">Response</a> 对象) – 正在处理的response</li>
+<li>spider (<a href="#">Spider</a> 对象) – 这个response对应的spider</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>process_spider_output(response, result, spider)</code></p>
+<blockquote>
+<p>这个方法在处理完response之后，从spider返回的结果调用。</p>
+<p><a href="#">process_spider_output()</a>必须返回可迭代的<a href="#">Request</a>、字典或<a href="#">Item</a>对象。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>
+<p>response (<a href="#">Response</a> 对象) – 从spider那里产生了这个输出的response</p>
+</li>
+<li>
+<p>result (一个可迭代的<a href="#">Request</a>, dict或<a href="#">Item</a>对象) – spider返回的结果</p>
+</li>
+<li>
+<p>spider (<a href="#">Spider</a> 对象) – spider的结果正在被处理</p>
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>process_spider_exception(response, exception, spider)</code></p>
+<blockquote>
+<p>当spider或<a href="#">process_spider_input()</a>方法（来自spider middleware）抛出异常时，就会调用此方法。</p>
+<p><a href="#">process_spider_exception()</a>应该返回<code>None</code>或一个可迭代的<a href="#">Request</a>、dict或<a href="#">Item</a>对象。</p>
+<p>如果它返回<code>None</code>，Scrapy将继续处理这个异常，在接下来的middleware组件中执行任何其他<a href="#">process_spider_exception()</a>，直到没有middleware 组件被保留，并且异常到达engine（在那里它被记录和丢弃）。</p>
+<p>如果它返回一个可迭代的<a href="#">process_spider_output()</a> pipeline就会启动，那么就不会调用其他<a href="#">process_spider_exception()</a>。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>
+<p>response (<a href="#">Response</a> 对象) – 当异常被抛出时正在处理的response</p>
+</li>
+<li>
+<p>exception (<a href="#">Exception</a> 对象) – 抛出的异常</p>
+</li>
+<li>
+<p>spider (<a href="#">Spider</a> 对象) – 引起异常的spider</p>
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>process_start_requests(start_requests, spider)</code></p>
+<blockquote>
+<p>版本0.15添加此功能</p>
+<p>这个方法调用了spider start requests，并且类似于<a href="#">process_spider_output()</a>方法，只是它没有相应的response，并且必须返回requests（而不是items）。</p>
+<p>它接收一个可迭代（在<code>start_requests</code>参数中），并且必须返回另一个可迭代的<a href="#">Request</a>对象。</p>
+</blockquote>
+</blockquote>
+<pre><code class="note">当在您的spider middleware中实现此方法时，
+你应该总是返回一个可迭代的（在输入1之后）而不是消耗所有的'start_requests'迭代器，
+因为它可以非常大（甚至是无限制的）并导致内存溢出。
+Scrapy engine的设计目的是在有能力处理它们的时候拉起start requests，
+因此start requests迭代器可以有效地无穷无尽，
+因为有其他条件可以阻止spider（如时间限制或item/page计数）。
+</code></pre>
+
+<blockquote>
+<p>参数:</p>
+<blockquote>
+<p>start_requests (一个可迭代的<a href="#">Request</a>) – start requests</p>
+<p>spider (<a href="#">Spider</a> 对象) – start requests所属的spider</p>
+</blockquote>
+<p><code>from_crawler(cls, crawler)</code></p>
+<blockquote>
+<p>如果存在的话，这个classmethod被调用来从<a href="#">Crawler</a>创建一个middleware实例。它必须返回middleware的新实例。Crawler对象提供对所有Scrapy 核心组件的访问，如settings和signals;它是middleware访问它们并将其功能连接到Scrapy的一种方式。</p>
+<p>参数:</p>
+<blockquote>
+<p>crawler (<a href="#">Crawler</a> 对象) – 使用这个middleware的crawler</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="spider-middleware_3">内置的spider middleware引用</h2>
+<p>这个页面描述了所有与Scrapy相关的spider middleware组件。有关如何使用它们以及如何编写自己的spider middleware的信息，请参阅<a href="#">spider middleware使用指南</a>。</p>
+<p>对于默认启用的组件列表（以及它们对应的位置数字），请参阅<a href="#">SPIDER_MIDDLEWARES_BASE</a> setting。</p>
+<h3 id="depthmiddleware">DepthMiddleware</h3>
+<h4 id="scrapyspidermiddlewaresdepthdepthmiddleware-class">scrapy.spidermiddlewares.depth.DepthMiddleware   这是一个类(class)</h4>
+<p>DepthMiddleware用于跟踪被抓取站点内的每个Request的深度。它通过setting request.meta[‘depth’] = 0来工作。当没有先前设定的值时（通常只是第一个Request），并将其增加1。</p>
+<p>它可以用来限制最大深度的抓取，根据它们的深度来控制Request优先级，诸如此类。</p>
+<p><a href="#">DepthMiddleware</a>可以通过下列settings进行配置（请参阅设置文档以获得更多信息）：</p>
+<blockquote>
+<ul>
+<li>
+<p><a href="#">DEPTH_LIMIT</a> – 允许在任何站点爬行的最大深度。如果是零，就不会有限制。</p>
+</li>
+<li>
+<p><a href="#">DEPTH_STATS</a> – 是否收集深度stats。</p>
+</li>
+<li>
+<p><a href="#">DEPTH_PRIORITY</a> - 是否根据他们的深度对requests进行优先级排序</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="httperrormiddleware">HttpErrorMiddleware</h3>
+<h4 id="scrapyspidermiddlewareshttperrorhttperrormiddleware-class">scrapy.spidermiddlewares.httperror.HttpErrorMiddleware   这是一个类(class)</h4>
+<blockquote>
+<p>过滤掉不成功(错误)的HTTP responses，使spider不必处理它们，这(大多数情况下)增加了开销，消耗了更多的资源，并使spider逻辑更加复杂。</p>
+</blockquote>
+<p>根据<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP标准</a>，成功的responses是那些状态码在200-300范围内的responses。</p>
+<p>如果您仍然希望处理超出此范围的response代码，可以使用<code>handle_httpstatus_list</code> spider属性或<a href="#">HTTPERROR_ALLOWED_CODES</a> setting指定爬行器能够处理的response代码。</p>
+<p>例如，如果您想让spider处理404 responses，可以这样做:</p>
+<pre><code class="python">class MySpider(CrawlSpider):
+    handle_httpstatus_list = [404]
+</code></pre>
+
+<p><a href="#">Request.meta</a>的<code>handle_httpstatus_list</code>键还可以用于指定每个request允许的response代码，如果您希望对request允许任何response代码，还可以将meta键<code>handle_httpstatus_all</code>设置为<code>True</code>。</p>
+<p>然而，请记住，处理非200 responses通常不是一个好主意，除非你真的知道自己在做什么。</p>
+<p>有关更多信息，请参见:<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP状态代码定义</a>。</p>
+<h3 id="httperrormiddleware-settings">HttpErrorMiddleware settings</h3>
+<h3 id="httperror_allowed_codes">HTTPERROR_ALLOWED_CODES</h3>
+<p>默认: <code>[]</code></p>
+<p>传递包含在此列表中的非200状态码的所有responses。</p>
+<h3 id="httperror_allow_all">HTTPERROR_ALLOW_ALL</h3>
+<p>默认: <code>False</code></p>
+<p>传递所有responses，不管其状态代码如何。</p>
+<h3 id="offsitemiddleware">OffsiteMiddleware</h3>
+<h4 id="scrapyspidermiddlewaresoffsiteoffsitemiddleware-class">scrapy.spidermiddlewares.offsite.OffsiteMiddleware   这是一个类(class)</h4>
+<p>过滤spider覆盖的domains之外的url Requests。</p>
+<p>这个middleware过滤掉所有主机名不在spider的allowed_domains属性中的request。列表中任何domain的所有子域都是允许的。例如，规则<code>www.example.org</code>也允许<code>bob.www.example.org</code>，但不允许<code>www2.example.com</code>或<code>example.com</code>。</p>
+<p>当spider返回一个不属于spider覆盖的domain的request时，该middleware将log一条类似于此的debug消息:</p>
+<pre><code class="shell">DEBUG: Filtered offsite request to 'www.othersite.com': &lt;GET http://www.othersite.com/some/page.html&gt;
+</code></pre>
+
+<p>为了避免在log中填入太多垃圾信息，它只会为每个新过滤的domain打印其中一条消息。例如，如果过滤了对<code>www.othersite.com</code>的另一个request，则不会print log消息。但是，如果过滤了对<code>someothersite.com</code>的request，就会print一条消息(但只针对过滤的第一个request)。</p>
+<p>如果spider没有定义<a href="#">allowed_domains</a>属性，或者属性为空，那么offsite(离线)middleware将允许所有requests。</p>
+<p>如果request设置了<code>dont_filter</code>属性，那么离线中间件将允许请求，即使其domain在允许domain中列出。</p>
+<h3 id="referermiddleware">RefererMiddleware</h3>
+<h4 id="scrapyspidermiddlewaresrefererreferermiddleware-class">scrapy.spidermiddlewares.referer.RefererMiddleware   这是一个类(class)</h4>
+<p>填充Request <code>Referer</code> header, 基于生成它的Response的URL。</p>
+<h3 id="referermiddleware-settings">RefererMiddleware settings</h3>
+<h3 id="referer_enabled">REFERER_ENABLED</h3>
+<p>版本0.15添加此功能</p>
+<p>默认: <code>True</code></p>
+<p>是否启用referer middleware。</p>
+<h3 id="referrer_policy">REFERRER_POLICY</h3>
+<p>版本1.4添加此功能</p>
+<p>默认: <code>'scrapy.spidermiddlewares.referer.DefaultReferrerPolicy'</code></p>
+<p>在填充Request “Referer” header时应用的<a href="https://www.w3.org/TR/referrer-policy">referrer policy</a>。</p>
+<pre><code class="note">还可以使用特殊的'referrer策略' Request.meta键为每个request设置referrer policy。
+具有与'REFERRER_POLICY' setting相同的可接受值。
+</code></pre>
+
+<h4 id="referrer_policy_1">REFERRER_POLICY的可接受值</h4>
+<blockquote>
+<ul>
+<li>要么是<code>scrapy.spidermiddlewares.referer.ReferrerPolicy</code>子类的路径 - 自定义策略或内置策略之一(参见下面的类)，</li>
+<li>或一个标准的w3c定义的字符串值，</li>
+<li>或者是特殊的<code>"scrapy-default"</code>。</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字符串值</th>
+<th>类名(作为字符串)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"scrapy-default"</code> (默认)</td>
+<td><a href="#">scrapy.spidermiddlewares.referer.DefaultReferrerPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-no-referrer">“no-referrer”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.NoReferrerPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-no-referrer-when-downgrade">“no-referrer-when-downgrade”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.NoReferrerWhenDowngradePolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-same-origin">“same-origin”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.SameOriginPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-origin">“origin”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.OriginPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-strict-origin">“strict-origin”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.StrictOriginPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-origin-when-cross-origin">“origin-when-cross-origin”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.OriginWhenCrossOriginPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-strict-origin-when-cross-origin">“strict-origin-when-cross-origin”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.StrictOriginWhenCrossOriginPolicy</a></td>
+</tr>
+<tr>
+<td><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-unsafe-url">“unsafe-url”</a></td>
+<td><a href="#">scrapy.spidermiddlewares.referer.UnsafeUrlPolicy</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="scrapyspidermiddlewaresrefererdefaultreferrerpolicy-class">scrapy.spidermiddlewares.referer.DefaultReferrerPolicy   这是一个类(class)</h4>
+<p>“no-referrer-when-downgrade”的变体，如果parent request使用<code>file://</code>或<code>s3://</code> scheme，则不发送“Referer”。</p>
+<pre><code class="warning">Scrapy的默认referrer策略(就像浏览器的w3c推荐值'[“no-referrer-when-downgrade”](https://www.w3.org/TR/referrer-policy/#referrer-policy-no-referrer-when-downgrade)'一样)
+将从任何  http(s)://    发送非空的“Referer” header到任何   https:// URL，即使domain不同。
+
+如果您想删除cross-domain requests的referrer信息，[“same-origin”](https://www.w3.org/TR/referrer-policy/#referrer-policy-same-origin)可能是更好的选择。
+</code></pre>
+
+<h4 id="scrapyspidermiddlewaresreferernoreferrerpolicy-class">scrapy.spidermiddlewares.referer.NoReferrerPolicy   这是一个类(class)</h4>
+<p><a href="https://www.w3.org/TR/referrer-policy/#referrer-policy-no-referrer">https://www.w3.org/TR/referrer-policy/#referrer-policy-no-referrer</a></p>
+<p>最简单的策略是“no-referrer”，它指定不将referrer信息连同从特定request客户端发出的requests一起发送到任何origin。header将被完全省略。</p>
+<h4 id="scrapyspidermiddlewaresreferernoreferrerwhendowngradepolicy-class">scrapy.spidermiddlewares.referer.NoReferrerWhenDowngradePolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-no-referrer-when-downgrade</a></p>
+<p>“no-referrer-when-downgrade” policy将一个完整的URL连同从受tls保护的环境settings对象发出的requests发送到一个可能值得信任的URL，以及从不受tls保护的客户端发出的requests发送到任何origin。</p>
+<p>另一方面，从受tls保护的客户端到不可靠的url的Requests将不包含referrer信息</p>
+<p>如果没有指定policy，这是user agent的默认行为。</p>
+<pre><code class="note">“no-referrer-when-downgrade” 策略是w3c推荐的默认设置，主要web浏览器都使用这种策略。
+
+但是，它不是Scrapy的默认referrer策略(参见[DefaultReferrerPolicy](#))。
+</code></pre>
+
+<h4 id="scrapyspidermiddlewaresreferersameoriginpolicy-class">scrapy.spidermiddlewares.referer.SameOriginPolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-same-origin</a></p>
+<p>“same-origin”策略指定一个完整的URL, 在从特定request client发出same-origin requests时，作为referrer信息发送。</p>
+<p>另一方面，Cross-origin requests将不包含referrer信息, 不会发送HTTP header。</p>
+<h4 id="scrapyspidermiddlewaresrefereroriginpolicy-class">scrapy.spidermiddlewares.referer.OriginPolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-origin</a></p>
+<p>“origin”策略指定在发出两个same-origin requests和来自特定request client的cross-origin requests时，只有请request client的ASCII序列化作为referrer信息发送</p>
+<h4 id="scrapyspidermiddlewaresrefererstrictoriginpolicy-class">scrapy.spidermiddlewares.referer.StrictOriginPolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-strict-origin</a></p>
+<p>当发出requests时，“strict-origin”策略将request client的ASCII序列化:-从受tls保护的环境settings对象发送到可能值得信任的URL, 从不受tls保护的环境settings 对象发送到任何origin。</p>
+<p>另一方面，从受tls保护的request clients到不值得信任的url的Requests将不包含referrer信息。不会发送Referer HTTP header。</p>
+<h4 id="scrapyspidermiddlewaresrefereroriginwhencrossoriginpolicy-class">scrapy.spidermiddlewares.referer.OriginWhenCrossOriginPolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-origin-when-cross-origin</a></p>
+<p>“origin-when-cross-origin”策略指定一个完整的URL， 当从特定的request client发出same-origin requests时将其剥离出来作为referrer使用，作为referrer信息发送。 当从特定的request client发出cross-origin requests时只有request client的ASCII序列化作为referrer信息发送。</p>
+<h4 id="scrapyspidermiddlewaresrefererstrictoriginwhencrossoriginpolicy-class">scrapy.spidermiddlewares.referer.StrictOriginWhenCrossOriginPolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-strict-origin-when-cross-origin</a></p>
+<p>“strict-origin-when-cross-origin”策略指定一个完整的URL, 当从特定的request client发出same-origin requests时将其剥离出来作为referrer使用，作为referrer信息发送。 当发出cross-origin requests时只对request client进行ASCII序列化</p>
+<blockquote>
+<ul>
+<li>从tls保护的环境settings对象到可能值得信任的URL</li>
+<li>从非tls保护的环境settings对象到任何原origin。</li>
+</ul>
+</blockquote>
+<p>另一方面，从受tls保护的clients到不可靠的url的Requests将不包含referrer信息。不会发送Referer HTTP header。</p>
+<h4 id="scrapyspidermiddlewaresrefererunsafeurlpolicy-class">scrapy.spidermiddlewares.referer.UnsafeUrlPolicy   这是一个类(class)</h4>
+<p><a href="#">https://www.w3.org/TR/referrer-policy/#referrer-policy-unsafe-url</a></p>
+<p>“unsafe-url”策略指定一个完整的URL(可以作为referrer使用)与来自特定request client的cross-origin requests和same-origin requests一起发送。</p>
+<p>注意:该策略的名称不会说谎;它是不安全的。该策略将泄漏origins和paths ，从tls保护资源到不安全的origins。仔细考虑为可能敏感的文档设置这样的策略的影响。</p>
+<pre><code class="warning">不建议使用“unsafe-url”策略。
+</code></pre>
+
+<h3 id="urllengthmiddleware">UrlLengthMiddleware</h3>
+<h4 id="scrapyspidermiddlewaresurllengthurllengthmiddleware-class">scrapy.spidermiddlewares.urllength.UrlLengthMiddleware   这是一个类(class)</h4>
+<p>过滤出url长于URLLENGTH_LIMIT的requests</p>
+<p><a href="#">UrlLengthMiddleware</a>可以通过以下settings来配置(更多信息请参阅设置文档):</p>
+<blockquote>
+<ul>
+<li><a href="#">URLLENGTH_LIMIT</a> - 允许抓取URL的最大URL长度。</li>
+</ul>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../04-Extensions/" class="btn btn-neutral float-right" title="Extensions(扩展)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../02-Downloader-Middleware/" class="btn btn-neutral" title="Downloader Middleware(下载器中间件)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../02-Downloader-Middleware/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../04-Extensions/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

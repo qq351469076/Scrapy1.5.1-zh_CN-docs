@@ -8,7 +8,7 @@
   
   <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>架构概述 - Scrapy 1.5.1 中文文档</title>
+  <title>Signals(信号) - Scrapy 1.5.1 中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u67b6\u6784\u6982\u8ff0";
-    var mkdocs_page_input_path = "5. Scrapy\u6269\u5c55\\01-Architecture-overview.md";
+    var mkdocs_page_name = "Signals(\u4fe1\u53f7)";
+    var mkdocs_page_input_path = "5. Scrapy\u6269\u5c55\\06-signals.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -221,27 +221,9 @@
 		
     <span class="caption-text">5. Scrapy扩展</span>
     <ul class="subnav">
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">架构概述</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">架构概述</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#_2">概述</a></li>
-        
-            <li><a class="toctree-l4" href="#_3">数据流</a></li>
-        
-            <li><a class="toctree-l4" href="#_4">组件</a></li>
-        
-            <li><a class="toctree-l4" href="#_5">事件驱动的网络</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../01-Architecture-overview/">架构概述</a>
                 </li>
                 <li class="">
                     
@@ -259,9 +241,23 @@
                     
     <a class="" href="../05-api/">核心API</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../06-signals/">Signals(信号)</a>
+    <a class="current" href="./">Signals(信号)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#signals">Signals(信号)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">延迟的信号处理程序</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">内置信号参考</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -307,7 +303,7 @@
         
       
     
-    <li>架构概述</li>
+    <li>Signals(信号)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -317,71 +313,214 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">架构概述</h1>
-<p>本文描述了Scrapy的体系结构及其组件之间的交互方式。</p>
-<h2 id="_2">概述</h2>
-<p>下图显示了Scrapy体系结构及其组件的概述，以及系统内部发生的数据流的概要(红色箭头所示)。下面包含了对组件的简要描述，以及关于这些组件的详细信息的链接。下面还描述了数据流。</p>
-<h2 id="_3">数据流</h2>
-<p><img alt="" src="https://docs.scrapy.org/en/latest/_images/scrapy_architecture_02.png" />
-Scrapy中的数据流由engine执行控制，如下所示:</p>
+                <h1 id="signals">Signals(信号)</h1>
+<p>Scrapy广泛地使用信号来通知某些事件的发生。您可以在Scrapy项目中捕捉到一些信号(例如使用<a href="#">extension(扩展)</a>)，以执行附加任务或扩展Scrapy以添加不是开箱即用的功能。</p>
+<p>即使信号提供了几个参数，捕获它们的处理程序也不需要接受所有参数 - 信号调度机制只会交付处理程序接收的参数。</p>
+<p>您可以通过<a href="#">Signals API</a>连接到信号(或发送自己的)。</p>
+<p>下面是一个简单的例子，展示了如何捕捉信号并执行一些操作:</p>
+<pre><code class="python">from scrapy import signals
+from scrapy import Spider
+
+
+class DmozSpider(Spider):
+    name = &quot;dmoz&quot;
+    allowed_domains = [&quot;dmoz.org&quot;]
+    start_urls = [
+        &quot;http://www.dmoz.org/Computers/Programming/Languages/Python/Books/&quot;,
+        &quot;http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/&quot;,
+    ]
+
+
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        spider = super(DmozSpider, cls).from_crawler(crawler, *args, **kwargs)
+        crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
+        return spider
+
+
+    def spider_closed(self, spider):
+        spider.logger.info('Spider closed: %s', spider.name)
+
+
+    def parse(self, response):
+        pass
+</code></pre>
+
+<h2 id="_1">延迟的信号处理程序</h2>
+<p>有些信号支持从处理程序返回<a href="https://twistedmatrix.com/documents/current/core/howto/defer.html">Twisted deferreds</a>，请参阅下面的<a href="#">内置信号参考</a>以了解哪些信号。</p>
+<h2 id="_2">内置信号参考</h2>
+<p>下面是一些Scrapy的内置信号及其含义。</p>
+<h3 id="engine_started">engine_started</h3>
+<h4 id="scrapysignalsengine_started">scrapy.signals.engine_started()</h4>
 <blockquote>
-<ol>
-<li><a href="#">Engine</a>从<a href="#">Spider</a>中获得最初的Requests</li>
-<li><a href="#">Engine</a>在<a href="#">Scheduler</a>里调度Requests并不断寻求下一个Requests进行抓取</li>
-<li><a href="#">Scheduler</a>将下一个Requests返回到<a href="#">Engine</a></li>
-<li>Engine通过<a href="#">Downloader Middlewares</a>(看<a href="#">process_request()</a>)将Requests发送到<a href="#">Downloader</a></li>
-<li>一旦页面下载完成, <a href="#">Downloader</a>生成Response(用这个页面), 并且通过<a href="#">Downloader Middlewares</a>(看<a href="#">process_response()</a>)将Response发送到Engine</li>
-<li><a href="#">Engine</a>接受<a href="#">Downloader</a>发送过来的Response, 并且通过<a href="#">Spider Middleware</a>(看<a href="">process_spider_input()</a>)将Response发送给<a href="#">Spider</a></li>
-<li><a href="#">Spider</a>处理Response, 并且通过<a href="#">Spider Middleware</a>(看<a href="#">process_spider_output()</a>)将抓取的items和新Requests返回给<a href="#">Engine</a></li>
-<li><a href="#">Engine</a>将处理过的items发送到<a href="#">Item Pipelines</a>, 然后将后续Requests发送到<a href="#">Scheduler</a>, 并且尽可能寻求下一个Requests进行抓取</li>
-<li>这个过程重复(从第1步)，直到<a href="#">Scheduler</a>不再发出请求。</li>
-</ol>
+<p>当Scrapy engine开始抓取时发送。</p>
+<p>此信号支持从处理程序返回延迟。</p>
 </blockquote>
-<h2 id="_4">组件</h2>
-<h3 id="scrapy-engine">Scrapy Engine</h3>
-<p>engine负责控制系统所有组件之间的数据流，并在某些操作发生时触发事件。有关更多细节，请参阅上面的<a href="#">数据流</a>部分。</p>
-<h3 id="scheduler">Scheduler</h3>
-<p>Scheduler接收来自engine的请求，并对它们进行排队，以便在engine请求它们时以便稍后提供这些请求(同时也提供给engine)。</p>
-<h3 id="downloader">Downloader</h3>
-<p>Downloader负责获取web页面并将其提供给engine，而engine又将这些页面提供给spider。</p>
-<h3 id="spiders">Spiders</h3>
-<p>Spiders是由Scrapy用户编写的自定义类，用于解析responses并从其中提取items (也称为已抓取的items)或随后的其他请求。有关更多信息，请参见<a href="#">Spiders</a>。</p>
-<h3 id="item-pipeline">Item Pipeline</h3>
-<p>Item Pipeline负责处理被spider提取(或已抓取)的items。典型的任务包括清理、验证和持久性(比如将item存储在数据库中)。有关更多信息，请参阅<a href="#">Item Pipeline</a>。</p>
-<h3 id="downloader-middlewares">Downloader middlewares</h3>
-<p>Downloader middlewares是位于Engine和Downloader之间的特定hooks(钩子)，当它们从Engine传递到Downloader时，处理requests，以及从Downloader传递到Engine的responses。</p>
-<p>如果您需要执行以下操作之一，请使用Downloader middleware:</p>
+<pre><code class="note">这个信号可能在'spider_opened'信号之后触发，这取决于spider是如何启动的。
+所以不要依赖这个信号在'spider_open'之前被触发。
+</code></pre>
+
+<h3 id="engine_stopped">engine_stopped</h3>
+<h4 id="scrapysignalsengine_stopped">scrapy.signals.engine_stopped()</h4>
+<blockquote>
+<p>当Scrapy engine停止时发送(例如，抓取过程完成时)。</p>
+<p>此信号支持从处理程序返回延迟。</p>
+</blockquote>
+<h3 id="item_scraped">item_scraped</h3>
+<h4 id="scrapysignalsitem_scrapeditem-response-spider">scrapy.signals.item_scraped(item, response, spider)</h4>
+<blockquote>
+<p>当一个item被抓取后，在它通过所有的<a href="#">Item Pipeline</a>阶段(没有被丢弃)后发送。</p>
+<p>此信号支持从处理程序返回延迟。</p>
+<p>参数:</p>
 <blockquote>
 <ul>
-<li>在将request发送到Downloader之前处理request(即在Scrapy将request发送到网站之前);</li>
-<li>在传递给spider之前收到更改后的response;</li>
-<li>发送一个新的Request，而不是将接收到的response交给spider;</li>
-<li>将response传递给spider而不是获取web页面</li>
-<li>静静地删除一些requests。</li>
+<li>item (字典或<a href="#">Item</a> 对象) – 被抓取的item</li>
+<li>spider (<a href="#">Spider</a> 对象) – 抓取item的spider</li>
+<li>response (<a href="#">Response</a> 对象) – 从item被抓取的地方得到的response</li>
 </ul>
 </blockquote>
-<p>有关更多信息，请参见<a href="#">Downloader Middleware</a>。</p>
-<h3 id="spider-middlewares">Spider middlewares</h3>
-<p>Spider middlewares是位于引擎和Spider之间的特定hooks(钩子)，能够处理spider输入(responses)和输出(items and requests)。</p>
-<p>如果需要，可以使用Spider middleware</p>
+</blockquote>
+<h3 id="item_dropped">item_dropped</h3>
+<h4 id="scrapysignalsitem_droppeditem-response-exception-spider">scrapy.signals.item_dropped(item, response, exception, spider)</h4>
+<blockquote>
+<p>当某个阶段引发<a href="#">DropItem</a>异常时，item从<a href="#">Item Pipeline</a>中删除后发送。</p>
+<p>此信号支持从处理程序返回延迟。</p>
+<p>参数:</p>
 <blockquote>
 <ul>
-<li>spider callbacks的post-process(后)处理输出-更改/添加/删除requests或items;</li>
-<li>start_requests post-process(后)处理;</li>
-<li>处理蜘蛛异常;</li>
-<li>对一些基于response内容的requests调用errback而不是callback。</li>
+<li>item (字典或<a href="#">Item</a> 对象) – 从<a href="#">Item Pipeline</a>中删除的item</li>
+<li>spider (<a href="#">Spider</a> 对象) – 抓取item的spider</li>
+<li>response (<a href="#">Response</a> 对象) – 从item被丢弃的地方得到的response</li>
+<li>exception (<a href="#">DropItem</a> 异常) – item被丢弃导致的异常((必须是<a href="#">DropItem</a>子类))</li>
 </ul>
 </blockquote>
-<p>有关更多信息，请参见<a href="#">Spider Middleware</a>。</p>
-<h2 id="_5">事件驱动的网络</h2>
-<p>Scrapy是用Python的一个流行的事件驱动网络框架<a href="https://twistedmatrix.com/trac/">Twisted</a>编写的。因此，它使用非阻塞(即异步)代码实现并发。</p>
-<p>有关异步编程和Twisted的更多信息，请参阅以下链接:</p>
+</blockquote>
+<h3 id="spider_closed">spider_closed</h3>
+<h4 id="scrapysignalsspider_closedspider-reason">scrapy.signals.spider_closed(spider, reason)</h4>
+<blockquote>
+<p>在spider被关闭后发出的。这可以用来释放在<a href="#">spider_opened</a>上保留的每个spider资源</p>
+<p>此信号支持从处理程序返回延迟。</p>
+<p>参数:</p>
 <blockquote>
 <ul>
-<li><a href="https://twistedmatrix.com/documents/current/core/howto/defer-intro.html">Twisted的延迟介绍</a></li>
-<li><a href="http://jessenoller.com/2009/02/11/twisted-hello-asynchronous-programming/">Twisted - hello，异步编程</a></li>
-<li><a href="http://krondo.com/an-introduction-to-asynchronous-programming-and-twisted/">Twisted介绍 - Krondo</a></li>
+<li><strong>spider</strong> (<a href="#">Spider</a> 对象) – 已被关闭的spider</li>
+<li><strong>reason</strong> (字符串) – 一种描述spider被关闭的原因的字符串。如果它被关闭了，因为蜘蛛已经完成了抓取，reason是<code>'finished'</code>了。否则，如果spider是通过调用<a href="#">close_spider</a> engine方法手动关闭的，那么reason就在于该方法的<code>reason</code>（默认为<code>'cancelled'</code>）。如果engine被关闭（例如，按Ctrl-C停止它），原因将是<code>'shutdown'</code>。</li>
 </ul>
+</blockquote>
+</blockquote>
+<h3 id="spider_opened">spider_opened</h3>
+<h4 id="scrapysignalsspider_openedspider">scrapy.signals.spider_opened(spider)</h4>
+<blockquote>
+<p>在spider被打开且开始抓取的时候发送,  这通常用于保存每个spider的资源，但是可以用于任何需要在spider打开时执行的任务。</p>
+<p>此信号支持从处理程序返回延迟。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>spider (<a href="#">Spider</a> 对象) – 已经被打开的spider</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="spider_idle">spider_idle(空闲)</h3>
+<h4 id="scrapysignalsspider_idlespider">scrapy.signals.spider_idle(spider)</h4>
+<blockquote>
+<p>当spider空闲时发送，这意味着spider没有进一步发展：</p>
+<blockquote>
+<ul>
+<li>等待下载的requests</li>
+<li>requests安排</li>
+<li>在item pipeline中处理的items</li>
+</ul>
+</blockquote>
+<p>如果这个signal的所有处理程序完成后，空闲状态仍然存在，那么引擎就会开始关闭spider。在spider完成关闭后，将发出<a href="#">spider_closed</a>信号。</p>
+<p>您可以raise一个<a href="#">DontCloseSpider</a>异常，以防止spider被关闭。</p>
+<p>这个信号不支持从操作者返回的延迟。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>spider (<a href="#">Spider</a> 对象) – 空闲的spider</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code class="note">在您的'[spider_idle](#)'处理程序中安排一些requests并'不能'保证它可以防止spider被关闭，
+尽管有时可以。这是因为如果所有的预定requests都被scheduler拒绝了（例如，由于重复而被过滤），
+那么spider可能仍然处于空闲状态。
+</code></pre>
+
+<h3 id="spider_error">spider_error</h3>
+<h4 id="scrapysignalsspider_errorfailure-response-spider">scrapy.signals.spider_error(failure, response, spider)</h4>
+<blockquote>
+<p>当spider callback产生错误时（即。rasie了一个异常)。</p>
+<blockquote>
+<p>这个信号不支持从操作者返回的延迟。</p>
+</blockquote>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>
+<p>failure (<a href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Failure</a> 对象) – 作为一个Twisted <a href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Failure</a>对象所引发的异常</p>
+</li>
+<li>
+<p>response (<a href="#">Response</a> 对象) – 当异常被抛出时正在处理的response</p>
+</li>
+<li>
+<p>spider (<a href="#">Spider</a> object) – 引发异常的spider</p>
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="request_scheduled">request_scheduled</h3>
+<h4 id="scrapysignalsrequest_scheduledrequest-spider">scrapy.signals.request_scheduled(request, spider)</h4>
+<blockquote>
+<p>当engine schedule一个<a href="#">Request</a>时发送，稍后再下载。</p>
+<p>这个信号不支持从他们的处理程序返回的延迟。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>request (<a href="#">Request</a> 对象) – 到达scheduler的request</li>
+<li>spider (<a href="#">Spider</a> object) – yield出去的request</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="request_dropped">request_dropped</h3>
+<h4 id="scrapysignalsrequest_droppedrequest-spider">scrapy.signals.request_dropped(request, spider)</h4>
+<blockquote>
+<p>当由engine调度的<a href="#">Request</a>稍后被下载时，被scheduler拒绝时发送。</p>
+<p>这个信号不支持从他们的处理程序返回的延迟。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>request (<a href="#">Request</a> 对象) – 到达scheduler的request</li>
+<li>spider (<a href="#">Spider</a> 对象) – yield出去的request</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="response_received">response_received</h3>
+<h4 id="scrapysignalsresponse_receivedresponse-request-spider">scrapy.signals.response_received(response, request, spider)</h4>
+<blockquote>
+<p>当engine从downloader接收到一个新的<a href="#">Response</a>时发出。</p>
+<p>这个信号不支持从操作者返回的延迟。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>response (<a href="#">Response</a> 对象) – 接收到的response</li>
+<li>request (<a href="#">Request</a> 对象) – 产生response的request</li>
+<li>spider (<a href="#">Spider</a> 对象) – 用于response的spider</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="response_downloaded">response_downloaded</h3>
+<h4 id="scrapysignalsresponse_downloadedresponse-request-spider">scrapy.signals.response_downloaded(response, request, spider)</h4>
+<blockquote>
+<p>下载<code>HTTPResponse</code>后立即由downloader发送。</p>
+<p>此信号不支持从其处理程序返回延迟。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>response (<a href="#">Response</a> 对象) – 下载的resposne</li>
+<li>request (<a href="#">Request</a> 对象) – 生成response的request</li>
+<li>spider (<a href="#">Spider</a> 对象) – 用于response的spider</li>
+</ul>
+</blockquote>
 </blockquote>
               
             </div>
@@ -390,10 +529,10 @@ Scrapy中的数据流由engine执行控制，如下所示:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../02-Downloader-Middleware/" class="btn btn-neutral float-right" title="Downloader Middleware(下载器中间件)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../07-exporters/" class="btn btn-neutral float-right" title="Item Exporters(Items导出器)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../4. 解决具体问题/13-pausing-resuming-crawls/" class="btn btn-neutral" title="作业: 暂停和恢复爬虫"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../05-api/" class="btn btn-neutral" title="核心API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -419,10 +558,10 @@ Scrapy中的数据流由engine执行控制，如下所示:</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../../4. 解决具体问题/13-pausing-resuming-crawls/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../05-api/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../02-Downloader-Middleware/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../07-exporters/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

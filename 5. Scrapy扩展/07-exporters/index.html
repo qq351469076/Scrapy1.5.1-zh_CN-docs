@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="孔祥旭 qq:351469076 微信:kxx351469076">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Item Exporters(Items导出器) - Scrapy 1.5.1 中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Item Exporters(Items\u5bfc\u51fa\u5668)";
+    var mkdocs_page_input_path = "5. Scrapy\u6269\u5c55\\07-exporters.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Scrapy 1.5.1 中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">1. 第一步</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/01-index/">Scrapy 1.5 中文文档</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/02-overview/">一眼了解Scrapy</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/03-install/">安装指导</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/04-scrapy tutorial/">Scrapy 教程</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../1. 第一步/05-examples/">例子</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">2. 基本概念</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/06-command_line_tool/">Command line tool(命令行工具)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/07-spiders/">Spiders(自定义爬虫类)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/08-selctor/">Selector(选择器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/09-items/">Items(模型)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/10-itemloaders/">Item Loaders(Item加载器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/11-scrapy_shell/">Scrapy shell(Scrapy终端)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/12-item_pipeline/">Item Pipeline(模组管道)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/13-feed_exports/">Feed exports(导出各种格式文件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/14-requests_response/">Requests和Responses</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/15-extractors/">Link Extractors(链接提取器)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../2. 基本概念/16-settings/">Settings(设置)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">3. 内置服务</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/17-logging/">Logging(日志记录)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/18-stats-collection/">Stats Collection(状态收集)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/19-send-email/">Sending e-mail(发送一个邮件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/20-telnet-console/">Telnet Console(Telnet控制台)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../3. 内置服务/21-web-service/">Web Service(Web服务)</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">4. 解决具体问题</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/01-常见问题解答/">常见问题解答</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/02-debugind-spider/">Debugging Spiders(调试Spiders)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/03-Spiders Contracts/">Spiders Contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/04-common-practices/">Common Practices(常用实践)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/05-broad-crawls/">Broad Crawls</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/06-use-firefox-scraping/">使用Firefox进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/07-use-firbug-scraping/">使用Firebug进行抓取(没写)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/08-debugging-memory/">调试内存泄漏</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/09-down-file-image/">下载并处理文件和图像</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/10-deploying-spider/">部署Spider</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/11-auto-throttle-extension/">AutoThrottle extension(自动节流扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/12-Benchmark/">基准测试</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../4. 解决具体问题/13-pausing-resuming-crawls/">作业: 暂停和恢复爬虫</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">5. Scrapy扩展</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../01-Architecture-overview/">架构概述</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../02-Downloader-Middleware/">Downloader Middleware(下载器中间件)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../03-spider-middleware/">Spider Middleware</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../04-Extensions/">Extensions(扩展)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../05-api/">核心API</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../06-signals/">Signals(信号)</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Item Exporters(Items导出器)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#item-exportersitems">Item Exporters(Items导出器)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#item-exporters">使用Item Exporters</a></li>
+        
+            <li><a class="toctree-l4" href="#item">item字段的序列化</a></li>
+        
+            <li><a class="toctree-l4" href="#item-exporters_1">内置Item Exporters参考</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">6. 其他的</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../6. 其他的/01-news/">发行说明</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Scrapy 1.5.1 中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>5. Scrapy扩展 &raquo;</li>
+        
+      
+    
+    <li>Item Exporters(Items导出器)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="item-exportersitems">Item Exporters(Items导出器)</h1>
+<p>抓取items后，通常需要保留或导出这些items，以便在其他应用程序中使用这些数据。 毕竟，这是抓取过程的全部目的。</p>
+<p>为此，Scrapy为不同的输出格式提供了一组Item Exporters，例如XML，CSV或JSON。</p>
+<h2 id="item-exporters">使用Item Exporters</h2>
+<p>如果您赶时间，并且只想使用Item Exporter输出已抓取的数据，请参阅<a href="#">Feed exports</a>。 否则，如果您想知道Item Exporters如何工作或需要更多自定义功能（不在默认导出涵盖内），请继续阅读下面的内容。</p>
+<p>要使用Item Exporter，必须使用其必需的args对其进行实例化。 每个Item Exporter都需要不同的参数，因此请在<a href="#">内置Item Exporter</a>参考中检查每个exporter文档以确定。 在实例化exporter之后，您必须：</p>
+<ol>
+<li>调用方法<a href="#">start_exporting()</a>以表示导出过程的开始</li>
+<li>为要导出的每个item调用<a href="#">export_item()</a>方法</li>
+<li>最后调用<a href="#">finish_exporting()</a>来表示导出过程的结束</li>
+</ol>
+<p>在这里，您可以看到一个<a href="#">Item Pipeline</a>，它使用多个Item Exporters根据其中一个字段的值将已抓取的items分组到不同的文件：</p>
+<pre><code class="python">from scrapy.exporters import XmlItemExporter
+
+class PerYearXmlExportPipeline(object):
+    &quot;&quot;&quot;根据多个XML文件的“year”字段分配items&quot;&quot;&quot;
+
+    def open_spider(self, spider):
+        self.year_to_exporter = {}
+
+    def close_spider(self, spider):
+        for exporter in self.year_to_exporter.values():
+            exporter.finish_exporting()
+            exporter.file.close()
+
+    def _exporter_for_item(self, item):
+        year = item['year']
+        if year not in self.year_to_exporter:
+            f = open('{}.xml'.format(year), 'wb')
+            exporter = XmlItemExporter(f)
+            exporter.start_exporting()
+            self.year_to_exporter[year] = exporter
+        return self.year_to_exporter[year]
+
+    def process_item(self, item, spider):
+        exporter = self._exporter_for_item(item)
+        exporter.export_item(item)
+        return item
+</code></pre>
+
+<h2 id="item">item字段的序列化</h2>
+<p>默认情况下，字段值未经修改地传递给基础序列化库，并且如何序列化它们的决定被委托给每个特定的序列化库。</p>
+<p>但是，您可以自定义每个字段值在传递到序列化库之前的序列化方式。</p>
+<p>有两种方法可以自定义字段的序列化方式，下面将对此进行介绍。</p>
+<h3 id="1-fieldserializer">1. 在field里声明一个serializer</h3>
+<p>如果使用<a href="#">Item</a>，则可以在<a href="#">字段metadata</a>中声明serializer。 serializer必须是可调用的，它接收一个值并返回其序列化形式。</p>
+<p>例子:</p>
+<pre><code class="python">import scrapy
+
+def serialize_price(value):
+    return '$ %s' % str(value)
+
+class Product(scrapy.Item):
+    name = scrapy.Field()
+    price = scrapy.Field(serializer=serialize_price)
+</code></pre>
+
+<h3 id="2-serialize_field">2. 覆盖serialize_field()方法</h3>
+<p>您还可以覆盖<a href="#">serialize_field()</a>方法以自定义字段值的导出方式。</p>
+<p>确保在自定义代码后调用基类<a href="#">serialize_field()</a>方法。</p>
+<p>例子:</p>
+<pre><code class="python">from scrapy.exporter import XmlItemExporter
+
+class ProductXmlExporter(XmlItemExporter):
+
+    def serialize_field(self, field, name, value):
+        if field == 'price':
+            return '$ %s' % str(value)
+        return super(Product, self).serialize_field(field, name, value)
+</code></pre>
+
+<h2 id="item-exporters_1">内置Item Exporters参考</h2>
+<p>以下是与Scrapy捆绑在一起的Item Exporters列表。 其中一些包含输出示例，假设您要导出这两个items：</p>
+<pre><code class="python">Item(name='Color TV', price='1200')
+Item(name='DVD player', price='200')
+</code></pre>
+
+<h3 id="baseitemexporter">BaseItemExporter</h3>
+<h4 id="scrapyexportersbaseitemexporterfields_to_exportnone-export_empty_fieldsfalse-encodingutf-8-indent0-class">scrapy.exporters.BaseItemExporter(fields_to_export=None, export_empty_fields=False, encoding='utf-8', indent=0)   这是一个类(class)</h4>
+<blockquote>
+<p>这是所有Item Exporters的（抽象）基类。 它为所有（具体）Item Exporters使用的常用功能提供支持，例如定义要导出的字段，是否导出空字段或使用哪种编码。</p>
+<p>可以通过构造函数参数配置这些功能，这些参数填充其各自的实例属性：<a href="#">fields_to_export</a>，<a href="#">export_empty_fields</a>，<a href="#">encoding</a>，<a href="#">indent</a>。</p>
+<p><code>export_item(item)</code></p>
+<blockquote>
+<p>导出给定item。 此方法必须在子类中实现。</p>
+</blockquote>
+<p><code>serialize_field(field, name, value)</code></p>
+<blockquote>
+<p>返回给定字段的序列化值。 如果要控制特定字段或值的序列化/导出方式，可以覆盖此方法（在自定义Item Exporters中）。</p>
+<p>默认情况下，此方法查找<a href="#">在item字段中声明的</a>serializer，并返回将该serializer应用于该值的结果。 如果未找到serializer，则返回值不变，除了使用<a href="#">encoding</a>属性中声明的编码编码为<code>str</code>的<code>unicode</code>值。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>field (<a href="#">Field</a> 对象 或 一个空的字典) – 被序列化的字段。 如果正在导出原始字典（而不是<a href="#">Item</a>），则字段值为空字典。</li>
+<li>name (字符串) – 要序列化的字段的名称</li>
+<li>value – 被序列化的值</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><code>start_exporting()</code></p>
+<blockquote>
+<p>发出导出过程的开始信号。 某些exporter可能会使用它来生成一些必需的header（例如，<a href="#">XmlItemExporter</a>）。 您必须在导出任何items之前调用此方法。</p>
+</blockquote>
+<p><code>finish_exporting()</code></p>
+<blockquote>
+<p>发出导出过程结束的信号。 一些exporter可能会使用它来生成一些必需的footer（例如，<a href="#">XmlItemExporter</a>）。 在没有其他要导出的items之后，必须始终调用此方法。</p>
+</blockquote>
+<p><code>fields_to_export</code></p>
+<blockquote>
+<p>包含要导出的字段名称的列表，如果要导出所有字段，则为None。 默认为None。</p>
+<p>某些exporter（如<a href="#">CsvItemExporter</a>）遵循此属性中定义的字段的顺序。</p>
+<p>一些exporter可能需要fields_to_export列表才能在spider返回字典（而不是<a href="#">Item</a>实例）时正确导出数据。</p>
+</blockquote>
+<p><code>export_empty_fields</code></p>
+<blockquote>
+<p>是否在导出的数据中包含空/未填充的item字段。 默认为<code>False</code>。 某些exporter（如<a href="#">CsvItemExporter</a>）忽略此属性并始终导出所有空字段。</p>
+<p>字典items将忽略此选项。</p>
+</blockquote>
+<p><code>encoding</code></p>
+<blockquote>
+<p>将用于编码unicode值的编码。 这仅影响unicode值（使用此编码始终将其序列化为str）。 其他值类型将不变地传递给特定的序列化库。</p>
+</blockquote>
+<p><code>indent</code></p>
+<blockquote>
+<p>用于在每个级别上缩进输出的空间量。 默认为<code>0</code>。</p>
+<blockquote>
+<ul>
+<li><code>indent=None</code>选择最紧凑的表示，同一行中的所有items都没有缩进</li>
+<li><code>indent&lt;=0</code>每个item在其自己的行上，没有缩进</li>
+<li><code>indent&gt;0</code>每个item在其自己的行上，使用提供的数值缩进</li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="xmlitemexporter">XmlItemExporter</h3>
+<h4 id="scrapyexportersxmlitemexporterfile-item_elementitem-root_elementitems-4242kwargs-class">scrapy.exporters.XmlItemExporter(file, item_element='item', root_element='items', **kwargs)   这是一个类(class)</h4>
+<blockquote>
+<p>将XML格式的Items导出到指定的文件对象。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li><strong>file</strong> – 用于导出数据的类文件对象。 它的<code>write</code>方法应该接受<code>bytes</code>（以二进制模式打开的磁盘文件，<code>io.BytesIO</code>对象等）</li>
+<li><strong>root_element</strong> (字符串) – 导出的XML中的根元素的名称。</li>
+<li><strong>item_element</strong> (字符串) – 导出的XML中每个item元素的名称。</li>
+</ul>
+</blockquote>
+<p>此构造函数的其他关键字参数将传递给<a href="#">BaseItemExporter</a>构造函数。</p>
+<p>此exporter的典型输出是：</p>
+</blockquote>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;items&gt;
+  &lt;item&gt;
+    &lt;name&gt;Color TV&lt;/name&gt;
+    &lt;price&gt;1200&lt;/price&gt;
+ &lt;/item&gt;
+  &lt;item&gt;
+    &lt;name&gt;DVD player&lt;/name&gt;
+    &lt;price&gt;200&lt;/price&gt;
+ &lt;/item&gt;
+&lt;/items&gt;
+</code></pre>
+
+<blockquote>
+<p>除非在<a href="#">serialize_field()</a>方法中重写，否则通过序列化<code>&lt;value&gt;</code>元素内的每个值来导出多值字段。 这是为了方便，因为多值字段非常常见。</p>
+<p>例如，item：</p>
+</blockquote>
+<pre><code class="python">Item(name=['John', 'Doe'], age='23'
+</code></pre>
+
+<blockquote>
+<p>将序列化为：</p>
+</blockquote>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;items&gt;
+  &lt;item&gt;
+    &lt;name&gt;
+      &lt;value&gt;John&lt;/value&gt;
+      &lt;value&gt;Doe&lt;/value&gt;
+    &lt;/name&gt;
+    &lt;age&gt;23&lt;/age&gt;
+  &lt;/item&gt;
+&lt;/items&gt;
+</code></pre>
+
+<h3 id="csvitemexporter">CsvItemExporter</h3>
+<h4 id="scrapyexporterscsvitemexporterfile-include_headers_linetrue-join_multivalued-4242kwargs-class">scrapy.exporters.CsvItemExporter(file, include_headers_line=True, join_multivalued=', ', **kwargs)   这是一个类(class)</h4>
+<blockquote>
+<p>将CSV格式的Items导出到给定的类文件对象。 如果设置了<code>fields_to_export</code>属性，它将用于定义CSV列及其顺序。 <code>export_empty_fields</code>属性对此exporter没有影响。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>file – 用于导出数据的类文件对象。 它的<code>write</code>方法应该接受<code>bytes</code>（以二进制模式打开的磁盘文件，<code>io.BytesIO</code>对象等）</li>
+<li>include_headers_line (str) – 如果启用，则使exporter输出一个header行，其字段名称取自<a href="#">BaseItemExporter.fields_to_export</a>或第一个导出的item字段。</li>
+<li>join_multivalued – 如果找到，将用于连接多值字段的char（或chars）。</li>
+</ul>
+</blockquote>
+<p>此构造函数的其他关键字参数将传递给<a href="#">BaseItemExporter</a>构造函数，以及<a href="https://docs.python.org/2/library/csv.html#csv.writer">csv.writer</a>构造函数的剩余参数，因此您可以使用任何<em>csv.writer</em>构造函数参数来自定义此exporter。</p>
+<p>此exporter的典型输出是：</p>
+</blockquote>
+<pre><code>product,price
+Color TV,1200
+DVD player,200
+</code></pre>
+
+<h3 id="pickleitemexporter">PickleItemExporter</h3>
+<h4 id="scrapyexporterspickleitemexporterfile-protocol0-4242kwargs-class">scrapy.exporters.PickleItemExporter(file, protocol=0, **kwargs)   这是一个类(class)</h4>
+<blockquote>
+<p>将pickle格式的Items导出到给定的类文件对象。</p>
+<p>参数:</p>
+<blockquote>
+<p>file – 用于导出数据的类文件对象。 它的<code>write</code>方法应该接受<code>bytes</code>（以二进制模式打开的磁盘文件，<code>io.BytesIO</code>对象等）
+protocol (整型) – 要使用的pickle协议。</p>
+</blockquote>
+<p>有关更多信息，请参阅<a href="https://docs.python.org/2/library/pickle.html">pickle模块文档</a>。</p>
+<p>此构造函数的其他关键字参数将传递给<a href="#">BaseItemExporter</a>构造函数。</p>
+<p>Pickle不是人类可读的格式，因此不提供输出示例。</p>
+</blockquote>
+<h3 id="pprintitemexporter">PprintItemExporter</h3>
+<h4 id="scrapyexporterspprintitemexporterfile-4242kwargs-class">scrapy.exporters.PprintItemExporter(file, **kwargs)   这是一个类(class)</h4>
+<blockquote>
+<p>将漂亮输出格式的Items导出到指定的文件对象。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>file – 用于导出数据的类文件对象。 它的<code>write</code>方法应该接受<code>bytes</code>（以二进制模式打开的磁盘文件，<code>io.BytesIO</code>对象等）</li>
+</ul>
+</blockquote>
+<p>此构造函数的其他关键字参数将传递给<a href="#">BaseItemExporter</a>构造函数。</p>
+<p>此exporter的典型输出是：</p>
+</blockquote>
+<pre><code class="python">{'name': 'Color TV', 'price': '1200'}
+{'name': 'DVD player', 'price': '200'}
+</code></pre>
+
+<blockquote>
+<p>更长的线（如果存在）是漂亮格式化的。</p>
+</blockquote>
+<h3 id="jsonitemexporter">JsonItemExporter</h3>
+<h4 id="scrapyexportersjsonitemexporterfile-4242kwargs-class">scrapy.exporters.JsonItemExporter(file, **kwargs)   这是一个类(class)</h4>
+<blockquote>
+<p>将JSON格式的Items导出到指定的类文件对象，将所有对象写为对象列表。 其他构造函数参数传递给<a href="#">BaseItemExporter</a>构造函数，以及<a href="https://docs.python.org/2/library/json.html#json.JSONEncoder">JSONEncoder</a>构造函数的剩余参数，因此您可以使用任何<a href="https://docs.python.org/2/library/json.html#json.JSONEncoder">JSONEncoder</a>构造函数参数来自定义此exporter。</p>
+<p>参数:</p>
+<blockquote>
+<ul>
+<li>file – 用于导出数据的类文件对象。 它的<code>write</code>方法应该接受<code>bytes</code>（以二进制模式打开的磁盘文件，<code>io.BytesIO</code>对象等）</li>
+</ul>
+</blockquote>
+<p>此exporter的典型输出是：</p>
+</blockquote>
+<pre><code class="python">[{&quot;name&quot;: &quot;Color TV&quot;, &quot;price&quot;: &quot;1200&quot;},
+{&quot;name&quot;: &quot;DVD player&quot;, &quot;price&quot;: &quot;200&quot;}]
+</code></pre>
+
+<pre><code class="warning">JSON是一种非常简单和灵活的序列化格式，但它不能很好地扩展大量数据，
+因为JSON解析器（在任何语言中）都没有很好地支持增量（也称为流模式）解析（如果有的话），
+以及他们中的大多数只是在内存中解析整个对象。 如果您希望JSON的功能和简单性具有更加(流友好)的格式，
+请考虑使用[JsonLinesItemExporter](#)，或者将输出拆分为多个块。
+</code></pre>
+
+<h3 id="jsonlinesitemexporter">JsonLinesItemExporter</h3>
+<h4 id="scrapyexportersjsonlinesitemexporterfile-4242kwargs-class">scrapy.exporters.JsonLinesItemExporter(file, **kwargs)   这是一个类(class)</h4>
+<blockquote>
+<p>将JSON格式的Items导出到指定的类文件对象，每行编写一个JSON编码的item。 其他构造函数参数传递给<a href="#">BaseItemExporter</a>构造函数，以及<a href="https://docs.python.org/2/library/json.html#json.JSONEncoder">JSONEncoder</a>构造函数的剩余参数，因此您可以使用任何<a href="https://docs.python.org/2/library/json.html#json.JSONEncoder">JSONEncoder</a>构造函数参数来自定义此exporter。</p>
+<p>参数</p>
+<blockquote>
+<ul>
+<li>file – 用于导出数据的类文件对象。 它的<code>write</code>方法应该接受<code>bytes</code>（以二进制模式打开的磁盘文件，<code>io.BytesIO</code>对象等）</li>
+</ul>
+</blockquote>
+<p>此exporter的典型输出是：</p>
+</blockquote>
+<pre><code class="json">{&quot;name&quot;: &quot;Color TV&quot;, &quot;price&quot;: &quot;1200&quot;}
+{&quot;name&quot;: &quot;DVD player&quot;, &quot;price&quot;: &quot;200&quot;}
+</code></pre>
+
+<blockquote>
+<p>与<a href="#">JsonItemExporter</a>生成的格式不同，此exporter生成的格式非常适合序列化大量数据。</p>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../6. 其他的/01-news/" class="btn btn-neutral float-right" title="发行说明">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../06-signals/" class="btn btn-neutral" title="Signals(信号)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../06-signals/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../6. 其他的/01-news/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
